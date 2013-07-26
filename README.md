@@ -1,4 +1,5 @@
-Tbs
-===
+Tbs Bundle
+==========
 
 Component Library
+
