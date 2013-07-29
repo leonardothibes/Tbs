@@ -162,23 +162,23 @@
 	
 	<!-- VERSION -->
 	<target name="version">
-		<exec command="cat ${app}/Version/Number" outputProperty="tag" />
+		<exec command="cat ${app}/Version/Number.txt" outputProperty="tag" />
 		<echo>Current version: ${tag}</echo>
 	</target>
 	<!-- ENDS VERSION -->
 	
 	<!-- BUILD (code-sniffer + phpunit + phpdoc) -->
 	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc">
-		<echo message="Building version ${version}..."                                />
-		<exec command="echo ${version} > ${app}/Version/Number"                       />
-		<exec command="git commit -m 'updating version number' ${app}/Version/Number" />
+		<echo message="Building version ${version}..."                                    />
+		<exec command="echo ${version} > ${app}/Version/Number"                           />
+		<exec command="git commit -m 'updating version number' ${app}/Version/Number.txt" />
 		
-		<exec command="git tag ${version}"                                            />
-		<exec command="git pull ; git push"                                           />
-		<exec command="git pull ; git push origin ${version}:${version}"              />
+		<exec command="git tag ${version}"                                                />
+		<exec command="git pull ; git push"                                               />
+		<exec command="git pull ; git push origin ${version}:${version}"                  />
 		
-		<echo message="Recompiling documentation on ${documentup}..."                 />
-		<exec command="wget ${documentup}/recompile -O /dev/null"                     />
+		<echo message="Recompiling documentation on ${documentup}..."                     />
+		<exec command="wget ${documentup}/recompile -O /dev/null"                         />
 	</target>
 	<!-- ENDS BUILD -->
 	
