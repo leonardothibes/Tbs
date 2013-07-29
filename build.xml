@@ -2,15 +2,15 @@
 <project name="PHP Skeleton Application" basedir="." default="help">
 	
 	<!-- ENV VARS -->
-	<property name="documentup"    value="http://documentup.com/leonardothibes/php-skel" />
+	<property name="documentup"    value="http://documentup.com/leonardothibes/Tbs"      />
 	<property name="code-standard" value="PSR2"                                          />
 	<property name="src"           value="./src"                                         />
-	<property name="app"           value="${src}/Phpskel"                                />
+	<property name="app"           value="${src}/Tbs"                                    />
 	<property name="docs"          value="./docs"                                        />
 	<property name="build"         value="./build"                                       />
 	<property name="vendor"        value="./vendor"                                      />
 	<property name="compressor"    value="${vendor}/bin/yuicompressor"                   />
-	<property name="tests"         value="./tests/Phpskel/phpunit"                       />
+	<property name="tests"         value="./tests/Tbs"                                   />
 	<property name="phpunit"       value="${vendor}/bin/phpunit -c ${tests}/phpunit.xml" />
 	<!-- ENDS ENV VARS -->
 	
