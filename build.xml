@@ -11,7 +11,7 @@
 	<property name="build"         value="./build"                                       />
 	<property name="vendor"        value="./vendor"                                      />
 	<property name="compressor"    value="${vendor}/bin/yuicompressor"                   />
-	<property name="tests"         value="./tests/Tbs"                                   />
+	<property name="tests"         value="./tests"                                       />
 	<property name="phpunit"       value="${vendor}/bin/phpunit -c ${tests}/phpunit.xml" />
 	<!-- ENDS ENV VARS -->
 	
