@@ -28,6 +28,9 @@
 		<mkdir dir="${src}/data" />
 		<chmod file="${src}/data" mode="0755" />
 		
+		<mkdir dir="${src}/data/temp" />
+        <chmod file="${src}/data/temp" mode="0777" />
+		
 		<!-- THE LOG DIR -->
 		<mkdir dir="${src}/data/logs" />
 		<chmod file="${src}/data/logs" mode="0777" />
