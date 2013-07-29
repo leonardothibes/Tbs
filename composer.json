@@ -1,8 +1,7 @@
 {
-	"name"   : "leonardothibes/php-skel",
+	"name"   : "leonardothibes/Tbs",
 	"require": {
-		"php"                         : ">=5.3",
-		"zendframework/zendframework1": ">=1.12@stable"
+		"php": ">=5.3"
 	},
 	"require-dev": {
         "phing/phing"              : ">=2.5@stable",
