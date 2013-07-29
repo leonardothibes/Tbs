@@ -1,0 +1,14 @@
+.buildpath
+.DS_Store
+.project
+.vagrant
+.settings
+*.bak
+composer.phar
+composer.lock
+vendor/*
+build/*
+src/Tbs/version
+src/Tbs/data/*
+src/Tbs/library/Zend
+src/Tbs/library/ZendX
