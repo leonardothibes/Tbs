@@ -5,6 +5,7 @@
 	<property name="documentup"    value="http://documentup.com/leonardothibes/Tbs"      />
 	<property name="code-standard" value="PSR2"                                          />
 	<property name="src"           value="./src"                                         />
+	<property name="tmp"           value="./tmp"                                         />
 	<property name="app"           value="${src}/Tbs"                                    />
 	<property name="docs"          value="./docs"                                        />
 	<property name="build"         value="./build"                                       />
@@ -25,37 +26,33 @@
 		
 		<echo>Creating content in ${src}/data...</echo>
 		
-		<mkdir dir="${src}/data" />
-		<chmod file="${src}/data" mode="0755" />
-		
-		<mkdir dir="${src}/data/temp" />
-        <chmod file="${src}/data/temp" mode="0777" />
+		<mkdir dir="${tmp}" />
+		<chmod file="${tmp}" mode="0755" />
 		
 		<!-- THE LOG DIR -->
-		<mkdir dir="${src}/data/logs" />
-		<chmod file="${src}/data/logs" mode="0777" />
+		<mkdir dir="${tmp}/logs" />
+		<chmod file="${tmp}/logs" mode="0777" />
 		
 		<php function="date" returnProperty="data">
 			<param value="Y-m-d" />
 		</php>
 		
-		<touch file="${src}/data/logs/php_${data}.log"         />
-		<touch file="${src}/data/logs/application_${data}.log" />
+		<touch file="${tmp}/logs/php_${data}.log"         />
+		<touch file="${tmp}/logs/tbs_${data}.log" />
 		
-		<exec command="chmod 777 ${src}/data/logs/*.log" />
+		<exec command="chmod 777 ${tmp}/logs/*.log" />
 		<!-- ENDS THE LOG DIR -->
 		
 	</target>
 	<!-- ENDS RW -->
 	
 	<!-- CLEAN -->
-	<target name="clean" depends="rw">
-		<echo>Cleaning...</echo>
+	<target name="clean">
+		<echo message="Cleaning"                              />
+		<exec command="rm -Rf ${tmp}"                         />
 		<exec command="rm -Rf ${build}"                       />
 		<exec command="rm -Rf ${docs}/Tests/*"                />
 		<exec command="rm -Rf ${docs}/PHPDoc/*"               />
-		<exec command="rm -f  ${src}/data/logs/*"             />
-		<exec command="rm -f  ${src}/data/temp/*"             />
 		<exec command="find . | grep .DS_Store | xargs rm -f" />
 	</target>
 	<!-- ENDS CLEAN -->
@@ -65,7 +62,6 @@
 		<exec command="rm -f  ./.vagrant"      />
 		<exec command="rm -f  ./composer.lock" />
 		<exec command="rm -Rf ${vendor}"       />
-		<exec command="rm -Rf ${src}/data"     />
 	</target>
 	<!-- ENDS CLEAN-ALL -->
 	
