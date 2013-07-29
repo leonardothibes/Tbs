@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHP Skeleton Application" basedir="." default="help">
+	
+	<!-- ENV VARS -->
+	<property name="documentup"    value="http://documentup.com/leonardothibes/php-skel" />
+	<property name="code-standard" value="PSR2"                                          />
+	<property name="src"           value="./src"                                         />
+	<property name="app"           value="${src}/Phpskel"                                />
+	<property name="docs"          value="./docs"                                        />
+	<property name="build"         value="./build"                                       />
+	<property name="vendor"        value="./vendor"                                      />
+	<property name="compressor"    value="${vendor}/bin/yuicompressor"                   />
+	<property name="tests"         value="./tests/Phpskel/phpunit"                       />
+	<property name="phpunit"       value="${vendor}/bin/phpunit -c ${tests}/phpunit.xml" />
+	<!-- ENDS ENV VARS -->
+	
+	<!-- HELP TEXT -->
+	<target name="help">
+		<echo>Actions: [rw|clean|clean-all|install|test|analyze|doc|version|compress|build|deploy|db]</echo>
+	</target>
+	<!-- ENDS HELP TEXT -->
+	
+	<!-- RW -->
+	<target name="rw">
+		
+		<echo>Creating content in ${src}/data...</echo>
+		
+		<mkdir dir="${app}/data" />
+		<chmod file="${app}/data" mode="0755" />
+		
+		<mkdir dir="${app}/data/cache" />
+		<chmod file="${app}/data/cache" mode="0777" />
+		
+		<mkdir dir="${app}/data/sessions" />
+		<chmod file="${app}/data/sessions" mode="0777" />
+		
+		<mkdir dir="${app}/data/temp" />
+		<chmod file="${app}/data/temp" mode="0777" />
+		
+		<mkdir dir="${app}/data/uploads" />
+		<chmod file="${app}/data/uploads" mode="0777" />
+		
+		<!-- THE LOG DIR -->
+		<mkdir dir="${app}/data/logs" />
+		<chmod file="${app}/data/logs" mode="0777" />
+		
+		<php function="date" returnProperty="data">
+			<param value="Y-m-d" />
+		</php>
+		
+		<touch file="${app}/data/logs/php_${data}.log"         />
+		<touch file="${app}/data/logs/application_${data}.log" />
+		
+		<exec command="chmod 777 ${app}/data/logs/*.log" />
+		<!-- ENDS THE LOG DIR -->
+		
+	</target>
+	<!-- ENDS RW -->
+	
+	<!-- CLEAN -->
+	<target name="clean" depends="rw">
+		<echo>Cleaning...</echo>
+		<exec command="rm -Rf ${build}"               />
+		<exec command="rm -Rf ${docs}/Tests/*"        />
+		<exec command="rm -Rf ${docs}/PHPDoc/*"       />
+		<exec command="rm -f  ${app}/data/cache/*"    />
+		<exec command="rm -f  ${app}/data/logs/*"     />
+		<exec command="rm -f  ${app}/data/sessions/*" />
+		<exec command="rm -f  ${app}/data/temp/*"     />
+		<exec command="rm -f  ${app}/data/uploads/*"  />
+		<exec command="find . | grep .DS_Store | xargs rm -f" />
+	</target>
+	<!-- ENDS CLEAN -->
+	
+	<!-- CLEAN-ALL -->
+	<target name="clean-all" depends="clean">
+		<exec command="rm -f  ./.vagrant"           />
+		<exec command="rm -f  ./composer.lock"      />
+		<exec command="rm -Rf ${vendor}"            />
+		<exec command="rm -f  ${app}/version"       />
+		<exec command="rm -Rf ${app}/data"          />
+		<exec command="rm -Rf ${app}/library/Zend"  />
+		<exec command="rm -Rf ${app}/library/ZendX" />
+	</target>
+	<!-- ENDS CLEAN-ALL -->
+	
+	<!-- CHECK-COMPOSER -->
+	<target name="check-composer" depends="clean">
+		<mkdir dir="${vendor}" mode="755" />
+		<exec command="
+			test -f ${vendor}/composer.phar || curl -sS https://getcomposer.org/installer | php -- --install-dir=${vendor}
+		" />
+	</target>
+	<!-- ENDS CHECK-COMPOSER -->
+	
+	<!-- INSTALL -->
+	<target name="install" depends="check-composer">
+		<exec command="rm -f composer.lock" />
+		<composer composer="${vendor}/composer.phar" command="install">
+			<arg value="--dev" />
+		</composer>
+		<exec command="
+			test -d ${app}/library/Zend || 
+			cp -Rf ${vendor}/zendframework/zendframework1/library/Zend 
+			${app}/library/Zend" 
+		/>
+		<exec command="
+			test -d ${app}/library/ZendX || 
+			cp -Rf ${vendor}/zendframework/zendframework1/extras/library/ZendX 
+			${app}/library/ZendX" 
+		/>
+		<chmod   file  ="${vendor}/nervo/yuicompressor/yuicompressor.jar" mode="0755"          />
+		<symlink target="../nervo/yuicompressor/yuicompressor.jar"        link="${compressor}" />
+	</target>
+	<!-- ENDS INSTALL -->
+	
+	<!-- TEST -->
+	<target name="test">
+		<exec command="${phpunit} --testdox --testdox-html=${docs}/Tests/testdox.html" checkreturn="true" />
+		<echo>All tests OK!</echo>
+	</target>
+	<!-- ENDS TEST -->
+	
+	<!-- ANALYZE -->
+	<target name="analyze">
+		<exec 
+            command="${phpunit} --testdox --testdox-html=${docs}/Tests/testdox.html --coverage-html=${docs}/Tests/coverage" 
+            checkreturn="true"
+		/>
+		<echo>Reports generated!</echo>
+	</target>
+	<!-- ENDS ANALYZE -->
+	
+	<!-- DOC -->
+	<target name="doc">
+		<echo>Generating api documentation...</echo>
+		<exec command="
+			phpdoc -d '${app}/application,${app}/library/Util' -t ${docs}/PHPDoc"
+		/>
+	</target>
+	<!-- ENDS DOC -->
+	
+	<!-- CODE-SNIFFER -->
+	<target name="code-sniffer">
+		<phpcodesniffer
+			standard              = "${code-standard}"
+			format                = "full"
+			encoding              = "utf-8"
+			allowedFileExtensions = "php"
+			haltonerror           = "true"
+		>
+			<fileset dir="${app}/application"  />
+			<fileset dir="${app}/library/Util" />
+		</phpcodesniffer>
+		<echo>Code Sniffer OK!</echo>
+	</target>
+	<!-- ENDS CODE-SNIFFER -->
+	
+	<!-- NEXT-VERSION -->
+	<target name="next-version">
+		<exec command="git tag > /tmp/TAG ; tail -1 /tmp/TAG" outputProperty="tag" />
+		<php function="str_replace" returnProperty="tag">
+			<param value="-alpha" />
+			<param value="" />
+			<param value="${tag}" />
+		</php>
+		<php function="str_replace" returnProperty="tag">
+			<param value="-beta"  />
+			<param value=""       />
+			<param value="${tag}" />
+		</php>
+		
+		<exec command="echo ${tag} | cut -d '.' -f 1" outputProperty="main"  />
+		<exec command="echo ${tag} | cut -d '.' -f 2" outputProperty="major" />
+		<exec command="echo ${tag} | cut -d '.' -f 3" outputProperty="minor" />
+		<php expression="${minor}+1" returnProperty="minor"     />
+		<property name="next" value="${main}.${major}.${minor}" />
+		
+		<propertyprompt propertyName="version" defaultValue="${next}" promptText="Informe o número da versão" />
+		<if>
+			<equals arg1="${version}" arg2="" />
+			<then>
+				<fail message="É obrigatório informar uma versão!" />
+			</then>
+		</if>
+	</target>
+	<!-- ENDS NEXT-VERSION -->
+	
+	<!-- VERSION -->
+	<target name="version">
+		<exec command="git tag > /tmp/TAG ; tail -1 /tmp/TAG" outputProperty="tag" />
+		<echo>Current version: ${tag}</echo>
+	</target>
+	<!-- ENDS VERSION -->
+	
+	<!-- COMPRESS -->
+	<target name="compress">
+		
+		<echo>Compressing *.JS files...</echo>
+		<mkdir dir="${app}/public/js/min" mode="0755" />
+		<foreach param="file" target="yui-js">
+			<fileset dir="${app}/public/js/">
+				<include name="*.js" />
+			</fileset>
+		</foreach>
+		
+		<echo>Compressing *.CSS files...</echo>
+		<mkdir dir="${app}/public/css/min" mode="0755" />
+		<foreach param="file" target="yui-css">
+			<fileset dir="${app}/public/css/">
+				<include name="*.css" />
+			</fileset>
+		</foreach>
+		
+	</target>
+	
+	<target name="yui-js">
+		<exec command="${compressor} -o ${app}/public/js/min/${file} ${app}/public/js/${file}" />
+		<exec command="git add    ${app}/public/js/min/${file}" />
+		<exec command="git commit ${app}/public/js/min/${file} -m 'Compressed with YuiCompressor'" />
+	</target>
+	
+	<target name="yui-css">
+		<exec command="${compressor} -o ${app}/public/css/min/${file} ${app}/public/css/${file}" />
+		<exec command="git add    ${app}/public/css/min/${file}" />
+		<exec command="git commit ${app}/public/css/min/${file} -m 'Compressed with YuiCompressor'" />
+	</target>
+	<!-- ENDS COMPRESS -->
+	
+	<!-- BUILD (code-sniffer + phpunit + phpdoc) -->
+	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc, compress">
+		<echo message="Building version ${version}..."                   />
+		<exec command="git tag ${version}"                               />
+		<exec command="git pull ; git push"                              />
+		<exec command="git pull ; git push origin ${version}:${version}" />
+		<exec command="echo ${version} > ${app}/version"                 />
+		
+		<echo message="Recompiling documentation on ${documentup}..."    />
+		<exec command="wget ${documentup}/recompile -O /dev/null"        />
+	</target>
+	<!-- ENDS BUILD -->
+	
+	<!-- DEPLOY -->
+	<target name="deploy" depends="clean">
+		
+		<!-- SELECTING THE ENV -->
+		<propertyprompt 
+			propertyName = "opt" 
+			defaultValue = " 1: production | 2: staging " 
+			promptText   = "Informe o ambiente" 
+		/>
+		
+		<if><equals arg1="${opt}" arg2="1" />
+			<then><property name="env" value="production" /></then>
+		</if>
+		
+		<if><equals arg1="${opt}" arg2="2" />
+			<then><property name="env" value="staging" /></then>
+		</if>
+		<!-- SELECTING THE ENV -->
+		
+		<if>
+			<or>
+				<equals arg1="${env}" arg2="production" />
+				<equals arg1="${env}" arg2="staging"    />
+			</or>
+			<then>
+				
+				<!-- READING PROPERTY LIST -->
+				<property file="${docs}/Phing/${env}.properties" />
+				
+				<!-- MESSAGE -->
+				<echo message="Deploying in ${env}..." />
+				
+				<!-- COPY -->
+				<foreach list="${hostname}" param="host" target="copy" />
+				
+				<!-- DB -->
+				<phingcall target="db">
+				    <property name="env" value="${env}" />
+				</phingcall>
+				<!-- DB -->
+				
+			</then>
+			<else>
+				<echo>Informe um ambiente válido!</echo>
+			</else>
+		</if>
+		
+	</target>
+	
+	<target name="copy">
+		
+		<!-- VHOST -->
+		<exec command="ssh ${username}@${host} 'mkdir -p ${todir}/../../conf.d'"      />
+		<exec command="scp ${docs}/Apache/vhost.${env} ${username}@${host}:${toconf}" />
+		<!-- ENDS VHOST -->
+		
+		<!-- APPLICATION -->
+		<exec command="rsync -Cravzp --delete ${app}/* ${username}@${host}:${todir}" />
+		<exec command="ssh ${username}@${host} 'chmod -R 755 ${todir}'"              />
+		<exec command="ssh ${username}@${host} 'chmod -R 777 ${todir}/data/*'"       />
+		<!-- ENDS APPLICATION -->
+		
+		<!-- APACHE -->
+		<exec command="ssh ${username}@${host} 'sudo apachectl restart'" />
+		<!-- ENDS APACHE -->
+		
+	</target>
+	<!-- ENDS DEPLOY -->
+	
+	<!-- DB -->
+	<target name="db">
+	   <if><equals arg1="${env}" arg2='${env}' />
+	       <then><property name="env" value="development" /></then>
+	   </if>
+	   <property file="${docs}/Phing/${env}.properties" />
+	   <pdosqlexec
+           url      = "${dbtype}:host=${dbhost}"
+           userid   = "${dbuser}"
+           password = "${dbpass}"
+       >CREATE DATABASE IF NOT EXISTS ${dbname}</pdosqlexec>
+	   <pdosqlexec
+	       url      = "${dbtype}:host=${dbhost};dbname=${dbname}"
+           userid   = "${dbuser}"
+           password = "${dbpass}"
+           src      = "${docs}/Db/db-create.sql"
+	   />
+	   <pdosqlexec
+           url      = "${dbtype}:host=${dbhost};dbname=${dbname}"
+           userid   = "${dbuser}"
+           password = "${dbpass}"
+           src      = "${docs}/Db/db-populate.sql"
+       />
+	</target>
+	<!-- ENDS DB -->
+
+</project>

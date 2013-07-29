@@ -1,0 +1,22 @@
+<VirtualHost *:81>
+   
+   ServerAdmin webmaster@php-skel.dev
+   ServerSignature Off
+   
+   DocumentRoot "/usr/share/phpMyAdmin/current"
+   <Directory "/usr/share/phpMyAdmin/current">
+       Options Indexes MultiViews FollowSymLinks
+       AllowOverride All
+       Order allow,deny
+       Allow from all
+   </Directory>
+   
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+
+   # Possible values include: debug, info, notice, warn, error, crit,
+   # alert, emerg.
+   LogLevel warn
+
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+</VirtualHost>

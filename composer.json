@@ -1,0 +1,29 @@
+{
+	"name"   : "leonardothibes/php-skel",
+	"require": {
+		"php"                         : ">=5.3",
+		"zendframework/zendframework1": ">=1.12@stable"
+	},
+	"require-dev": {
+        "phing/phing"              : ">=2.5@stable",
+		"phpunit/phpunit"          : ">=3.7@stable",
+		"phpunit/dbunit"           : ">=1.2@stable",
+		"phpunit/phpunit-selenium" : ">=1.2@stable",
+		"phpunit/php-invoker"      : "*",
+		"phpunit/phpunit-story"    : "*",
+		"squizlabs/php_codesniffer": ">=1.4@stable",
+		"nervo/yuicompressor"      : ">=2.4@stable"
+	},
+	"minimum-stability": "dev",
+	"authors"          : [
+		{
+			"name" : "Leonardo Thibes",
+			"email": "eu@leonardothibes.com"
+		}
+	],
+	"autoload": {
+		"psr-0": {
+			"": "src/"
+		}
+	}
+}
