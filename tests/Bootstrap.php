@@ -6,7 +6,7 @@
  */
 
 //Definindo caminho para a aplicação.
-define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../src/Tbs'));
+define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../src'));
 
 //Definindo o "include_path".
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -16,3 +16,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 //Incluindo o PHPUnit.
 require_once 'PHPUnit/Autoload.php';
+
+//Ativando o Autoloader.
+require_once 'Tbs/Autoload.php';
+Tbs\Autoload::Register();

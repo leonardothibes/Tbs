@@ -18,7 +18,7 @@ namespace Tbs;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class Loader
+class Autoload
 {
 	/**
 	 * Register the autoloader.
@@ -26,7 +26,7 @@ class Loader
 	 */
 	public static function Register()
 	{
-		spl_autoload_register(array(__CLASS__, 'autoload'));
+		spl_autoload_register(array(__CLASS__, 'loadClass'));
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Loader
 	 * @param string $class Class name.
 	 * @return bool
 	 */
-	public static function autoload($class)
+	public static function loadClass($className)
 	{
 		$className = ltrim($className, '\\');
 		$fileName  = '';
