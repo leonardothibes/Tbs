@@ -16,7 +16,7 @@
 	
 	<!-- HELP TEXT -->
 	<target name="help">
-		<echo>Actions: [rw|clean|clean-all|install|test|analyze|doc|version|compress|build|deploy|db]</echo>
+		<echo>Actions: [rw|clean|clean-all|install|test|analyze|doc|version|build|db]</echo>
 	</target>
 	<!-- ENDS HELP TEXT -->
 	
@@ -25,33 +25,21 @@
 		
 		<echo>Creating content in ${src}/data...</echo>
 		
-		<mkdir dir="${app}/data" />
-		<chmod file="${app}/data" mode="0755" />
-		
-		<mkdir dir="${app}/data/cache" />
-		<chmod file="${app}/data/cache" mode="0777" />
-		
-		<mkdir dir="${app}/data/sessions" />
-		<chmod file="${app}/data/sessions" mode="0777" />
-		
-		<mkdir dir="${app}/data/temp" />
-		<chmod file="${app}/data/temp" mode="0777" />
-		
-		<mkdir dir="${app}/data/uploads" />
-		<chmod file="${app}/data/uploads" mode="0777" />
+		<mkdir dir="${src}/data" />
+		<chmod file="${src}/data" mode="0755" />
 		
 		<!-- THE LOG DIR -->
-		<mkdir dir="${app}/data/logs" />
-		<chmod file="${app}/data/logs" mode="0777" />
+		<mkdir dir="${src}/data/logs" />
+		<chmod file="${src}/data/logs" mode="0777" />
 		
 		<php function="date" returnProperty="data">
 			<param value="Y-m-d" />
 		</php>
 		
-		<touch file="${app}/data/logs/php_${data}.log"         />
-		<touch file="${app}/data/logs/application_${data}.log" />
+		<touch file="${src}/data/logs/php_${data}.log"         />
+		<touch file="${src}/data/logs/application_${data}.log" />
 		
-		<exec command="chmod 777 ${app}/data/logs/*.log" />
+		<exec command="chmod 777 ${src}/data/logs/*.log" />
 		<!-- ENDS THE LOG DIR -->
 		
 	</target>
@@ -63,11 +51,11 @@
 		<exec command="rm -Rf ${build}"               />
 		<exec command="rm -Rf ${docs}/Tests/*"        />
 		<exec command="rm -Rf ${docs}/PHPDoc/*"       />
-		<exec command="rm -f  ${app}/data/cache/*"    />
-		<exec command="rm -f  ${app}/data/logs/*"     />
-		<exec command="rm -f  ${app}/data/sessions/*" />
-		<exec command="rm -f  ${app}/data/temp/*"     />
-		<exec command="rm -f  ${app}/data/uploads/*"  />
+		<exec command="rm -f  ${src}/data/cache/*"    />
+		<exec command="rm -f  ${src}/data/logs/*"     />
+		<exec command="rm -f  ${src}/data/sessions/*" />
+		<exec command="rm -f  ${src}/data/temp/*"     />
+		<exec command="rm -f  ${src}/data/uploads/*"  />
 		<exec command="find . | grep .DS_Store | xargs rm -f" />
 	</target>
 	<!-- ENDS CLEAN -->
@@ -193,42 +181,8 @@
 	</target>
 	<!-- ENDS VERSION -->
 	
-	<!-- COMPRESS -->
-	<target name="compress">
-		
-		<echo>Compressing *.JS files...</echo>
-		<mkdir dir="${app}/public/js/min" mode="0755" />
-		<foreach param="file" target="yui-js">
-			<fileset dir="${app}/public/js/">
-				<include name="*.js" />
-			</fileset>
-		</foreach>
-		
-		<echo>Compressing *.CSS files...</echo>
-		<mkdir dir="${app}/public/css/min" mode="0755" />
-		<foreach param="file" target="yui-css">
-			<fileset dir="${app}/public/css/">
-				<include name="*.css" />
-			</fileset>
-		</foreach>
-		
-	</target>
-	
-	<target name="yui-js">
-		<exec command="${compressor} -o ${app}/public/js/min/${file} ${app}/public/js/${file}" />
-		<exec command="git add    ${app}/public/js/min/${file}" />
-		<exec command="git commit ${app}/public/js/min/${file} -m 'Compressed with YuiCompressor'" />
-	</target>
-	
-	<target name="yui-css">
-		<exec command="${compressor} -o ${app}/public/css/min/${file} ${app}/public/css/${file}" />
-		<exec command="git add    ${app}/public/css/min/${file}" />
-		<exec command="git commit ${app}/public/css/min/${file} -m 'Compressed with YuiCompressor'" />
-	</target>
-	<!-- ENDS COMPRESS -->
-	
 	<!-- BUILD (code-sniffer + phpunit + phpdoc) -->
-	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc, compress">
+	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc">
 		<echo message="Building version ${version}..."                   />
 		<exec command="git tag ${version}"                               />
 		<exec command="git pull ; git push"                              />
@@ -239,75 +193,6 @@
 		<exec command="wget ${documentup}/recompile -O /dev/null"        />
 	</target>
 	<!-- ENDS BUILD -->
-	
-	<!-- DEPLOY -->
-	<target name="deploy" depends="clean">
-		
-		<!-- SELECTING THE ENV -->
-		<propertyprompt 
-			propertyName = "opt" 
-			defaultValue = " 1: production | 2: staging " 
-			promptText   = "Informe o ambiente" 
-		/>
-		
-		<if><equals arg1="${opt}" arg2="1" />
-			<then><property name="env" value="production" /></then>
-		</if>
-		
-		<if><equals arg1="${opt}" arg2="2" />
-			<then><property name="env" value="staging" /></then>
-		</if>
-		<!-- SELECTING THE ENV -->
-		
-		<if>
-			<or>
-				<equals arg1="${env}" arg2="production" />
-				<equals arg1="${env}" arg2="staging"    />
-			</or>
-			<then>
-				
-				<!-- READING PROPERTY LIST -->
-				<property file="${docs}/Phing/${env}.properties" />
-				
-				<!-- MESSAGE -->
-				<echo message="Deploying in ${env}..." />
-				
-				<!-- COPY -->
-				<foreach list="${hostname}" param="host" target="copy" />
-				
-				<!-- DB -->
-				<phingcall target="db">
-				    <property name="env" value="${env}" />
-				</phingcall>
-				<!-- DB -->
-				
-			</then>
-			<else>
-				<echo>Informe um ambiente válido!</echo>
-			</else>
-		</if>
-		
-	</target>
-	
-	<target name="copy">
-		
-		<!-- VHOST -->
-		<exec command="ssh ${username}@${host} 'mkdir -p ${todir}/../../conf.d'"      />
-		<exec command="scp ${docs}/Apache/vhost.${env} ${username}@${host}:${toconf}" />
-		<!-- ENDS VHOST -->
-		
-		<!-- APPLICATION -->
-		<exec command="rsync -Cravzp --delete ${app}/* ${username}@${host}:${todir}" />
-		<exec command="ssh ${username}@${host} 'chmod -R 755 ${todir}'"              />
-		<exec command="ssh ${username}@${host} 'chmod -R 777 ${todir}/data/*'"       />
-		<!-- ENDS APPLICATION -->
-		
-		<!-- APACHE -->
-		<exec command="ssh ${username}@${host} 'sudo apachectl restart'" />
-		<!-- ENDS APACHE -->
-		
-	</target>
-	<!-- ENDS DEPLOY -->
 	
 	<!-- DB -->
 	<target name="db">

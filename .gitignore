@@ -8,7 +8,7 @@ composer.phar
 composer.lock
 vendor/*
 build/*
+src/data/*
 src/Tbs/version
-src/Tbs/data/*
 src/Tbs/library/Zend
 src/Tbs/library/ZendX
