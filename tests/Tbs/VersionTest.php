@@ -8,6 +8,8 @@
  */
 
 namespace Tbs;
+use \Tbs\Version as v;
+
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
 /**
@@ -42,7 +44,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
 	public function testGet()
 	{
-		$rs = \Tbs\Version::get();
+		$rs = v::get();
 		$this->assertInternalType('string', $rs);
 		$this->assertEquals('version', $rs);
 	}
