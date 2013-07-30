@@ -26,6 +26,7 @@ class Version
 	 */
 	public static function get()
 	{
-		return 'version';
+		$file = realpath(dirname(__FILE__) . '/Version/Number.txt');
+		return file_get_contents($file);
 	}
 }

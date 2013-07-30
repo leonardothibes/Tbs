@@ -46,6 +46,8 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 	{
 		$rs = v::get();
 		$this->assertInternalType('string', $rs);
-		$this->assertEquals('version', $rs);
+
+		$version = file_get_contents(LIBRARY_PATH . '/Tbs/Version/Number.txt');
+		$this->assertEquals($version, $rs);
 	}
 }
