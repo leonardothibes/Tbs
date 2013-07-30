@@ -49,4 +49,55 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Mask'    , $this->object);
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Validate', $this->object);
     }
+
+    /**
+     * Provider of valid CEP numbers.
+     * @return array
+     */
+    public function providerValidCeps()
+    {
+        return array(
+        	array('01315-010'),
+            array('01232-001'),
+            array('04311-080'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::isValid()
+     * @dataProvider providerValidCeps
+     */
+    public function testIsValid($cep)
+    {
+        $rs = cep::isValid($cep);
+        $this->assertTrue($rs);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
