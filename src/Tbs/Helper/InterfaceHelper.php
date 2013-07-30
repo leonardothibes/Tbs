@@ -32,5 +32,5 @@ interface InterfaceHelper
      * @param  mixed $content
      * @return mixed
      */
-    public function sanitize($content);
+    public static function sanitize($content);
 }
