@@ -7,7 +7,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Helper;
+namespace Tbs\Helper\Interfaces;
 
 /**
  * @category Library
@@ -16,7 +16,7 @@ namespace Tbs\Helper;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-interface InterfaceHelper
+interface Validate
 {
     /**
      * Test if content is valid.

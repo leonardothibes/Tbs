@@ -9,8 +9,8 @@
 
 namespace Tbs\Helper;
 
-use \Tbs\Helper\InterfaceHelper        as ih;
-use \Tbs\Helper\Masked\InterfaceHelper as mih;
+use \Tbs\Helper\Interfaces\Mask     as Mask;
+use \Tbs\Helper\Interfaces\Validate as Validate;
 
 /**
  * CPF helper functions.
@@ -21,7 +21,7 @@ use \Tbs\Helper\Masked\InterfaceHelper as mih;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class Cpf implements ih, mih
+class Cpf implements Mask, Validate
 {
     /**
      * Test if content is valid.

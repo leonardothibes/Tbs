@@ -7,7 +7,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Helper\Masked;
+namespace Tbs\Helper\Interfaces;
 
 /**
  * @category Library
@@ -16,7 +16,7 @@ namespace Tbs\Helper\Masked;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-interface InterfaceHelper
+interface Mask
 {
     /**
      * Test if the content is masked.

@@ -46,8 +46,8 @@ class CpfTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterface()
     {
-    	$this->assertInstanceOf('\Tbs\Helper\InterfaceHelper'       , $this->object);
-    	$this->assertInstanceOf('\Tbs\Helper\Masked\InterfaceHelper', $this->object);
+    	$this->assertInstanceOf('\Tbs\Helper\Interfaces\Mask'    , $this->object);
+    	$this->assertInstanceOf('\Tbs\Helper\Interfaces\Validate', $this->object);
     }
 
     /**

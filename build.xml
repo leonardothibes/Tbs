@@ -106,7 +106,7 @@
 	<target name="doc">
 		<echo>Generating api documentation...</echo>
 		<exec command="
-			phpdoc -d '${app}/application,${app}/library/Util' -t ${docs}/PHPDoc"
+			phpdoc -d ${app} -t ${docs}/PHPDoc"
 		/>
 	</target>
 	<!-- ENDS DOC -->
