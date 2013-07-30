@@ -20,13 +20,13 @@ namespace Tbs;
  */
 class Version
 {
-	/**
-	 * Get version number.
-	 * @return string
-	 */
-	public static function get()
-	{
-		$file = realpath(dirname(__FILE__) . '/Version/Number.txt');
-		return file_get_contents($file);
-	}
+    /**
+     * Get version number.
+     * @return string
+     */
+    public static function get()
+    {
+        $file = realpath(dirname(__FILE__) . '/Version/Number.txt');
+        return file_get_contents($file);
+    }
 }
