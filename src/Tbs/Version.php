@@ -30,7 +30,8 @@ class Version
     {
         $file = realpath(dirname(__FILE__) . '/Version/Number.txt');
         if (!file_exists($file)) {
-            throw new \Tbs\Version\Exception(sprintf('File not found: %s', $file));
+            $message = sprintf('File not found: %s', $file);
+            throw new \Tbs\Version\Exception($message);
         }
         return file_get_contents($file);
     }
