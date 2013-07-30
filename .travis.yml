@@ -10,7 +10,6 @@ php:
 before_script:
   - COMPOSER_PROCESS_TIMEOUT=10000 composer install
   - ./vendor/bin/phing rw
-  - ./vendor/bin/phing db -D env=travis
 
 script:
   - ./vendor/bin/phing test -verbose
