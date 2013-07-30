@@ -30,7 +30,7 @@ class CpfTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-    	$this->object = new \Tbs\Helper\Cpf;
+    	$this->object = new cpf;
     }
 
     /**
