@@ -1,0 +1,19 @@
+language: php
+
+env: APPLICATION_ENV development
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_script:
+  - COMPOSER_PROCESS_TIMEOUT=10000 composer install
+  - ./vendor/bin/phing rw
+  - ./vendor/bin/phing db -D env=travis
+
+script:
+  - ./vendor/bin/phing test -verbose
+
+notifications:
+  email: false
