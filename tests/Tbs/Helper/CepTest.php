@@ -72,6 +72,50 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $rs = cep::isValid($cep);
         $this->assertTrue($rs);
     }
+
+    /**
+     * Provider of invalid CEP numbers.
+     * @return array
+     */
+    public function providerInvalidCeps()
+    {
+        return array(
+            array(''),
+            array('01315010'),
+            array('01232001'),
+            array('04311080'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::isValid()
+     * @dataProvider providerInvalidCeps
+     */
+    public function testIsInvalid($cep)
+    {
+        $rs = cep::isValid($cep);
+        $this->assertFalse($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::sanitize()
+     * @dataProvider providerValidCeps
+     */
+    public function testSanitizeEquals($cep)
+    {
+        $rs = cep::sanitize($cep);
+        $this->assertEquals($cep, $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::sanitize()
+     * @dataProvider providerValidCeps
+     */
+    public function testSanitizeTags($cep)
+    {
+        $rs = cep::sanitize($cep . '<script>alert("some content");</script>');
+        $this->assertEquals($cep, $rs);
+    }
 }
 
 

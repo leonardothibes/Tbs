@@ -44,7 +44,7 @@ class Cep implements M, V
     {
         $cep = strip_tags($cep);
         return substr(filter_var($cep, FILTER_SANITIZE_NUMBER_INT), 0, 5) . '-' .
-               substr(filter_var($cep, FILTER_SANITIZE_NUMBER_INT), 5, 3);
+               substr(filter_var($cep, FILTER_SANITIZE_NUMBER_INT), 6, 3);
     }
 
     /**
