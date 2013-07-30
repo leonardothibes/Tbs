@@ -1,7 +1,5 @@
 language: php
 
-env: APPLICATION_ENV development
-
 php:
   - 5.3
   - 5.4
