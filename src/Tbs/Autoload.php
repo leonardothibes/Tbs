@@ -2,7 +2,7 @@
 /**
  * @category Library
  * @package Tbs
- * @subpackage Loader
+ * @subpackage Autoload
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,7 +14,7 @@ namespace Tbs;
  *
  * @category Library
  * @package Tbs
- * @subpackage Loader
+ * @subpackage Autoload
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -44,10 +44,14 @@ class Autoload
         if ($lastNsPos = strrpos($className, '\\')) {
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+            $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
 
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        if (!file_exists($filename)) {
+            $message = sprintf('File not found: %s', $fileName);
+            throw new \Tbs\Autoload\Exception($message);
+        }
         require_once $fileName;
     }
 }
