@@ -22,11 +22,16 @@ class Version
 {
     /**
      * Get version number.
+     *
      * @return string
+     * @throws \Tbs\Version\Exception
      */
     public static function get()
     {
         $file = realpath(dirname(__FILE__) . '/Version/Number.txt');
+        if (!file_exists($file)) {
+            throw new \Tbs\Version\Exception(sprintf('File not found: %s', $file));
+        }
         return file_get_contents($file);
     }
 }

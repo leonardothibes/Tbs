@@ -42,6 +42,9 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 		unset($this->object);
 	}
 
+	/**
+	 * @see \Tbs\Version::get()
+	 */
 	public function testGet()
 	{
 		$rs = v::get();
