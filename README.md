@@ -1,4 +1,4 @@
-Tbs Bundle
+Tbs Bundle [![Build Status](https://secure.travis-ci.org/leonardothibes/Tbs.png)](http://travis-ci.org/leonardothibes/Tbs)
 ==========
 
 Component Library
