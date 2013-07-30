@@ -24,7 +24,7 @@ use \Tbs\Helper\Interfaces\Validate as V;
 class Cpf implements M, V
 {
     /**
-     * Test if content is valid.
+     * Test if CPF is valid.
      *
      * @param  mixed $cpf
      * @return bool
@@ -83,7 +83,7 @@ class Cpf implements M, V
     }
 
     /**
-     * Sanitize the content.
+     * Sanitize the CPF.
      *
      * @param  mixed $cpf
      * @return mixed
@@ -95,7 +95,7 @@ class Cpf implements M, V
     }
 
     /**
-     * Test if the content is masked.
+     * Test if the CPF is masked.
      *
      * @param  mixed $cpf
      * @return bool
@@ -106,7 +106,7 @@ class Cpf implements M, V
     }
 
     /**
-     * Mask the content.
+     * Mask the CPF.
      *
      * @param  mixed $cpf
      * @return mixed
@@ -121,7 +121,7 @@ class Cpf implements M, V
     }
 
     /**
-     * Unmask the content.
+     * Unmask the CPF.
      *
      * @param  mixed $cpf
      * @return mixed
