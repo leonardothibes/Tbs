@@ -116,6 +116,16 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $rs = cep::sanitize($cep . '<script>alert("some content");</script>');
         $this->assertEquals($cep, $rs);
     }
+
+    /**
+     * @see \Tbs\Helper\Cep::isMasked()
+     * @dataProvider providerValidCeps
+     */
+    public function testIsMasked($cep)
+    {
+        $rs = cep::isMasked($cep);
+        $this->assertTrue($rs);
+    }
 }
 
 
