@@ -214,6 +214,16 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @see \Tbs\Helper\String::truncate
+     */
+    public function testTruncate6()
+    {
+        $rs = string::truncate('This is to short string', 100);
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('This is to short string', $rs);
+    }
+
+    /**
      * @see \Tbs\Helper\String::lowerTrim()
      */
     public function testLowerTrim()
