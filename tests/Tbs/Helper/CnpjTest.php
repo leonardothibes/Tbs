@@ -87,6 +87,9 @@ class CnpjTest extends \PHPUnit_Framework_TestCase
     {
         return array(
 
+            array('11.111.111/1111-1'),
+            array('1111111111111'),
+
         	array('11.111.111/1111-11'),
             array('11111111111111'),
 
