@@ -126,32 +126,35 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $rs = cep::isMasked($cep);
         $this->assertTrue($rs);
     }
+
+    /**
+     * @see \Tbs\Helper\Cep::isMasked()
+     * @dataProvider providerValidCeps
+     */
+    public function testIsUnMasked($cep)
+    {
+        $cep = str_replace('-', '', trim($cep));
+        $rs  = cep::isMasked($cep);
+        $this->assertFalse($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::mask()
+     */
+    public function testMask()
+    {
+        $rs = cep::mask('12345678');
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('12345-678', $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Cep::unMask()
+     */
+    public function testUnMask()
+    {
+        $rs = cep::unMask('12345-678');
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('12345678', $rs);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
