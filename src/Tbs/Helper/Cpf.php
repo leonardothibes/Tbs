@@ -26,7 +26,7 @@ class Cpf implements M, V
     /**
      * Test if CPF is valid.
      *
-     * @param  mixed $cpf
+     * @param  string $cpf
      * @return bool
      */
     public static function isValid($cpf)
@@ -85,7 +85,7 @@ class Cpf implements M, V
     /**
      * Sanitize the CPF.
      *
-     * @param  mixed $cpf
+     * @param  string $cpf
      * @return mixed
     */
     public static function sanitize($cpf)
@@ -97,7 +97,7 @@ class Cpf implements M, V
     /**
      * Test if the CPF is masked.
      *
-     * @param  mixed $cpf
+     * @param  string $cpf
      * @return bool
      */
     public static function isMasked($cpf)
@@ -108,7 +108,7 @@ class Cpf implements M, V
     /**
      * Mask the CPF.
      *
-     * @param  mixed $cpf
+     * @param  string $cpf
      * @return mixed
     */
     public static function mask($cpf)
@@ -123,7 +123,7 @@ class Cpf implements M, V
     /**
      * Unmask the CPF.
      *
-     * @param  mixed $cpf
+     * @param  string $cpf
      * @return mixed
     */
     public static function unMask($cpf)
