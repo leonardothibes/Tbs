@@ -2,7 +2,7 @@
 /**
  * @category Library
  * @package Tbs
- * @subpackage Controller
+ * @subpackage ZfComponents
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -16,7 +16,7 @@ use Tbs\ZfComponents\v1\Controller\PublicPage as PublicPage;
  *
  * @category Library
  * @package Tbs
- * @subpackage Controller
+ * @subpackage ZfComponents
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

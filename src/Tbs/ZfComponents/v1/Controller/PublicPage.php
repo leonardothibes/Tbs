@@ -2,7 +2,7 @@
 /**
  * @category Library
  * @package Tbs
- * @subpackage Controller
+ * @subpackage ZfComponents
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,7 +14,7 @@ namespace Tbs\ZfComponents\v1\Controller;
  *
  * @category Library
  * @package Tbs
- * @subpackage Controller
+ * @subpackage ZfComponents
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
