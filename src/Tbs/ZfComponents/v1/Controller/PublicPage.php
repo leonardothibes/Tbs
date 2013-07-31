@@ -7,7 +7,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Controller;
+namespace Tbs\ZfComponents\v1\Controller;
 
 /**
  * Base controller class for public pages.

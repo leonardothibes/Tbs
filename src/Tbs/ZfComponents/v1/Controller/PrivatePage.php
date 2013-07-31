@@ -7,7 +7,9 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Controller;
+namespace Tbs\ZfComponents\v1\Controller;
+
+use Tbs\ZfComponents\v1\Controller\PublicPage as PublicPage;
 
 /**
  * Base controller class for private pages.
@@ -18,7 +20,7 @@ namespace Tbs\Controller;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-abstract class PrivatePage extends \Tbs\Controller\PublicPage
+abstract class PrivatePage extends PublicPage
 {
     /**
      * Primary configuration of authenticated page.
