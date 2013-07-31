@@ -166,7 +166,7 @@
 	<!-- BUILD (code-sniffer + phpunit + phpdoc) -->
 	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc">
 		<echo message="Building version ${version}..."                                    />
-		<exec command="echo ${version} > ${app}/Version/Number"                           />
+		<exec command="echo ${version} > ${app}/Version/Number.txt"                       />
 		<exec command="git commit -m 'updating version number' ${app}/Version/Number.txt" />
 		
 		<exec command="git tag ${version}"                                                />
