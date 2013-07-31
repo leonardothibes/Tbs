@@ -17,6 +17,7 @@ namespace Tbs;
  * @subpackage Autoload
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
+ * @link <http://www.php-fig.org/psr/0/>
  */
 class Autoload
 {
@@ -32,8 +33,9 @@ class Autoload
     /**
      * Autoload a class.
      *
-     * @param string $class Class name.
+     * @param  string $class Class name.
      * @return bool
+     * @link   <http://www.php-fig.org/psr/0/>
      */
     public static function loadClass($className)
     {
