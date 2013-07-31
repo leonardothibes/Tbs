@@ -21,7 +21,7 @@ interface Mask
     /**
      * Test if the content is masked.
      *
-     * @param  mixed $content
+     * @param  string $content
      * @return bool
      */
     public static function isMasked($content);
@@ -29,16 +29,16 @@ interface Mask
     /**
      * Mask the content.
      *
-     * @param  mixed $content
-     * @return mixed
+     * @param  string $content
+     * @return string
      */
     public static function mask($content);
 
     /**
      * Unmask the content.
      *
-     * @param  mixed $content
-     * @return mixed
+     * @param  string $content
+     * @return string
      */
     public static function unMask($content);
 }

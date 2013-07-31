@@ -166,9 +166,9 @@ class Cpf implements M, V
         }
 
         //Formando o CPF completo.
-        $cpf = ''.$n1.$n2.$n3.$n4.$n5.$n6.$n7.$n8.$n9.$d1.$d2;
+        $cpf = $n1.$n2.$n3.$n4.$n5.$n6.$n7.$n8.$n9.$d1.$d2;
 
         //Mascarando o CPF, se for o caso.
-        return (string)($mask === true) ? self::Mask($cpf) : $cpf;
+        return (string)($mask === true) ? self::mask($cpf) : $cpf;
     }
 }

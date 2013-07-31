@@ -21,7 +21,7 @@ interface Validate
     /**
      * Test if content is valid.
      *
-     * @param  mixed $content
+     * @param  string $content
      * @return bool
      */
     public static function isValid($content);
@@ -29,7 +29,7 @@ interface Validate
     /**
      * Sanitize the content.
      *
-     * @param  mixed $content
+     * @param  string $content
      * @return mixed
      */
     public static function sanitize($content);
