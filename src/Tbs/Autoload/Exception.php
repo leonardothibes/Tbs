@@ -10,6 +10,8 @@
 namespace Tbs\Autoload;
 
 /**
+ * Autoload Exception Class.
+ *
  * @category Library
  * @package Tbs
  * @subpackage Autoload

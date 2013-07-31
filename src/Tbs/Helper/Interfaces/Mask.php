@@ -10,6 +10,8 @@
 namespace Tbs\Helper\Interfaces;
 
 /**
+ * Interface of helpers who implements mask functions.
+ *
  * @category Library
  * @package Tbs
  * @subpackage Helper

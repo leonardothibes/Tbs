@@ -33,7 +33,7 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 81, 8081
 
   # Hostname
-  config.vm.host_name = "php-skel.dev"
+  config.vm.host_name = "Tbs-Bundle.dev"
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the

@@ -10,6 +10,8 @@
 namespace Tbs\Version;
 
 /**
+ * Version Exception Class.
+ *
  * @category Library
  * @package Tbs
  * @subpackage Version
