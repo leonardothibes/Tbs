@@ -18,7 +18,7 @@ require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . DIRECTORY_S
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class PtTest extends \PHPUnit_Framework_TestCase
+class EnTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Tbs\Helper\Interfaces\Date\Lang
