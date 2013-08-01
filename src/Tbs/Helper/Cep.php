@@ -26,7 +26,7 @@ class Cep implements M, V
     /**
      * Test if CEP is valid.
      *
-     * @param  mixed $cep
+     * @param  string $cep
      * @return bool
      */
     public static function isValid($cep)
@@ -37,8 +37,8 @@ class Cep implements M, V
     /**
      * Sanitize the CEP.
      *
-     * @param  mixed $cep
-     * @return mixed
+     * @param  string $cep
+     * @return string
     */
     public static function sanitize($cep)
     {
@@ -52,7 +52,7 @@ class Cep implements M, V
      *
      * This method just call self::isValid.
      *
-     * @param  mixed $cep
+     * @param  string $cep
      * @return bool
      */
     public static function isMasked($cep)
@@ -63,8 +63,8 @@ class Cep implements M, V
     /**
      * Mask the CEP.
      *
-     * @param  mixed $cep
-     * @return mixed
+     * @param  string $cep
+     * @return string
     */
     public static function mask($cep)
     {
@@ -75,8 +75,8 @@ class Cep implements M, V
     /**
      * Unmask the CEP.
      *
-     * @param  mixed $cep
-     * @return mixed
+     * @param  string $cep
+     * @return string
     */
     public static function unMask($cep)
     {
