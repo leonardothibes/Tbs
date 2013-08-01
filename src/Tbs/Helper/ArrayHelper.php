@@ -56,6 +56,17 @@ class ArrayHelper implements V
     }
 
     /**
+     * Add double quotation marks in string.
+     *
+     * @param  array $array
+     * @return array
+     */
+    public static function doubleQuotes($array)
+    {
+        return array_map('\Tbs\Helper\String::doubleQuotes', $array);
+    }
+
+    /**
      * Convert array to parameter list.
      *
      * @param  array $array
@@ -79,7 +90,7 @@ class ArrayHelper implements V
     {
         if (is_null($xml)) {
             $root = sprintf('<%s />', $root);
-            $xml  = new SimpleXmlElement($root);
+            $xml  = new \SimpleXmlElement($root);
         }
 
         foreach ($array as $key => $value) {
@@ -106,10 +117,16 @@ class ArrayHelper implements V
      */
     public static function toObject($array)
     {
-        $obj = new $object();
-        foreach ($array as $key => $value) {
-            $key = trim($key);
-            $obj->{$key} = self::toObject($value);
+        $obj = new \stdClass();
+        if (self::isValid($array)) {
+            foreach ($array as $key => $value) {
+                $key = trim($key);
+                if (is_array($value)) {
+                    $obj->{$key} = self::toObject($value);
+                } else {
+                    $obj->{$key} = $value;
+                }
+            }
         }
         return $obj;
     }
@@ -164,7 +181,7 @@ class ArrayHelper implements V
      *
      * @return array
      */
-    public static function sort($array, $column, $revser = false)
+    public static function sort($array, $column, $reverse = false)
     {
         for ($i = 0; $i < count($array) - 1; $i++) {
             for ($j = 0; $j < count($array) - 1 - $i; $j++) {
