@@ -28,7 +28,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup.
      */
-    public function setUp()
+    protected function setUp()
     {
     	$this->object = new arr;
     }
@@ -36,7 +36,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * TearDown.
      */
-    public function tearDown()
+    protected function tearDown()
     {
     	unset($this->object);
     }
