@@ -156,34 +156,176 @@ class DateTest extends \PHPUnit_Framework_TestCase
     public function testYearsRange($first, $last, $expected)
     {
         $rs = date::yearsRange($first, $last, $expected);
+        $this->assertInternalType('array', $rs);
+        $this->assertEquals($expected, $rs);
+    }
+
+    /**
+     * Provider of months and years to test last day.
+     * @return array
+     */
+    public function providerLastDay()
+    {
+        return array(
+
+            //2011.
+            array(1, 2011, 31),
+            array(2, 2011, 28),
+            array(3, 2011, 31),
+            array('01', 2011, 31),
+            array('02', 2011, 28),
+            array('03', 2011, 31),
+            array(10, 2011, 31),
+            array(11, 2011, 30),
+            array(12, 2011, 31),
+
+            //2012.
+            array(1, 2012, 31),
+            array(2, 2012, 29),
+            array(3, 2012, 31),
+            array('01', 2012, 31),
+            array('02', 2012, 29),
+            array('03', 2012, 31),
+            array(10, 2012, 31),
+            array(11, 2012, 30),
+            array(12, 2012, 31),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Date::lastDay()
+     * @dataProvider providerLastDay
+     */
+    public function testLastDay($month, $year, $expected)
+    {
+        $rs = date::lastDay($month, $year);
+        $this->assertInternalType('int', $rs);
+        $this->assertEquals($expected, $rs);
+    }
+
+    /**
+     * Month names provider.
+     * @return array
+     */
+    public function providerMonthNames()
+    {
+        return array(
+
+            //En
+            array('1' , 'january'  , 'en'),
+            array('2' , 'february' , 'en'),
+            array('3' , 'march'    , 'en'),
+            array('4' , 'april'    , 'en'),
+            array('5' , 'may'      , 'en'),
+            array('6' , 'june'     , 'en'),
+            array('7' , 'july'     , 'en'),
+            array('8' , 'august'   , 'en'),
+            array('9' , 'september', 'en'),
+            array('10', 'october'  , 'en'),
+            array('11', 'november' , 'en'),
+            array('12', 'december' , 'en'),
+
+            //Pt
+            array('1' , 'janeiro'  , 'pt'),
+            array('2' , 'fevereiro', 'pt'),
+            array('3' , 'março'    , 'pt'),
+            array('4' , 'abril'    , 'pt'),
+            array('5' , 'maio'     , 'pt'),
+            array('6' , 'junho'    , 'pt'),
+            array('7' , 'julho'    , 'pt'),
+            array('8' , 'agosto'   , 'pt'),
+            array('9' , 'setembro' , 'pt'),
+            array('10', 'outubro'  , 'pt'),
+            array('11', 'novembro' , 'pt'),
+            array('12', 'dezembro' , 'pt'),
+
+            //Br
+            array('1' , 'janeiro'  , 'br'),
+            array('2' , 'fevereiro', 'br'),
+            array('3' , 'março'    , 'br'),
+            array('4' , 'abril'    , 'br'),
+            array('5' , 'maio'     , 'br'),
+            array('6' , 'junho'    , 'br'),
+            array('7' , 'julho'    , 'br'),
+            array('8' , 'agosto'   , 'br'),
+            array('9' , 'setembro' , 'br'),
+            array('10', 'outubro'  , 'br'),
+            array('11', 'novembro' , 'br'),
+            array('12', 'dezembro' , 'br'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Date::monthName()
+     * @dataProvider providerMonthNames
+     */
+    public function testMonthName($number, $name, $lang)
+    {
+        $rs = date::monthName($number, $lang);
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals($name, $rs);
+    }
+
+    /**
+     * Month names provider.
+     * @return array
+     */
+    public function providerShortMonthName()
+    {
+        return array(
+
+            //En
+            array('1' , 'jan', 'en'),
+            array('2' , 'feb', 'en'),
+            array('3' , 'mar', 'en'),
+            array('4' , 'apr', 'en'),
+            array('5' , 'may', 'en'),
+            array('6' , 'jun', 'en'),
+            array('7' , 'jul', 'en'),
+            array('8' , 'aug', 'en'),
+            array('9' , 'sep', 'en'),
+            array('10', 'oct', 'en'),
+            array('11', 'nov', 'en'),
+            array('12', 'dec', 'en'),
+
+            //Pt
+            array('1' , 'jan', 'pt'),
+            array('2' , 'fev', 'pt'),
+            array('3' , 'mar', 'pt'),
+            array('4' , 'abr', 'pt'),
+            array('5' , 'mai', 'pt'),
+            array('6' , 'jun', 'pt'),
+            array('7' , 'jul', 'pt'),
+            array('8' , 'ago', 'pt'),
+            array('9' , 'set', 'pt'),
+            array('10', 'out', 'pt'),
+            array('11', 'nov', 'pt'),
+            array('12', 'dez', 'pt'),
+
+            //Br
+            array('1' , 'jan', 'pt'),
+            array('2' , 'fev', 'pt'),
+            array('3' , 'mar', 'pt'),
+            array('4' , 'abr', 'pt'),
+            array('5' , 'mai', 'pt'),
+            array('6' , 'jun', 'pt'),
+            array('7' , 'jul', 'pt'),
+            array('8' , 'ago', 'pt'),
+            array('9' , 'set', 'pt'),
+            array('10', 'out', 'pt'),
+            array('11', 'nov', 'pt'),
+            array('12', 'dez', 'pt'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Date::shortMonthName()
+     * @dataProvider providerShortMonthName
+     */
+    public function testShortMonthName($number, $name, $lang)
+    {
+        $rs = date::shortMonthName($number, $lang);
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals($name, $rs);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
