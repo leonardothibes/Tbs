@@ -29,6 +29,20 @@ class Amex extends A
     protected static $regex = '/^[0-9]{5}\s[0-9]{6}\s[0-9]{4}$/';
 
     /**
+     * Test if card number is valid.
+     *
+     * @param  string $card
+     * @return bool
+     */
+    public static function isValid($card)
+    {
+        return (
+            substr($card, 0, 1) == 3 and
+            parent::isValid($card)
+        );
+    }
+
+    /**
      * Mask the card number.
      *
      * @param  string $card

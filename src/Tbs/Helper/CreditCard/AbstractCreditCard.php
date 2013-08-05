@@ -37,7 +37,7 @@ abstract class AbstractCreditCard implements M, V
      */
     public static function isValid($card)
     {
-        $card = preg_replace('([^0-9])', '', $card);
+        $card = self::unMask($card);
         if (!empty($card)) {
             return \Tbs\Math::mod10($card);
         }
@@ -75,10 +75,10 @@ abstract class AbstractCreditCard implements M, V
     */
     public static function mask($card)
     {
-        return substr($data, 0, 4)  . ' ' .
-               substr($data, 4, 4)  . ' ' .
-               substr($data, 8, 4)  . ' ' .
-               substr($data, 12, 4);
+        return substr($card, 0, 4)  . ' ' .
+               substr($card, 4, 4)  . ' ' .
+               substr($card, 8, 4)  . ' ' .
+               substr($card, 12, 4);
     }
 
     /**
@@ -89,6 +89,6 @@ abstract class AbstractCreditCard implements M, V
     */
     public static function unMask($card)
     {
-        return str_replace(' ', '', $data);
+        return str_replace(' ', '', $card);
     }
 }

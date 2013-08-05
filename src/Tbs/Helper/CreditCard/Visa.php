@@ -22,4 +22,17 @@ use \Tbs\Helper\CreditCard\AbstractCreditCard as A;
  */
 class Visa extends A
 {
+    /**
+     * Test if card number is valid.
+     *
+     * @param  string $card
+     * @return bool
+     */
+    public static function isValid($card)
+    {
+        return (
+            substr($card, 0, 1) == 4 and
+            parent::isValid($card)
+        );
+    }
 }
