@@ -21,7 +21,7 @@ use \Tbs\Helper\Interfaces\Validate as V;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-abstract class CreditCard implements M, V
+abstract class AbstractCreditCard implements M, V
 {
     /**
      * Credit card regex.
