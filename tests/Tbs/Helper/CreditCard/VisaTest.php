@@ -100,6 +100,36 @@ class VisaTest extends \PHPUnit_Framework_TestCase
         $rs = Visa::isValid($card);
         $this->assertTrue($rs);
     }
+
+    /**
+     * Provider of invalid Visa numbers.
+     * @return array
+     */
+    public function providerInvalid()
+    {
+        return array(
+            array(''),
+            array(null),
+            array(true),
+            array(false),
+            array('5532936348764816'),
+            array('4556518283874750'),
+            array('5444 3605 1215 9683'),
+            array('5444360512159683'),
+            array('37113 636180 2724'),
+            array('371136361802724'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @dataProvider providerInvalid
+     */
+    public function testIsInvalid($card)
+    {
+        $rs = Visa::isValid($card);
+        $this->assertFalse($rs);
+    }
 }
 
 
