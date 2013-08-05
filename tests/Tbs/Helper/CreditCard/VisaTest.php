@@ -130,20 +130,84 @@ class VisaTest extends \PHPUnit_Framework_TestCase
         $rs = Visa::isValid($card);
         $this->assertFalse($rs);
     }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @dataProvider providerValidMasked
+     */
+    public function testSanitizeEqualsMasked($card)
+    {
+        $rs = Visa::sanitize($card);
+        $this->assertEquals($card, $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @dataProvider providerValidUnMasked
+     */
+    public function testSanitizeEqualsUnMasked($card)
+    {
+        $rs = Visa::sanitize($card);
+        $this->assertEquals(Visa::mask($card), $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @dataProvider providerValidMasked
+     */
+    public function testSanitizeTagsMasked($card)
+    {
+        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
+        $this->assertEquals($card, $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @dataProvider providerValidUnMasked
+     */
+    public function testSanitizeTagsUnMasked($card)
+    {
+        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
+        $this->assertEquals(Visa::mask($card), $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @dataProvider providerValidMasked
+     */
+    public function testIsMasked($card)
+    {
+        $rs = Visa::isMasked($card);
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @dataProvider providerValidUnMasked
+     */
+    public function testIsUnMasked($card)
+    {
+        $rs = Visa::isMasked($card);
+        $this->assertFalse($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     */
+    public function testMask()
+    {
+        $rs = Visa::mask('1111222233334444');
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('1111 2222 3333 4444', $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     */
+    public function testUnMask()
+    {
+        $rs = Visa::unMask('1111 2222 3333 4444');
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('1111222233334444', $rs);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
