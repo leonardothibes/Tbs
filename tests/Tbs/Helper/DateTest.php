@@ -303,18 +303,18 @@ class DateTest extends \PHPUnit_Framework_TestCase
             array('12', 'dez', 'pt'),
 
             //Br
-            array('1' , 'jan', 'pt'),
-            array('2' , 'fev', 'pt'),
-            array('3' , 'mar', 'pt'),
-            array('4' , 'abr', 'pt'),
-            array('5' , 'mai', 'pt'),
-            array('6' , 'jun', 'pt'),
-            array('7' , 'jul', 'pt'),
-            array('8' , 'ago', 'pt'),
-            array('9' , 'set', 'pt'),
-            array('10', 'out', 'pt'),
-            array('11', 'nov', 'pt'),
-            array('12', 'dez', 'pt'),
+            array('1' , 'jan', 'br'),
+            array('2' , 'fev', 'br'),
+            array('3' , 'mar', 'br'),
+            array('4' , 'abr', 'br'),
+            array('5' , 'mai', 'br'),
+            array('6' , 'jun', 'br'),
+            array('7' , 'jul', 'br'),
+            array('8' , 'ago', 'br'),
+            array('9' , 'set', 'br'),
+            array('10', 'out', 'br'),
+            array('11', 'nov', 'br'),
+            array('12', 'dez', 'br'),
         );
     }
 
