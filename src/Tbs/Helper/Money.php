@@ -40,7 +40,7 @@ class Money
         switch ($format) {
             case self::REAL:
             case self::EURO:
-                $value = str_replace('.', '' , $value);
+                $value = str_replace('.', '', $value);
                 $value = str_replace(',', '.', $value);
                 break;
             case self::DOLAR:
