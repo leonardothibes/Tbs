@@ -29,7 +29,7 @@ class Autoload
      */
     public static function register($verifyIfExists = false)
     {
-        if($verifyIfExists === true) {
+        if ($verifyIfExists === true) {
             define('TBS_AUTOLOAD_VERIFY', true);
         }
         spl_autoload_register(array(__CLASS__, 'loadClass'));
