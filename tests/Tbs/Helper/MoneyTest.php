@@ -105,36 +105,36 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     public function providerMoneyToDefaultConvert()
     {
         return array(
-            array('0.00'      , '0,00'),
-            array('1.11'      , '1,11'),
-            array('1.000'     , '1,00'),
-            array('1000'      , '1.000,00'),
-            array('1234.56'   , '1.234,56'),
-            array('1000000.00', '1.000.000,00'),
-            array('1000000'   , '1.000.000,00'),
-            array('0.000'     , '0,00'),
-            array('1.111'     , '1,11'),
+            array('0,00'        , '0.00'),
+            array('1,11'        , '1.11'),
+            array('1,000'       , '1.00'),
+            array('1000'        , '1000.00'),
+            array('1.234,56'    , '1234.56'),
+            array('1.000.000,00', '1000000.00'),
+            array('1.000.000'   , '1000000.00'),
+            array('0,000'       , '0.00'),
+            array('1,111'       , '1.11'),
         );
     }
 
     /**
      * @see \Tbs\Helper\Money::toNumber()
-     * @dataProvider providerMoneysToDefaultConvert
+     * @dataProvider providerMoneyToDefaultConvert
      */
-    public function estToMoneyDefaultConvert($number, $expected)
+    public function testToNumberDefaultConvert($value, $expected)
     {
-        $rs = M::toMoney($number);
-        $this->assertInternalType('string', $rs);
+        $rs = M::toNumber($value);
+        $this->assertInternalType('float', $rs);
         $this->assertEquals($expected, $rs);
     }
 
-/**
+    /**
      * @see \Tbs\Helper\Money::toNumber()
-     * @dataProvider providerMoneysToConvert
+     * @dataProvider providerMoneyToConvert
      */
-    public function estToMoneyInvalidFormat($number, $format, $expected)
+    public function testToNumberInvalidFormat($value, $format, $expected)
     {
-        $rs = M::toMoney($number, 'invalid');
+        $rs = M::toNumber($value, 'invalid');
         $this->assertFalse($rs);
     }
 }
