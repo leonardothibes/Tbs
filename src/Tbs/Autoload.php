@@ -23,10 +23,15 @@ class Autoload
 {
     /**
      * Register the autoloader.
+     *
+     * @param  bool $verifyIfExists
      * @return void
      */
-    public static function register()
+    public static function register($verifyIfExists = false)
     {
+        if($verifyIfExists === true) {
+            define('TBS_AUTOLOAD_VERIFY', true);
+        }
         spl_autoload_register(array(__CLASS__, 'loadClass'));
     }
 
@@ -50,7 +55,7 @@ class Autoload
         }
 
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-        if (!self::fileExists($fileName)) {
+        if (defined('TBS_AUTOLOAD_VERIFY') and !self::fileExists($fileName)) {
             require_once 'Tbs/Autoload/Exception.php';
             throw new \Tbs\Autoload\Exception(
                 sprintf('Could not load file: "%s"', $fileName)
