@@ -8,7 +8,7 @@
  */
 
 namespace Tbs\Helper\CreditCard;
-use \Tbs\Helper\CreditCard\Visa as Visa;
+use \Tbs\Helper\CreditCard\Amex as Amex;
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
 /**
@@ -18,10 +18,10 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR 
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class VisaTest extends \PHPUnit_Framework_TestCase
+class AmexTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\Helper\CreditCard\Visa
+     * @var \Tbs\Helper\CreditCard\Amex
      */
     protected $object = null;
 
@@ -30,7 +30,7 @@ class VisaTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-    	$this->object = new Visa;
+    	$this->object = new Amex;
     }
 
     /**
@@ -48,11 +48,11 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Mask'    , $this->object);
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Validate', $this->object);
-        $this->assertInstanceOf('\Tbs\Helper\CreditCard\Visa'    , $this->object);
+        $this->assertInstanceOf('\Tbs\Helper\CreditCard\Amex'    , $this->object);
     }
 
     /**
-     * Provider of valid masked Visa numbers.
+     * Provider of valid masked Amex numbers.
      * @return array
      */
     public function providerValidMasked()
@@ -67,17 +67,17 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Amex::isValid()
      * @dataProvider providerValidMasked
      */
     public function testIsValidMasked($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Amex::isValid($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * Provider of valid unmasked Visa numbers.
+     * Provider of valid unmasked Amex numbers.
      * @return array
      */
     public function providerValidUnMasked()
@@ -92,17 +92,17 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Amex::isValid()
      * @dataProvider providerValidUnMasked
      */
     public function testIsValidUnMasked($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Amex::isValid($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * Provider of invalid Visa numbers.
+     * Provider of invalid Amex numbers.
      * @return array
      */
     public function providerInvalid()
@@ -134,91 +134,91 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Amex::isValid()
      * @dataProvider providerInvalid
      */
     public function testIsInvalid($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Amex::isValid($card);
         $this->assertFalse($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Amex::sanitize()
      * @dataProvider providerValidMasked
      */
     public function testSanitizeEqualsMasked($card)
     {
-        $rs = Visa::sanitize($card);
+        $rs = Amex::sanitize($card);
         $this->assertEquals($card, $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Amex::sanitize()
      * @dataProvider providerValidUnMasked
      */
     public function testSanitizeEqualsUnMasked($card)
     {
-        $rs = Visa::sanitize($card);
-        $this->assertEquals(Visa::mask($card), $rs);
+        $rs = Amex::sanitize($card);
+        $this->assertEquals(Amex::mask($card), $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Amex::sanitize()
      * @dataProvider providerValidMasked
      */
     public function testSanitizeTagsMasked($card)
     {
-        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
+        $rs = Amex::sanitize($card . '<script>alert("some content");</script>');
         $this->assertEquals($card, $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Amex::sanitize()
      * @dataProvider providerValidUnMasked
      */
     public function testSanitizeTagsUnMasked($card)
     {
-        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
-        $this->assertEquals(Visa::mask($card), $rs);
+        $rs = Amex::sanitize($card . '<script>alert("some content");</script>');
+        $this->assertEquals(Amex::mask($card), $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @see \Tbs\Helper\CreditCard\Amex::isMasked()
      * @dataProvider providerValidMasked
      */
     public function testIsMasked($card)
     {
-        $rs = Visa::isMasked($card);
+        $rs = Amex::isMasked($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @see \Tbs\Helper\CreditCard\Amex::isMasked()
      * @dataProvider providerValidUnMasked
      */
     public function testIsUnMasked($card)
     {
-        $rs = Visa::isMasked($card);
+        $rs = Amex::isMasked($card);
         $this->assertFalse($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     * @see \Tbs\Helper\CreditCard\Amex::mask()
      */
     public function testMask()
     {
-        $rs = Visa::mask('1111222233334444');
+        $rs = Amex::mask('1111222233334444');
         $this->assertInternalType('string', $rs);
         $this->assertEquals('1111 2222 3333 4444', $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     * @see \Tbs\Helper\CreditCard\Amex::mask()
      */
     public function testUnMask()
     {
-        $rs = Visa::unMask('1111 2222 3333 4444');
+        $rs = Amex::unMask('1111 2222 3333 4444');
         $this->assertInternalType('string', $rs);
         $this->assertEquals('1111222233334444', $rs);
     }

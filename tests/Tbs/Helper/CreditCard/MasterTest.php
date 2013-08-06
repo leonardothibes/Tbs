@@ -8,7 +8,7 @@
  */
 
 namespace Tbs\Helper\CreditCard;
-use \Tbs\Helper\CreditCard\Visa as Visa;
+use \Tbs\Helper\CreditCard\Master as Master;
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
 /**
@@ -18,10 +18,10 @@ require_once dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR 
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class VisaTest extends \PHPUnit_Framework_TestCase
+class MasterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\Helper\CreditCard\Visa
+     * @var \Tbs\Helper\CreditCard\Master
      */
     protected $object = null;
 
@@ -30,7 +30,7 @@ class VisaTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-    	$this->object = new Visa;
+    	$this->object = new Master;
     }
 
     /**
@@ -48,61 +48,61 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Mask'    , $this->object);
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Validate', $this->object);
-        $this->assertInstanceOf('\Tbs\Helper\CreditCard\Visa'    , $this->object);
+        $this->assertInstanceOf('\Tbs\Helper\CreditCard\Master'    , $this->object);
     }
 
     /**
-     * Provider of valid masked Visa numbers.
+     * Provider of valid masked Master numbers.
      * @return array
      */
     public function providerValidMasked()
     {
         return array(
-            array('4532 9363 4876 4816'),
-            array('4556 5182 8387 4759'),
-            array('4739 9790 8349 0727'),
-            array('4532 0722 1415 6430'),
-            array('4916 3375 4981 6107'),
+            array('5506 1055 0008 0903'),
+            array('5187 6936 9552 8717'),
+            array('5367 2636 3307 7078'),
+            array('5159 3352 2902 1652'),
+            array('5444 3605 1215 9683'),
         );
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Master::isValid()
      * @dataProvider providerValidMasked
      */
     public function testIsValidMasked($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Master::isValid($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * Provider of valid unmasked Visa numbers.
+     * Provider of valid unmasked Master numbers.
      * @return array
      */
     public function providerValidUnMasked()
     {
         return array(
-            array('4532936348764816'),
-            array('4556518283874759'),
-            array('4739979083490727'),
-            array('4532072214156430'),
-            array('4916337549816107'),
+            array('5506105500080903'),
+            array('5187693695528717'),
+            array('5367263633077078'),
+            array('5159335229021652'),
+            array('5444360512159683'),
         );
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Master::isValid()
      * @dataProvider providerValidUnMasked
      */
     public function testIsValidUnMasked($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Master::isValid($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * Provider of invalid Visa numbers.
+     * Provider of invalid Master numbers.
      * @return array
      */
     public function providerInvalid()
@@ -117,15 +117,15 @@ class VisaTest extends \PHPUnit_Framework_TestCase
             //Invalid types.
 
             //Wrong First number.
-            array('5532936348764816'),
-            array('3532936348764816'),
+            array('3444360512159683'),
+            array('4444360512159683'),
 
             //Wrong digit
-            array('4556518283874750'),
+            array('5159335229021653'),
 
-            //Mastercard
-            array('5444 3605 1215 9683'),
-            array('5444360512159683'),
+            //Visa
+            array('4532 9363 4876 4816'),
+            array('4532936348764816'),
 
             //Amex
             array('37113 636180 2724'),
@@ -134,91 +134,91 @@ class VisaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isValid()
+     * @see \Tbs\Helper\CreditCard\Master::isValid()
      * @dataProvider providerInvalid
      */
     public function testIsInvalid($card)
     {
-        $rs = Visa::isValid($card);
+        $rs = Master::isValid($card);
         $this->assertFalse($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Master::sanitize()
      * @dataProvider providerValidMasked
      */
     public function testSanitizeEqualsMasked($card)
     {
-        $rs = Visa::sanitize($card);
+        $rs = Master::sanitize($card);
         $this->assertEquals($card, $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Master::sanitize()
      * @dataProvider providerValidUnMasked
      */
     public function testSanitizeEqualsUnMasked($card)
     {
-        $rs = Visa::sanitize($card);
-        $this->assertEquals(Visa::mask($card), $rs);
+        $rs = Master::sanitize($card);
+        $this->assertEquals(Master::mask($card), $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Master::sanitize()
      * @dataProvider providerValidMasked
      */
     public function testSanitizeTagsMasked($card)
     {
-        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
+        $rs = Master::sanitize($card . '<script>alert("some content");</script>');
         $this->assertEquals($card, $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::sanitize()
+     * @see \Tbs\Helper\CreditCard\Master::sanitize()
      * @dataProvider providerValidUnMasked
      */
     public function testSanitizeTagsUnMasked($card)
     {
-        $rs = Visa::sanitize($card . '<script>alert("some content");</script>');
-        $this->assertEquals(Visa::mask($card), $rs);
+        $rs = Master::sanitize($card . '<script>alert("some content");</script>');
+        $this->assertEquals(Master::mask($card), $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @see \Tbs\Helper\CreditCard\Master::isMasked()
      * @dataProvider providerValidMasked
      */
     public function testIsMasked($card)
     {
-        $rs = Visa::isMasked($card);
+        $rs = Master::isMasked($card);
         $this->assertTrue($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::isMasked()
+     * @see \Tbs\Helper\CreditCard\Master::isMasked()
      * @dataProvider providerValidUnMasked
      */
     public function testIsUnMasked($card)
     {
-        $rs = Visa::isMasked($card);
+        $rs = Master::isMasked($card);
         $this->assertFalse($rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     * @see \Tbs\Helper\CreditCard\Master::mask()
      */
     public function testMask()
     {
-        $rs = Visa::mask('1111222233334444');
+        $rs = Master::mask('1111222233334444');
         $this->assertInternalType('string', $rs);
         $this->assertEquals('1111 2222 3333 4444', $rs);
     }
 
     /**
-     * @see \Tbs\Helper\CreditCard\Visa::mask()
+     * @see \Tbs\Helper\CreditCard\Master::mask()
      */
     public function testUnMask()
     {
-        $rs = Visa::unMask('1111 2222 3333 4444');
+        $rs = Master::unMask('1111 2222 3333 4444');
         $this->assertInternalType('string', $rs);
         $this->assertEquals('1111222233334444', $rs);
     }
