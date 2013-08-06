@@ -130,4 +130,14 @@ class NumberTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $rs);
         $this->assertEquals($expected, $rs);
     }
+
+    /**
+     * @see \Tbs\Helper\Number::toMoney()
+     * @dataProvider providerNumbersToConvert
+     */
+    public function testToMoneyInvalidFormat($number, $format, $expected)
+    {
+        $rs = N::toMoney($number, 'invalid');
+        $this->assertFalse($rs);
+    }
 }
