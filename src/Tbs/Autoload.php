@@ -34,7 +34,7 @@ class Autoload
      * Autoload a class.
      *
      * @param  string $class Class name.
-     * @return bool
+     * @return void
      * @link   <http://www.php-fig.org/psr/0/>
      */
     public static function loadClass($className)
