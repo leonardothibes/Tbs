@@ -34,8 +34,8 @@ class Autoload
      * Autoload a class.
      *
      * @param  string $class Class name.
-     * @return void
      * @link   <http://www.php-fig.org/psr/0/>
+     * @throws \Tbs\Autoload\Exception
      */
     public static function loadClass($className)
     {
@@ -50,6 +50,13 @@ class Autoload
         }
 
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        if (!file_exists($fileName)) {
+            require_once 'Tbs/Autoload/Exception.php';
+            throw new \Tbs\Autoload\Exception(
+                sprintf('Could not load file: "%s"', $fileName)
+            );
+        }
+
         require_once $fileName;
     }
 }
