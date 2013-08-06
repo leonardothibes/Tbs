@@ -43,6 +43,29 @@ class Amex extends A
     }
 
     /**
+     * Sanitize the card number.
+     *
+     * @param  string $card
+     * @return mixed
+     */
+    public static function sanitize($card)
+    {
+        $sanitized = filter_var(strip_tags(parent::unMask($card)), FILTER_SANITIZE_NUMBER_INT);
+        return self::mask($sanitized);
+    }
+
+    /**
+     * Test if the card number is masked.
+     *
+     * @param  string $card
+     * @return bool
+     */
+    public static function isMasked($card)
+    {
+        return (bool)preg_match(self::$regex, $card);
+    }
+
+    /**
      * Mask the card number.
      *
      * @param  string $card
@@ -50,8 +73,8 @@ class Amex extends A
      */
     public static function mask($card)
     {
-        return substr($data, 0, 5) . ' ' .
-               substr($data, 5, 6) . ' ' .
-               substr($data, 11, 4);
+        return substr($card, 0, 5) . ' ' .
+               substr($card, 5, 6) . ' ' .
+               substr($card, 11, 4);
     }
 }

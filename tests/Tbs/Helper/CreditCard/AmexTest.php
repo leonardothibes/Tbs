@@ -58,11 +58,11 @@ class AmexTest extends \PHPUnit_Framework_TestCase
     public function providerValidMasked()
     {
         return array(
-            array('4532 9363 4876 4816'),
-            array('4556 5182 8387 4759'),
-            array('4739 9790 8349 0727'),
-            array('4532 0722 1415 6430'),
-            array('4916 3375 4981 6107'),
+            array('37906 944122 4084'),
+            array('37047 463227 0657'),
+            array('34335 365049 3926'),
+            array('34605 746372 6276'),
+            array('37113 636180 2724'),
         );
     }
 
@@ -83,11 +83,11 @@ class AmexTest extends \PHPUnit_Framework_TestCase
     public function providerValidUnMasked()
     {
         return array(
-            array('4532936348764816'),
-            array('4556518283874759'),
-            array('4739979083490727'),
-            array('4532072214156430'),
-            array('4916337549816107'),
+            array('379069441224084'),
+            array('370474632270657'),
+            array('343353650493926'),
+            array('346057463726276'),
+            array('371136361802724'),
         );
     }
 
@@ -123,13 +123,13 @@ class AmexTest extends \PHPUnit_Framework_TestCase
             //Wrong digit
             array('4556518283874750'),
 
+            //Visa
+            array('4532 9363 4876 4816'),
+            array('4532936348764816'),
+
             //Mastercard
             array('5444 3605 1215 9683'),
             array('5444360512159683'),
-
-            //Amex
-            array('37113 636180 2724'),
-            array('371136361802724'),
         );
     }
 
@@ -208,9 +208,9 @@ class AmexTest extends \PHPUnit_Framework_TestCase
      */
     public function testMask()
     {
-        $rs = Amex::mask('1111222233334444');
+        $rs = Amex::mask('111112222223333');
         $this->assertInternalType('string', $rs);
-        $this->assertEquals('1111 2222 3333 4444', $rs);
+        $this->assertEquals('11111 222222 3333', $rs);
     }
 
     /**
@@ -218,8 +218,8 @@ class AmexTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnMask()
     {
-        $rs = Amex::unMask('1111 2222 3333 4444');
+        $rs = Amex::unMask('11111 222222 3333');
         $this->assertInternalType('string', $rs);
-        $this->assertEquals('1111222233334444', $rs);
+        $this->assertEquals('111112222223333', $rs);
     }
 }
