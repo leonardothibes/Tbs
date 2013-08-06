@@ -12,7 +12,7 @@ namespace Tbs\Helper;
 use \Tbs\Helper\CreditCard\Master as Master;
 use \Tbs\Helper\CreditCard\Visa   as Visa;
 use \Tbs\Helper\CreditCard\Amex   as Amex;
-use \Tbs\Helper\Interfaces        as V;
+use \Tbs\Helper\Interfaces\Validate as V;
 
 /**
  * Credit card helper functions for all flags.

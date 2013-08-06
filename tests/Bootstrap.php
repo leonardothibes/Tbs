@@ -19,4 +19,4 @@ require_once 'PHPUnit/Autoload.php';
 
 //Ativando o Autoloader.
 require_once 'Tbs/Autoload.php';
-\Tbs\Autoload::register();
+\Tbs\Autoload::register(true);
