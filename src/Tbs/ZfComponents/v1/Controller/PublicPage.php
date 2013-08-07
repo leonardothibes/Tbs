@@ -38,7 +38,7 @@ abstract class PublicPage extends \Zend_Controller_Action
      * This method run before of the "init"
      * method of the application controllers.
      *
-     * @see Zend/Controller/Zend_Controller_Action::preDispatch()
+     * @see \Zend_Controller_Action::preDispatch()
      */
     public function preDispatch()
     {
@@ -76,8 +76,8 @@ abstract class PublicPage extends \Zend_Controller_Action
     /**
      * Set a header to XML.
      *
-     * @param string $charset
-     * @return Zend_Controller_Action_Interface
+     * @param  string $charset
+     * @return \Zend_Controller_Action_Interface
      */
     protected function setHeaderAsXml($charset = null)
     {
@@ -88,8 +88,8 @@ abstract class PublicPage extends \Zend_Controller_Action
     /**
      * Set a header to HTML.
      *
-     * @param string $charset
-     * @return Zend_Controller_Action_Interface
+     * @param  string $charset
+     * @return \Zend_Controller_Action_Interface
      */
     protected function setHeaderAsHtml($charset = null)
     {
@@ -103,7 +103,7 @@ abstract class PublicPage extends \Zend_Controller_Action
      * @param string $header
      * @param string $charset
      *
-     * @return Zend_Controller_Action_Interface
+     * @return \Zend_Controller_Action_Interface
      */
     protected function setHeader($type, $charset = null)
     {
@@ -114,7 +114,7 @@ abstract class PublicPage extends \Zend_Controller_Action
 
     /**
      * Disable layout render.
-     * @return Zend_Controller_Action_Interface
+     * @return \Zend_Controller_Action_Interface
      */
     protected function setNoLayout()
     {
@@ -124,7 +124,7 @@ abstract class PublicPage extends \Zend_Controller_Action
 
     /**
      * Disable view render.
-     * @return Zend_Controller_Action_Interface
+     * @return \Zend_Controller_Action_Interface
      */
     protected function setNoView()
     {

@@ -24,7 +24,7 @@ abstract class PrivatePage extends PublicPage
 {
     /**
      * Primary configuration of authenticated page.
-     * @see Tbs\Controller\PublicPage::preDispatch()
+     * @see \Tbs\Controller\PublicPage::preDispatch()
      */
     public function preDispatch()
     {
