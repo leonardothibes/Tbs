@@ -1,5 +1,5 @@
 {
-    "name"   : "leonardothibes/tbs",
+    "name"   : "tbs/tbs",
     "require": {
     	"php": ">=5.3"
     },
