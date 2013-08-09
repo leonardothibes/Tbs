@@ -2,21 +2,21 @@
 /**
  * @category Library
  * @package Tbs
- * @subpackage DocBlobk
+ * @subpackage DocBlock
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
 
 namespace Tbs\DocBlock\Collection;
 
-use \Tbs\DocBlobk\Exception as E;
+use \Tbs\DocBlock\Exception as E;
 
 /**
  * DocBlock Collection Exception Class.
  *
  * @category Library
  * @package Tbs
- * @subpackage DocBlobk
+ * @subpackage DocBlock
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
