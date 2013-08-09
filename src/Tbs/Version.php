@@ -44,6 +44,6 @@ class Version
             throw new \Tbs\Version\Exception($message);
         }
 
-        return (string)preg_replace('/\n/', '', file_get_contents($file));
+        return trim(file_get_contents($file), '\t\n\r');
     }
 }
