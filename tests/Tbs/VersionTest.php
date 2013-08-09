@@ -43,14 +43,45 @@ class VersionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @see \Tbs\Version::getDefaultFileLocation()
+     */
+    public function testGetDefaultFileLocation()
+    {
+        $rs = v::getDefaultFileLocation();
+        $this->assertInternalType('string', $rs);
+        $this->assertTrue(file_exists($rs));
+    }
+
+    /**
      * @see \Tbs\Version::get()
      */
-    public function testGet()
+    public function testGetWithDefualtFileLocation()
     {
         $rs = v::get();
         $this->assertInternalType('string', $rs);
 
         $version = file_get_contents(LIBRARY_PATH . '/Tbs/Version/Number.txt');
         $this->assertEquals($version, $rs);
+    }
+
+    /**
+     * @see \Tbs\Version::get()
+     */
+    public function testGetNoDefaultFileLocation()
+    {
+        $fl = v::getDefaultFileLocation();
+        $rs = v::get($fl);
+
+        $version = file_get_contents(LIBRARY_PATH . '/Tbs/Version/Number.txt');
+        $this->assertEquals($version, $rs);
+    }
+
+    /**
+     * @see \Tbs\Version::get()
+     * @expectedException \Tbs\Version\Exception
+     */
+    public function testGetException()
+    {
+       	v::get('/tmp/sbrubles.txt');
     }
 }
