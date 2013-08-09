@@ -21,18 +21,29 @@ namespace Tbs;
 class Version
 {
     /**
+     * Get default location of version number file.
+     * @return string
+     */
+    public static function getDefaultFileLocation()
+    {
+        return realpath(dirname(__FILE__) . '/Version/Number.txt');
+    }
+
+    /**
      * Get version number.
      *
+     * @param  string $fileLocation
      * @return string
      * @throws \Tbs\Version\Exception
      */
-    public static function get()
+    public static function get($fileLocation = null)
     {
-        $file = realpath(dirname(__FILE__) . '/Version/Number.txt');
+        $file = strlen($fileLocation) ? $fileLocation : self::getDefaultFileLocation();
         if (!file_exists($file)) {
             $message = sprintf('File not found: %s', $file);
             throw new \Tbs\Version\Exception($message);
         }
-        return file_get_contents($file);
+
+        return (string)preg_replace('/\n/', '', file_get_contents($file));
     }
 }
