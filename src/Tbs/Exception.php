@@ -2,24 +2,22 @@
 /**
  * @category Library
  * @package Tbs
- * @subpackage Autoload
+ * @subpackage Version
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Autoload;
-
-use \Tbs\Exception as E;
+namespace Tbs;
 
 /**
- * Autoload Exception Class.
+ * Tbs Exception.
  *
  * @category Library
  * @package Tbs
- * @subpackage Autoload
+ * @subpackage Version
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class Exception extends E
+class Exception extends \Exception
 {
 }
