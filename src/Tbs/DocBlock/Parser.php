@@ -31,10 +31,37 @@ class Parser
         $docBlock = self::cleanInput($docBlock);
         $docBlock = self::splitDocBlock($docBlock);
         return array(
-            'shortDescription' => strlen($docBlock[0])   ? $docBlock[0] : null,
-            'longDescription'  => strlen($docBlock[1])   ? $docBlock[1] : null,
-            'tags'             => is_array($docBlock[2]) ? $docBlock[2] : array(),
+            'shortDescription' => strlen($docBlock[0]) ? $docBlock[0] : null,
+            'longDescription'  => strlen($docBlock[1]) ? $docBlock[1] : null,
+            'tags'             => self::parseTags($docBlock['2']),
         );
+    }
+
+    /**
+     * Strips the asterisks from the DocBlock comment.
+     *
+     * @link   <https://github.com/phpDocumentor/ReflectionDocBlock>
+     * @param  string $docBlock
+     * @return string
+     */
+    protected static function cleanInput($docBlock)
+    {
+        //Removing all asterisks.
+        $docBlock = trim(
+            preg_replace(
+                '#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]{0,1}(.*)?#u',
+                '$1',
+                $docBlock
+            )
+        );
+
+        //The regular expression above is not able to remove */ from a single line docblock.
+        if (substr($docBlock, -2) == '*/') {
+            $docBlock = trim(substr($docBlock, 0, -2));
+        }
+
+        //Normalizing strings.
+        return str_replace(array("\r\n", "\r"), "\n", $docBlock);
     }
 
     /**
@@ -50,24 +77,23 @@ class Parser
         if (strpos($docBlock, '@') === 0) {
             $matches = array('', '', $docBlock);
         } else {
-            // clears all extra horizontal whitespace from the line endings
-            // to prevent parsing issues
+            //Clears all extra horizontal whitespace from the line endings to prevent parsing issues.
             $docBlock = preg_replace('/\h*$/Sum', '', $docBlock);
 
-            /*
+            /**
              * Splits the docblock into a short description, long description and
-            * tags section
-            * - The short description is started from the first character until
-            *   a dot is encountered followed by a newline OR
-            *   two consecutive newlines (horizontal whitespace is taken into
-                *   account to consider spacing errors)
-            * - The long description, any character until a new line is
-            *   encountered followed by an @ and word characters (a tag).
-            *   This is optional.
-            * - Tags; the remaining characters
-            *
-            * Big thanks to RichardJ for contributing this Regular Expression
-            */
+             * tags section
+             * - The short description is started from the first character until
+             *   a dot is encountered followed by a newline OR
+             *   two consecutive newlines (horizontal whitespace is taken into
+             *   account to consider spacing errors)
+             * - The long description, any character until a new line is
+             *   encountered followed by an @ and word characters (a tag).
+             *   This is optional.
+             * - Tags; the remaining characters
+             *
+             * Big thanks to RichardJ for contributing this Regular Expression
+             */
             preg_match(
                 '/
                 \A (
@@ -106,29 +132,79 @@ class Parser
     }
 
     /**
-     * Strips the asterisks from the DocBlock comment.
+     * Creates the tag objects.
      *
-     * @link   <https://github.com/phpDocumentor/ReflectionDocBlock>
-     * @param  string $docBlock
-     * @return string
+     * @param  string $tags Tag block to parse.
+     * @return array|null
+     * @throws \Tbs\DocBlock\Exception
      */
-    protected static function cleanInput($docBlock)
+    protected static function parseTags($tags = null)
     {
-        //Removing all asterisks.
-        $docBlock = trim(
-            preg_replace(
-                '#[ \t]*(?:\/\*\*|\*\/|\*)?[ \t]{0,1}(.*)?#u',
-                '$1',
-                $docBlock
-            )
-        );
-
-        //The regular expression above is not able to remove */ from a single line docblock.
-        if (substr($docBlock, -2) == '*/') {
-            $docBlock = trim(substr($docBlock, 0, -2));
+        if (!strlen($tags)) {
+            return null;
         }
 
-        //Normalizing strings.
-        return str_replace(array("\r\n", "\r"), "\n", $docBlock);
+        $parsed = array();
+        $tags   = trim($tags);
+
+        if ($tags[0] !== '@') {
+            throw new \Tbs\DocBlock\Exception(
+                sprintf(
+                    'A tag block started with text instead of an actual tag this makes the tag block invalid: %s',
+                    $tags
+                )
+            );
+        }
+
+        foreach (explode("\n", $tags) as $i => $tag) {
+            if (!strlen(trim($tag))) {
+                unset($parsed[$i]);
+                continue;
+            }
+            $parsedTag = self::parseTag($tag);
+            $type      = $parsedTag['type'];
+            unset($parsedTag['type']);
+
+            $parsed[$type][] = $parsedTag;
+        }
+        return $parsed;
+    }
+
+    /**
+     * Parse the tag line.
+     *
+     * @param  string $tag_line
+     * @return array
+     * @throws \Tbs\DocBlock\Exception
+     */
+    static protected function parseTag($tag_line)
+    {
+        /* if (!preg_match('/^@[a-zA-Z]\s$/', $tag_line, $matches)) {
+            throw new \Tbs\DocBlock\Exception(
+        	   sprintf('Invalid tag line detected: %s', $tag_line)
+            );
+        } */
+
+        preg_match('/^[a-zA-Z]$/', $tag_line, $matches);
+
+        print_r($matches);
+
+
+        /* $tag    = @explode(' ', $tag);
+        $tag    = array_map('trim', $tag);
+        $parsed = array();
+        if(isset($tag[0]) and strlen($tag[0])) {
+            $parsed['type'] = str_replace('@', '', $tag[0]);
+        }
+        if(isset($tag[1]) and strlen($tag[1])) {
+            $parsed['name'] = $tag[1];
+        }
+        if(isset($tag[2]) and strlen($tag[2])) {
+            $parsed['value'] = $tag[2];
+        }
+        if(isset($tag[3]) and strlen($tag[3])) {
+            $parsed['desc'] = $tag[3];
+        }
+        return $parsed; */
     }
 }

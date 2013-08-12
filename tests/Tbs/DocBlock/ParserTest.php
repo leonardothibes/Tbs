@@ -44,7 +44,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @see \Tbs\DocBlock\Parser::getParsed()
      */
-    public function testGetParsed()
+    public function testGetParsedComplete()
     {
         $docBlock = '
             /**
@@ -52,16 +52,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
              *
              * This is an long description.
              *
-             * @param string $first
+             * @param string $first description of the param
              * @param string $seccond
              *
-             * @return array
+             * @return array This is a return of method
              */
         ';
 
         $rs = P::getParsed($docBlock);
-
-        var_dump($rs);
 
         $this->assertInternalType('array', $rs);
         $this->assertEquals(3, count($rs));
@@ -72,8 +70,27 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('longDescription', $rs);
         $this->assertEquals('This is an long description.', $rs['longDescription']);
 
+        //print_r($rs['tags']);
+
         $this->assertArrayHasKey('tags', $rs);
         $this->assertInternalType('array', $rs['tags']);
+
+        $this->assertInternalType('array', $rs['tags']);
+        $this->assertEquals(2, count($rs['tags']));
+
+        $this->assertArrayHasKey('param', $rs['tags']);
+        $this->assertArrayHasKey('0', $rs['tags']['param']);
+
+        /* $this->assertEquals(4, count($rs['tags']['param'][0]));
+        $this->assertArrayHasKey('type', $rs['tags']['param'][0]);
+        $this->assertArrayHasKey('name', $rs['tags']['param'][0]);
+        $this->assertArrayHasKey('', $rs['tags']['param'][0]);
+        $this->assertArrayHasKey('', $rs['tags']['param'][0]);
+
+        $this->assertEquals(3, count($rs['tags']['param'][1]));
+        $this->assertArrayHasKey('1', $rs['tags']['param']);
+
+        $this->assertArrayHasKey('return', $rs['tags']); */
     }
 }
 
