@@ -9,6 +9,8 @@
 
 namespace Tbs\DocBlock\Tag;
 
+use \Tbs\DocBlock\Tag\InterfaceTag;
+
 /**
  * Abstract methods of tag recognition.
  *
@@ -18,50 +20,40 @@ namespace Tbs\DocBlock\Tag;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-abstract class Abstraction implements \Reflector
+abstract class Abstraction implements \Reflector, InterfaceTag
 {
     /**
-     * Tag name(@param, @return, @author...).
-     * @var string
-     */
-    protected $tagName = null;
-
-    /**
-     * Tag Type(string, int, array...).
-     * @var string
-     */
-    protected $tagType = null;
-
-    /**
-     * Tag content.
-     * @var string
-     */
-    protected $tagContent = null;
-
-    /**
-     * Tag content.
-     * @var string
-     */
-    protected $tagDescription = null;
-
-    /**
-     * Set the tag name.
+     * Split the tag parts.
      *
-     * @param  string $tagName
-     * @return \Tbs\DocBlock\Tag\Abstraction
+     * @param  string $tag
+     * @return array
      */
-    public function setTagName($tagName)
+    protected function splitTag($tag)
     {
-        $this->tagName = (string)$tagName;
-        return $this;
+        $splited = @explode(' ', preg_replace('/\s\s+/', ' ', trim($tag)));
+        unset($splited[0]);
+        return $splited;
     }
 
     /**
-     * Get the tag name.
+     * Exports.
+     *
+     * @link   http://www.php.net/manual/en/reflector.export.php
      * @return string
      */
-    public function getTagName()
+    public static function export()
     {
-        return (string)$this->tagName;
+        //Nothing to do... yet
+    }
+
+    /**
+     * To string.
+     *
+     * @link   http://www.php.net/manual/en/reflector.tostring.php
+     * @return string
+     */
+    public function __toString()
+    {
+        return self::export();
     }
 }
