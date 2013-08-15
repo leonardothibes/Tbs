@@ -162,10 +162,7 @@ class Parser
                 continue;
             }
             $parsedTag = self::parseTag($tag);
-            $type      = $parsedTag['type'];
-            unset($parsedTag['type']);
-
-            $parsed[$type][] = $parsedTag;
+            $parsed[] = $parsedTag;
         }
         return $parsed;
     }
@@ -177,34 +174,16 @@ class Parser
      * @return array
      * @throws \Tbs\DocBlock\Exception
      */
-    static protected function parseTag($tag_line)
+    protected static function parseTag($tag_line)
     {
-        /* if (!preg_match('/^@[a-zA-Z]\s$/', $tag_line, $matches)) {
-            throw new \Tbs\DocBlock\Exception(
-        	   sprintf('Invalid tag line detected: %s', $tag_line)
-            );
-        } */
-
-        preg_match('/^[a-zA-Z]$/', $tag_line, $matches);
-
-        print_r($matches);
-
-
-        /* $tag    = @explode(' ', $tag);
-        $tag    = array_map('trim', $tag);
-        $parsed = array();
-        if(isset($tag[0]) and strlen($tag[0])) {
-            $parsed['type'] = str_replace('@', '', $tag[0]);
+        $tag = @explode(' ', $tag_line);
+        if (!is_array($tag) or !isset($tag[0])) {
+            $message = sprintf('Invalid tag line detected: %s', $tag_line);
+            throw new \Tbs\DocBlock\Exception($message);
         }
-        if(isset($tag[1]) and strlen($tag[1])) {
-            $parsed['name'] = $tag[1];
-        }
-        if(isset($tag[2]) and strlen($tag[2])) {
-            $parsed['value'] = $tag[2];
-        }
-        if(isset($tag[3]) and strlen($tag[3])) {
-            $parsed['desc'] = $tag[3];
-        }
-        return $parsed; */
+        $className = ucfirst(strtolower(str_replace('@', '', $tag[0])));
+        $tagClass  = sprintf('\\Tbs\\DocBlock\\Tag\\%sTag', $className);
+        $instance  = new $tagClass();
+        return $tagClass->parse($tag_line);
     }
 }
