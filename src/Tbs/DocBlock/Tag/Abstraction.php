@@ -31,7 +31,6 @@ abstract class Abstraction implements \Reflector, InterfaceTag
     protected function splitTag($tag)
     {
         $splited = @explode(' ', preg_replace('/\s\s+/', ' ', trim($tag)));
-        unset($splited[0]);
         return $splited;
     }
 

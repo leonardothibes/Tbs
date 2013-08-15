@@ -39,12 +39,12 @@ class ParamTag extends A
 
         $tag = $this->splitTag($tag);
         $par = new P;
-        $par->setTag('param')
+        $par->setTag($tag[0])
             ->setTag($tag[1])
             ->setContent($tag[2]);
 
         if (isset($tag[3])) {
-            unset($tag[1], $tag[2]);
+            unset($tag[0], $tag[1], $tag[2]);
             $par->setDescription(@implode(' ', $tag));
         }
 
