@@ -21,66 +21,58 @@ require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootst
 class LogLevelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @see \Tbs\Log\LogLevel::EMERGENCY
+     * @var \Tbs\Log\LogLevel
      */
-    public function testEmergency()
+    protected $object = null;
+
+    /**
+     * Setup.
+     */
+    protected function setUp()
     {
-        $this->assertEquals('emergency', LogLevel::EMERGENCY);
+        $this->object = new LogLevel;
     }
 
     /**
-     * @see \Tbs\Log\LogLevel::ALERT
+     * TearDown.
      */
-    public function testAlert()
+    protected function tearDown()
     {
-        $this->assertEquals('alert', LogLevel::ALERT);
+        unset($this->object);
     }
 
     /**
-     * @see \Tbs\Log\LogLevel::CRITICAL
+     * Provider of constants and values.
+     * @return array
      */
-    public function testCritical()
+    public function providerConstantsValues()
     {
-        $this->assertEquals('critical', LogLevel::CRITICAL);
+        return array(
+            array('EMERGENCY', 'emergency'),
+            array('ALERT'    , 'alert'),
+            array('CRITICAL' , 'critical'),
+            array('ERROR'    , 'error'),
+            array('WARNING'  , 'warning'),
+            array('NOTICE'   , 'notice'),
+            array('INFO'     , 'info'),
+            array('DEBUG'    , 'debug'),
+        );
     }
 
     /**
-     * @see \Tbs\Log\LogLevel::ERROR
+     * @see \Tbs\Log\LogLevel
+     * @dataProvider providerConstantsValues
      */
-    public function testError()
+    public function testConstantsValues($constantName, $constantValue)
     {
-        $this->assertEquals('error', LogLevel::ERROR);
-    }
+        $class      = get_class($this->object);
+        $reflection = new \ReflectionClass($class);
+        $constants  = $reflection->getConstants();
 
-    /**
-     * @see \Tbs\Log\LogLevel::WARNING
-     */
-    public function testWarning()
-    {
-        $this->assertEquals('warning', LogLevel::WARNING);
-    }
-
-    /**
-     * @see \Tbs\Log\LogLevel::NOTICE
-     */
-    public function testNotice()
-    {
-        $this->assertEquals('notice', LogLevel::NOTICE);
-    }
-
-    /**
-     * @see \Tbs\Log\LogLevel::INFO
-     */
-    public function testInfo()
-    {
-        $this->assertEquals('info', LogLevel::INFO);
-    }
-
-    /**
-     * @see \Tbs\Log\LogLevel::DEBUG
-     */
-    public function testDebug()
-    {
-        $this->assertEquals('debug', LogLevel::DEBUG);
+        $this->assertInternalType('array', $constants);
+        $this->assertEquals(8, count($constants));
+        $this->assertArrayHasKey($constantName, $constants);
+        $this->assertInternalType('string', $constants[$constantName]);
+        $this->assertEquals($constantValue, $constants[$constantName]);
     }
 }
