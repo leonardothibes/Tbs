@@ -1,0 +1,136 @@
+<?php
+/**
+ * @category Tests
+ * @package Tbs
+ * @subpackage Helper
+ * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @copyright Copyright (c) The Authors
+ */
+
+namespace Tbs\Log;
+use \Tbs\Log\File     as Log;
+use \Tbs\Log\LogLevel as Level;
+require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+
+/**
+ * @category Tests
+ * @package Tbs
+ * @subpackage Helper
+ * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @copyright Copyright (c) The Authors
+ */
+class FileTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @var \Tbs\Log\File
+     */
+    protected $object = null;
+
+    /**
+     * @var string
+     */
+    protected $logfile = null;
+
+    /**
+     * Setup.
+     */
+    protected function setUp()
+    {
+        $this->logfile = sprintf('%s/test.log', STUFF_PATH);
+    	$this->object  = new Log($this->logfile);
+    }
+
+    /**
+     * TearDown.
+     */
+    protected function tearDown()
+    {
+        @unlink($this->logfile);
+    	unset($this->object);
+    }
+
+    /**
+     * Test if implements the right interface.
+     */
+    public function testInterface()
+    {
+        $this->assertInstanceOf('\Tbs\Log\Interfaces\LoggerInterface', $this->object);
+    }
+
+    /**
+     * @see \Tbs\Log\File::__construct()
+     */
+    public function testLogFileExists()
+    {
+        $this->assertTrue(file_exists($this->logfile));
+    }
+
+    /**
+     * @see \Tbs\Log\File::__construct()
+     */
+    public function testLogFileIsWritable()
+    {
+        $this->assertTrue(is_writable($this->logfile));
+    }
+
+    /**
+     * Provider of log messages.
+     * @return array
+     */
+    public function providerLogMessages()
+    {
+        return array(
+        	array('this is a log message', Level::EMERGENCY),
+            array('this is a log message', Level::ALERT),
+            array('this is a log message', Level::CRITICAL),
+            array('this is a log message', Level::ERROR),
+            array('this is a log message', Level::WARNING),
+            array('this is a log message', Level::NOTICE),
+            array('this is a log message', Level::INFO),
+            array('this is a log message', Level::DEBUG),
+        );
+    }
+
+    /**
+     * @see \Tbs\Log\File::log()
+     * @dataProvider providerLogMessages
+     */
+    public function testLog($message, $level)
+    {
+        $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+        $this->object->log($level, $message);
+        $rs = file_get_contents($this->logfile);
+        $this->assertEquals($line, $rs);
+    }
+
+    /**
+     * @see \Tbs\Log\File::emergency()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogLevel($message, $level)
+    {
+        $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+        $this->object->{$level}($message);
+        $rs = file_get_contents($this->logfile);
+        $this->assertEquals($line, $rs);
+    }
+
+    /**
+     * @see \Tbs\Log\File::log()
+     */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

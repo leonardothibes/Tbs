@@ -7,7 +7,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Helper;
+namespace Tbs\Log;
 use \Tbs\Log\LogLevel;
 require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
