@@ -1,0 +1,66 @@
+<?php
+/**
+ * @category Library
+ * @package Tbs
+ * @subpackage Log
+ * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @copyright Copyright (c) The Authors
+ */
+
+namespace Tbs\Log;
+
+use \Tbs\Log\Abstraction as A;
+
+/**
+ * Class of log in disc file.
+ *
+ * @category Library
+ * @package Tbs
+ * @subpackage Log
+ * @author Leonardo Thibes <eu@leonardothibes.com>
+ * @copyright Copyright (c) The Authors
+ */
+class File extends A
+{
+    /**
+     * Log file.
+     * @var string
+     */
+    protected $logfile = null;
+
+    /**
+     * Define the log file location.
+     *
+     * @param  string $logfile
+     * @throws \Tbs\Log\File\Exception
+     */
+    public function __construct($logfile)
+    {
+        if (!strlen($logfile)) {
+            throw new \Tbs\Log\File\Exception('Log file could not be blank');
+        }
+
+        $logdir = dirname($logfile);
+        if (!is_dir($logdir) or !is_writable($logdir)) {
+            $message = sprintf('No write access to the log directory: %s', $dir);
+        }
+
+        $this->logfile = $logfile;
+    }
+
+    /**
+     * Logs with an arbitrary level.
+     *
+     * @param mixed  $level
+     * @param string $message
+     * @param array  $context
+     *
+     * @return void
+     */
+    public function log($level, $message, array $context = array())
+    {
+        $message = $this->interpolate($message, $context);
+        $message = $this->formatMessage($message, $level);
+        file_put_contents($this->logfile, $message, FILE_APPEND | LOCK_EX);
+    }
+}
