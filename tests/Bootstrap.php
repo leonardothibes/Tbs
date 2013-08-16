@@ -6,10 +6,10 @@
  */
 
 //Definindo caminho para a aplicação.
-define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../src'));
+define('LIBRARY_PATH', dirname(__FILE__) . '/../src');
 
 //Definindo caminho para o diretório de lixo.
-define('STUFF_PATH', realpath(dirname(__FILE__) . '/.stuff'));
+define('STUFF_PATH', dirname(__FILE__) . '/Tbs/.stuff');
 
 //Definindo o "include_path".
 set_include_path(implode(PATH_SEPARATOR, array(
