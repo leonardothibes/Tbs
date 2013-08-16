@@ -27,9 +27,24 @@ class ReturnTag extends A
      *
      * @param  string $tag
      * @return array
+     * @throws \Tbs\DocBlock\Tag\Exception
      */
-    public static function parse($tag)
+    public function parse($tag)
     {
-        return 'parsed return';
+        if (!strlen($tag) or substr($tag, 0, 7) != '@return') {
+            $message = sprintf('Invalid param tag line detected: %s', $tag);
+            throw new \Tbs\DocBlock\Tag\Exception($message);
+        }
+
+        $tag = $this->splitTag($tag);
+        $this->parsed->setTag($tag[0])
+             ->setType($tag[1]);
+
+        if (isset($tag[2])) {
+            unset($tag[0], $tag[1]);
+            $this->parsed->setDescription(@implode(' ', $tag));
+        }
+
+        return $this->parsed;
     }
 }
