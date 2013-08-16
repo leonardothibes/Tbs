@@ -48,7 +48,6 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Tbs\DocBlock\Tag\Abstraction' , $this->object);
         $this->assertInstanceOf('\Tbs\DocBlock\Tag\InterfaceTag', $this->object);
-        $this->assertInstanceOf('\Reflector'                    , $this->object);
     }
 
     /**
@@ -125,5 +124,31 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase
         if($desc === true) {
             $this->assertEquals('description of the fucking param.', $rs->getDescription());
         }
+    }
+
+    /**
+     * @see \Tbs\DocBlock\Tag\Abstraction::export()
+     * @dataProvider providerWithDescription
+     */
+    public function testExportWithDescription($tag)
+    {
+        $this->object->parse($tag);
+        $rs = $this->object->export();
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('@param string $variable description of the fucking param.', $rs);
+        $this->assertEquals($rs, $this->object->__toString());
+    }
+
+    /**
+     * @see \Tbs\DocBlock\Tag\Abstraction::export()
+     * @dataProvider providerWithoutDescription
+     */
+    public function testExportWithoutDescription($tag)
+    {
+        $this->object->parse($tag);
+        $rs = $this->object->export();
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('@param string $variable', $rs);
+        $this->assertEquals($rs, $this->object->__toString());
     }
 }

@@ -9,8 +9,7 @@
 
 namespace Tbs\DocBlock\Tag;
 
-use \Tbs\DocBlock\Tag\Abstraction   as A;
-use \Tbs\DocBlock\Collection\Parsed as P;
+use \Tbs\DocBlock\Tag\Abstraction as A;
 
 /**
  * Abstract methos of tags of DocBlock.
@@ -38,16 +37,15 @@ class ParamTag extends A
         }
 
         $tag = $this->splitTag($tag);
-        $par = new P;
-        $par->setTag(str_replace('@', '', $tag[0]))
-            ->setType($tag[1])
-            ->setContent($tag[2]);
+        $this->parsed->setTag($tag[0])
+             ->setType($tag[1])
+             ->setContent($tag[2]);
 
         if (isset($tag[3])) {
             unset($tag[0], $tag[1], $tag[2]);
-            $par->setDescription(@implode(' ', $tag));
+            $this->parsed->setDescription(@implode(' ', $tag));
         }
 
-        return $par;
+        return $this->parsed;
     }
 }

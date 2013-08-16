@@ -10,6 +10,7 @@
 namespace Tbs\DocBlock\Tag;
 
 use \Tbs\DocBlock\Tag\InterfaceTag;
+use \Tbs\DocBlock\Collection\Parsed;
 
 /**
  * Abstract methods of tag recognition.
@@ -20,8 +21,22 @@ use \Tbs\DocBlock\Tag\InterfaceTag;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-abstract class Abstraction implements \Reflector, InterfaceTag
+abstract class Abstraction implements InterfaceTag
 {
+    /**
+     * Parsed tag object.
+     * @var \Tbs\DocBlock\Collection\Parsed
+     */
+    protected $parsed = null;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->parsed = new Parsed;
+    }
+
     /**
      * Split the tag parts.
      *
@@ -40,9 +55,18 @@ abstract class Abstraction implements \Reflector, InterfaceTag
      * @link   http://www.php.net/manual/en/reflector.export.php
      * @return string
      */
-    public static function export()
+    public function export()
     {
-        //Nothing to do... yet
+        $tag = @implode(
+            ' ',
+            array(
+                '@' . $this->parsed->getTag(),
+                $this->parsed->getType(),
+                $this->parsed->getContent(),
+                $this->parsed->getDescription(),
+            )
+        );
+        return trim($tag);
     }
 
     /**
@@ -53,6 +77,6 @@ abstract class Abstraction implements \Reflector, InterfaceTag
      */
     public function __toString()
     {
-        return self::export();
+        return $this->export();
     }
 }
