@@ -48,7 +48,7 @@ class Parsed
      */
     public function setTag($tag = null)
     {
-        $this->tag = (string)$tag;
+        $this->tag = str_replace('@', '', trim((string)$tag));
         return $this;
     }
 
@@ -69,7 +69,7 @@ class Parsed
      */
     public function setType($type = null)
     {
-        $this->type = (string)$type;
+        $this->type = trim((string)$type);
         return $this;
     }
 
@@ -90,7 +90,7 @@ class Parsed
      */
     public function setContent($content = null)
     {
-        $this->content = (string)$content;
+        $this->content = trim((string)$content);
         return $this;
     }
 
@@ -111,7 +111,7 @@ class Parsed
      */
     public function setDescription($description = null)
     {
-        $this->description = (string)$description;
+        $this->description = trim((string)$description);
         return $this;
     }
 
