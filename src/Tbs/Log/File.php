@@ -31,10 +31,12 @@ class File extends A
     /**
      * Define the log file location.
      *
-     * @param  string $logfile
+     * @param string $logfile
+     * @param int    $mode
+     *
      * @throws \Tbs\Log\File\Exception
      */
-    public function __construct($logfile)
+    public function __construct($logfile, $mode = 0777)
     {
         if (!strlen($logfile)) {
             throw new \Tbs\Log\File\Exception('Log file could not be blank');
@@ -42,7 +44,12 @@ class File extends A
 
         $logdir = dirname($logfile);
         if (!is_dir($logdir) or !is_writable($logdir)) {
-            $message = sprintf('No write access to the log directory: %s', $dir);
+            $message = sprintf('No write access to the log directory: %s', $logdir);
+        }
+
+        if (!file_exists($logfile)) {
+            touch($logfile);
+            chmod($logfile, $mode);
         }
 
         $this->logfile = $logfile;
@@ -61,6 +68,6 @@ class File extends A
     {
         $message = $this->interpolate($message, $context);
         $message = $this->formatMessage($message, $level);
-        file_put_contents($this->logfile, $message, FILE_APPEND | LOCK_EX);
+        file_put_contents($this->logfile, $message . "\n", FILE_APPEND | LOCK_EX);
     }
 }

@@ -176,6 +176,6 @@ abstract class Abstraction implements LoggerInterface
      */
     protected function formatMessage($message, $level)
     {
-        return sprintf('%s %s: %s', date('Y-m-d H:i:s'), strtoupper($level), $message);
+        return sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message);
     }
 }
