@@ -39,8 +39,8 @@ class ParamTag extends A
 
         $tag = $this->splitTag($tag);
         $par = new P;
-        $par->setTag($tag[0])
-            ->setTag($tag[1])
+        $par->setTag(str_replace('@', '', $tag[0]))
+            ->setType($tag[1])
             ->setContent($tag[2]);
 
         if (isset($tag[3])) {

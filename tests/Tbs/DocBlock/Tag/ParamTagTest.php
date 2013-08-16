@@ -113,30 +113,17 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase
     /**
      * Test param return.
      *
-     * @param array $rs
-     * @param bool  $desc
+     * @param \Tbs\DocBlock\Collection\Parsed $rs
+     * @param bool                            $desc
      */
     private function _testReturn($rs, $desc)
     {
-        $this->assertInternalType('array', $rs);
+        $this->assertInstanceOf('\Tbs\DocBlock\Collection\Parsed', $rs);
+        $this->assertEquals('param'    , $rs->getTag());
+        $this->assertEquals('string'   , $rs->getType());
+        $this->assertEquals('$variable', $rs->getContent());
         if($desc === true) {
-            $this->assertEquals(4, count($rs));
-        } else {
-            $this->assertEquals(3, count($rs));
-        }
-
-        $this->assertArrayHasKey('tag', $rs);
-        $this->assertEquals('param', $rs['tag']);
-
-        $this->assertArrayHasKey('type', $rs);
-        $this->assertEquals('string', $rs['type']);
-
-        $this->assertArrayHasKey('content', $rs);
-        $this->assertEquals('$variable', $rs['content']);
-
-        if($desc === true) {
-            $this->assertArrayHasKey('description', $rs);
-            $this->assertEquals('description of the fucking param.', $rs['description']);
+            $this->assertEquals('description of the fucking param.', $rs->getDescription());
         }
     }
 }
