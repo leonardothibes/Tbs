@@ -117,8 +117,8 @@ interface LoggerInterface
     /**
      * Detailed debug information.
      *
-     * @param string $message
-     * @param array  $context
+     * @param mixed $message
+     * @param array $context
      *
      * @return void
      */
