@@ -95,7 +95,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      * @see \Tbs\Log\File::log()
      * @dataProvider providerLogMessages
      */
-    public function testLog($message, $level)
+    public function testLogOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
         $this->object->log($level, $message);
@@ -107,7 +107,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      * @see \Tbs\Log\File::emergency()
      * @dataProvider providerLogMessages
      */
-    public function testLogLevel($message, $level)
+    public function testLogLevelOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
         $this->object->{$level}($message);
@@ -117,20 +117,49 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @see \Tbs\Log\File::log()
+     * @dataProvider providerLogMessages
      */
+    public function testLogMultiLines($message, $level)
+    {
+        $total = rand(5,10);
+        for ($i = 1; $i <= $total; $i++) {
+            $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+            $this->object->log($level, $message . "($i)");
+        }
+
+        $rs    = file_get_contents($this->logfile);
+        $lines = @explode("\n", $rs);
+        $this->assertEquals($total+1, count($lines));
+
+        foreach ($lines as $line) {
+            if (strlen($line)) {
+                $regexp = '/^' . date('Y-m-d H:i:s') . ' \['.strtoupper($level).'\]: this is a log message\([0-9]{1,2}\)$/';
+                $this->assertRegExp($regexp, $line);
+            }
+        }
+    }
+
+    /**
+     * @see \Tbs\Log\File::log()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogLevelMultiLines($message, $level)
+    {
+        $total = rand(5,10);
+        for ($i = 1; $i <= $total; $i++) {
+            $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+            $this->object->{$level}($message . "($i)");
+        }
+
+        $rs    = file_get_contents($this->logfile);
+        $lines = @explode("\n", $rs);
+        $this->assertEquals($total+1, count($lines));
+
+        foreach ($lines as $line) {
+            if (strlen($line)) {
+                $regexp = '/^' . date('Y-m-d H:i:s') . ' \['.strtoupper($level).'\]: this is a log message\([0-9]{1,2}\)$/';
+                $this->assertRegExp($regexp, $line);
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
