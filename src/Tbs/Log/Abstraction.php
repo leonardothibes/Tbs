@@ -128,8 +128,8 @@ abstract class Abstraction implements LoggerInterface
     /**
      * Detailed debug information.
      *
-     * @param string $message
-     * @param array  $context
+     * @param mixed $message
+     * @param array $context
      *
      * @return void
     */
@@ -164,5 +164,31 @@ abstract class Abstraction implements LoggerInterface
     protected function formatMessage($message, $level)
     {
         return sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message);
+    }
+
+    /**
+     * prepare the log message.
+     *
+     * @param mixed  $level
+     * @param string $message
+     * @param array  $context
+     *
+     * @return string
+     */
+    protected function prepare($level, $message, array $context = array())
+    {
+        //Intercepting the buffer content.
+        ob_start();
+        print_r($message);
+        $message = ob_get_contents();
+        ob_end_clean();
+        //Intercepting the buffer content.
+
+        //Preparing the string message.
+        $message = $this->interpolate($message, $context);
+        $message = $this->formatMessage($message, $level);
+        //Preparing the string message.
+
+        return $message;
     }
 }

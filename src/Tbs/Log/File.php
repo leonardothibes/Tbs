@@ -66,8 +66,7 @@ class File extends A
      */
     public function log($level, $message, array $context = array())
     {
-        $message = $this->interpolate($message, $context);
-        $message = $this->formatMessage($message, $level);
+        $message = $this->prepare($level, $message, $context);
         file_put_contents($this->logfile, $message . "\n", FILE_APPEND | LOCK_EX);
     }
 }

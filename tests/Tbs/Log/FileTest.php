@@ -208,4 +208,138 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($newline, $rs);
     }
+
+    /**
+     * @see \Tbs\Log\File::debug()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogDebug($message, $level)
+    {
+        $array = array(
+            'id1' => $message . '(1)',
+            'id2' => $message . '(2)',
+            'id3' => $message . '(3)',
+        );
+        $this->object->log($level, $array);
+
+        $rs = file_get_contents($this->logfile);
+        $rs = @explode("\n", $rs);
+        unset($rs[6], $rs[7]);
+
+        $regexp = '/^[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \['. strtoupper($level) .'\]: Array$/';
+        $this->assertRegExp($regexp, trim($rs[0]));
+
+        $this->assertEquals('(', $rs[1]);
+        $this->assertEquals('    [id1] => this is a log message(1)', $rs[2]);
+        $this->assertEquals('    [id2] => this is a log message(2)', $rs[3]);
+        $this->assertEquals('    [id3] => this is a log message(3)', $rs[4]);
+        $this->assertEquals(')', $rs[5]);
+    }
+
+    /**
+     * @see \Tbs\Log\File::debug()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogLevelDebug($message, $level)
+    {
+        $array = array(
+            'id1' => $message . '(1)',
+            'id2' => $message . '(2)',
+            'id3' => $message . '(3)',
+        );
+        $this->object->{$level}($array);
+
+        $rs = file_get_contents($this->logfile);
+        $rs = @explode("\n", $rs);
+        unset($rs[6], $rs[7]);
+
+        $regexp = '/^[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \['. strtoupper($level) .'\]: Array$/';
+        $this->assertRegExp($regexp, trim($rs[0]));
+
+        $this->assertEquals('(', $rs[1]);
+        $this->assertEquals('    [id1] => this is a log message(1)', $rs[2]);
+        $this->assertEquals('    [id2] => this is a log message(2)', $rs[3]);
+        $this->assertEquals('    [id3] => this is a log message(3)', $rs[4]);
+        $this->assertEquals(')', $rs[5]);
+    }
+
+    /**
+     * @see \Tbs\Log\File::debug()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogContextDebug($message, $level)
+    {
+        $array = array(
+            'id1' => $message . ' {tag1}(1)',
+            'id2' => $message . ' {tag2}(2)',
+            'id3' => $message . ' {tag3}(3)',
+        );
+        $context = array(
+        	'tag1' => 'tag 1 content',
+            'tag2' => 'tag 2 content',
+            'tag3' => 'tag 3 content',
+        );
+        $this->object->log($level, $array, $context);
+
+        $rs = file_get_contents($this->logfile);
+        $rs = @explode("\n", $rs);
+        unset($rs[6], $rs[7]);
+
+        $regexp = '/^[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \['. strtoupper($level) .'\]: Array$/';
+        $this->assertRegExp($regexp, trim($rs[0]));
+
+        $this->assertEquals('(', $rs[1]);
+        $this->assertEquals('    [id1] => this is a log message tag 1 content(1)', $rs[2]);
+        $this->assertEquals('    [id2] => this is a log message tag 2 content(2)', $rs[3]);
+        $this->assertEquals('    [id3] => this is a log message tag 3 content(3)', $rs[4]);
+        $this->assertEquals(')', $rs[5]);
+    }
+
+    /**
+     * @see \Tbs\Log\File::debug()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogLevelContextDebug($message, $level)
+    {
+        $array = array(
+            'id1' => $message . ' {tag1}(1)',
+            'id2' => $message . ' {tag2}(2)',
+            'id3' => $message . ' {tag3}(3)',
+        );
+        $context = array(
+            'tag1' => 'tag 1 content',
+            'tag2' => 'tag 2 content',
+            'tag3' => 'tag 3 content',
+        );
+        $this->object->{$level}($array, $context);
+
+        $rs = file_get_contents($this->logfile);
+        $rs = @explode("\n", $rs);
+        unset($rs[6], $rs[7]);
+
+        $regexp = '/^[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \['. strtoupper($level) .'\]: Array$/';
+        $this->assertRegExp($regexp, trim($rs[0]));
+
+        $this->assertEquals('(', $rs[1]);
+        $this->assertEquals('    [id1] => this is a log message tag 1 content(1)', $rs[2]);
+        $this->assertEquals('    [id2] => this is a log message tag 2 content(2)', $rs[3]);
+        $this->assertEquals('    [id3] => this is a log message tag 3 content(3)', $rs[4]);
+        $this->assertEquals(')', $rs[5]);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
