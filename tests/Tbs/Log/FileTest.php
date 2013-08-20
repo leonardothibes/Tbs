@@ -162,4 +162,50 @@ class FileTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
+
+    /**
+     * @see \Tbs\Log\File::log()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogInterpolate($message, $level)
+    {
+        $message .= ' with tags: {tag1} {tag2} {tag3}';
+        $line     = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+        $context  = array(
+        	'tag1' => 'this is a tag1 context',
+            'tag2' => 'this is a tag2 context',
+            'tag3' => 'this is a tag3 context',
+        );
+
+        $this->object->log($level, $message, $context);
+        $rs = file_get_contents($this->logfile);
+
+        $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
+        $newline = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $newmess) . "\n";
+
+        $this->assertEquals($newline, $rs);
+    }
+
+    /**
+     * @see \Tbs\Log\File::log()
+     * @dataProvider providerLogMessages
+     */
+    public function testLogLevelInterpolate($message, $level)
+    {
+        $message .= ' with tags: {tag1} {tag2} {tag3}';
+        $line     = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
+        $context  = array(
+            'tag1' => 'this is a tag1 context',
+            'tag2' => 'this is a tag2 context',
+            'tag3' => 'this is a tag3 context',
+        );
+
+        $this->object->{$level}($message, $context);
+        $rs = file_get_contents($this->logfile);
+
+        $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
+        $newline = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $newmess) . "\n";
+
+        $this->assertEquals($newline, $rs);
+    }
 }

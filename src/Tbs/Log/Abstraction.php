@@ -150,6 +150,7 @@ abstract class Abstraction implements LoggerInterface
     {
         if (count($context) > 0) {
             $message = strtr($message, $context);
+            $message = str_replace(array('{', '}'), '', $message);
         }
         return $message;
     }
