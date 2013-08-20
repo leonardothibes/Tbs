@@ -327,19 +327,3 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(')', $rs[5]);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
