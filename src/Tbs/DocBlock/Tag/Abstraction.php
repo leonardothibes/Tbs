@@ -66,7 +66,7 @@ abstract class Abstraction implements InterfaceTag
                 $this->parsed->getDescription(),
             )
         );
-        return trim($tag);
+        return preg_replace('/\s\s+/', ' ', trim($tag));
     }
 
     /**
