@@ -10,7 +10,7 @@
 namespace Tbs;
 
 use \Tbs\Log\Interfaces;
-use Tbs\Log\Interfaces\LoggerInterface;
+use \Tbs\Log\Interfaces\LoggerInterface;
 
 /**
  * Logger frontend class.
