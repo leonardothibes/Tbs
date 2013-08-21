@@ -71,6 +71,14 @@ class LogTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test if implements the right interface.
+     */
+    public function testInterface()
+    {
+        $this->assertInstanceOf('\Tbs\Log\Interfaces\LoggerAwareInterface', $this->object);
+    }
+
+    /**
      * @see \Tbs\Log::setLogger()
      * @see \Tbs\Log::getLogger()
      */

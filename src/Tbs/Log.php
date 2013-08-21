@@ -9,8 +9,8 @@
 
 namespace Tbs;
 
-use \Tbs\Log\Interfaces;
 use \Tbs\Log\Interfaces\LoggerInterface;
+use \Tbs\Log\Interfaces\LoggerAwareInterface;
 
 /**
  * Logger frontend class.
@@ -21,7 +21,7 @@ use \Tbs\Log\Interfaces\LoggerInterface;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class Log
+class Log implements LoggerAwareInterface
 {
     /**
      * Singleton instance.

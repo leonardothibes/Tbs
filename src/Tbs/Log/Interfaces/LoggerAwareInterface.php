@@ -22,7 +22,7 @@ namespace Tbs\Log\Interfaces;
 interface LoggerAwareInterface
 {
     /**
-     * Sets a logger instance on the object
+     * Sets a logger instance on the object.
      *
      * @param  LoggerInterface $logger
      * @return void
