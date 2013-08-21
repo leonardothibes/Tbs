@@ -20,7 +20,7 @@ use \Tbs\DocBlock\Tag\Abstraction as A;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class ReturnTag extends A
+class ApiTag extends A
 {
     /**
      * Parse the tag.
@@ -31,20 +31,10 @@ class ReturnTag extends A
      */
     public function parse($tag)
     {
-        if (!strlen($tag) or substr($tag, 0, 7) != '@return') {
-            $message = sprintf('Invalid return tag line detected: %s', $tag);
+        if (!strlen($tag) or $tag != '@api') {
+            $message = sprintf('Invalid api tag line detected: %s', $tag);
             throw new \Tbs\DocBlock\Tag\Exception($message);
         }
-
-        $tag = $this->splitTag($tag);
-        $this->parsed->setTag($tag[0])
-             ->setType($tag[1]);
-
-        if (isset($tag[2])) {
-            unset($tag[0], $tag[1]);
-            $this->parsed->setDescription(@implode(' ', $tag));
-        }
-
         return $this->parsed;
     }
 }
