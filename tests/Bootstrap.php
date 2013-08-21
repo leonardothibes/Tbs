@@ -17,9 +17,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 	get_include_path(),
 )));
 
-//Incluindo o PHPUnit.
-require_once 'PHPUnit/Autoload.php';
-
 //Ativando o Autoloader.
 require_once 'Tbs/Autoload.php';
 \Tbs\Autoload::register(true);
