@@ -48,8 +48,8 @@ class File extends A
         }
 
         if (!file_exists($logfile)) {
-            touch($logfile);
-            chmod($logfile, $mode);
+            @touch($logfile);
+            @chmod($logfile, $mode);
         }
 
         $this->logfile = $logfile;
