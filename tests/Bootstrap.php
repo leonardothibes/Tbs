@@ -23,3 +23,9 @@ require_once 'PHPUnit/Autoload.php';
 //Ativando o Autoloader.
 require_once 'Tbs/Autoload.php';
 \Tbs\Autoload::register(true);
+
+//Ativando componente de log.
+$logfile = LIBRARY_PATH . '/../tmp/logs/tbs_' . date('Y-m-d') . '.log';
+\Tbs\Log::getInstance()->setLogger(
+	new \Tbs\Log\File($logfile)
+);
