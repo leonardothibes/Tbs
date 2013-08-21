@@ -52,7 +52,7 @@ class Log
      */
     protected function __construct()
     {
-    	//Do nothing...yet
+        //Do nothing...yet
     }
 
     /**
@@ -91,7 +91,7 @@ class Log
         if (is_null($logger)) {
             throw new \Tbs\Log\Exception('The logger object is not set');
         }
-        $reflection = new \ReflectionClass($logger);
-        return $reflection->getMethod($method)->invokeArgs($reflection, $args);
+        $reflection = new \ReflectionObject($logger);
+        return $reflection->getMethod($method)->invokeArgs($logger, $args);
     }
 }
