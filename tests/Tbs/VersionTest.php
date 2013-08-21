@@ -9,7 +9,6 @@
 
 namespace Tbs;
 use \Tbs\Version as v;
-
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 
 /**
