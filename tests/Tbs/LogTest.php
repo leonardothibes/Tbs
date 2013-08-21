@@ -37,6 +37,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        log::getInstance()->resetInstance();
         $this->logfile = sprintf('%s/test.log', STUFF_PATH);
     	$this->object  = log::getInstance()->setLogger(
     	    new file($this->logfile)
@@ -48,6 +49,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        log::getInstance()->resetInstance();
         @unlink($this->logfile);
     	unset($this->object);
     }
@@ -92,6 +94,19 @@ class LogTest extends \PHPUnit_Framework_TestCase
         //Getting the logger.
         $rs = $this->object->getLogger();
         $this->assertInstanceOf('\Tbs\Log\File', $rs);
+    }
+
+    /**
+     * @see \Tbs\Log::resetInstance()
+     */
+    public function testResetInstance()
+    {
+        log::getInstance()->resetInstance();
+        $rs = $this->object->getLogger();
+        $this->assertNull($rs);
+
+        $rs = log::getInstance()->resetInstance()->getLogger();
+        $this->assertNull($rs);
     }
 
     /**
@@ -330,5 +345,27 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('    [id2] => this is a log message tag 2 content(2)', $rs[3]);
         $this->assertEquals('    [id3] => this is a log message tag 3 content(3)', $rs[4]);
         $this->assertEquals(')', $rs[5]);
+    }
+
+    /**
+     * @see \Tbs\Log:__callStatic()
+     * @dataProvider providerLogMessages
+     * @expectedException \Tbs\Log\Exception
+     */
+    public function test__callStaticException($message, $level)
+    {
+        log::getInstance()->resetInstance();
+        log::log($level, $message);
+    }
+
+    /**
+     * @see \Tbs\Log:__callStatic()
+     * @dataProvider providerLogMessages
+     * @expectedException \Tbs\Log\Exception
+     */
+    public function test__callStaticLevelException($message, $level)
+    {
+        log::getInstance()->resetInstance();
+        log::{$level}($message);
     }
 }

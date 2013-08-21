@@ -25,7 +25,7 @@ class DocBlock
     /**
      * Parse the DocBlock of a function.
      *
-     * @param string $function Function name.
+     * @param  string $function Function name.
      * @return \Tbs\DocBlock\Collection
      * @throws \Tbs\DocBlock\Exception
      */

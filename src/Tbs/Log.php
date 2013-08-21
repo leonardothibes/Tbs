@@ -56,6 +56,17 @@ class Log implements LoggerAwareInterface
     }
 
     /**
+     * Reset the singleton instance.
+     * @return \Tbs\Log
+     */
+    public function resetInstance()
+    {
+        $this->logger   = null;
+        self::$instance = null;
+        return $this;
+    }
+
+    /**
      * Set the log frontend component.
      *
      * @param  LoggerInterface $logger
