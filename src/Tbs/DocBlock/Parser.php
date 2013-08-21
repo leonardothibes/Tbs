@@ -162,8 +162,9 @@ class Parser
                 continue;
             }
             $parsedTag = self::parseTag($tag);
-            $parsed[] = $parsedTag;
+            $parsed[$parsedTag->getTag()][] = $parsedTag;
         }
+
         return $parsed;
     }
 
@@ -184,6 +185,6 @@ class Parser
         $className = ucfirst(strtolower(str_replace('@', '', $tag[0])));
         $tagClass  = sprintf('\\Tbs\\DocBlock\\Tag\\%sTag', $className);
         $instance  = new $tagClass();
-        return $tagClass->parse($tag_line);
+        return $instance->parse($tag_line);
     }
 }

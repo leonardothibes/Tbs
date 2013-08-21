@@ -60,62 +60,158 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         ';
 
         $rs = P::getParsed($docBlock);
+        $this->validateReturn($rs);
+        $this->validateShortDescrption($rs);
+        $this->validateLongDescrption($rs);
+        $this->validateTags($rs['tags']);
+    }
 
+    /**
+     * Validate return.
+     *
+     * @param  array $rs
+     * @return void
+     */
+    private function validateReturn($rs)
+    {
         $this->assertInternalType('array', $rs);
         $this->assertEquals(3, count($rs));
+        $this->assertArrayHasKey('shortDescription', $rs);
+        $this->assertArrayHasKey('longDescription', $rs);
+        $this->assertArrayHasKey('tags', $rs);
+    }
 
+    /**
+     * Validate a short description.
+     *
+     * @param  array $rs
+     * @return void
+     */
+    private function validateShortDescrption($rs)
+    {
         $this->assertArrayHasKey('shortDescription', $rs);
         $this->assertEquals('This is an short description.', $rs['shortDescription']);
+    }
 
+    /**
+     * Validate a long description.
+     *
+     * @param  array $rs
+     * @return void
+     */
+    private function validateLongDescrption($rs)
+    {
         $this->assertArrayHasKey('longDescription', $rs);
         $this->assertEquals('This is an long description.', $rs['longDescription']);
+    }
 
-        //print_r($rs['tags']);
+    /**
+     * Validate tags.
+     *
+     * @param  array $rs
+     * @return void
+     */
+    private function validateTags($rs)
+    {
+        $this->assertInternalType('array', $rs);
+        $this->assertEquals(2, count($rs));
 
-        $this->assertArrayHasKey('tags', $rs);
-        $this->assertInternalType('array', $rs['tags']);
+        $this->assertArrayHasKey('param', $rs);
+        $this->validateParamTag($rs['param']);
 
-        $this->assertInternalType('array', $rs['tags']);
-        $this->assertEquals(2, count($rs['tags']));
+        $this->assertArrayHasKey('return', $rs);
+        $this->validateReturnTag($rs['return']);
+    }
 
-        $this->assertArrayHasKey('param', $rs['tags']);
-        $this->assertArrayHasKey('0', $rs['tags']['param']);
+    /**
+     * Validate param tag.
+     *
+     * @param  array $tags
+     * @return void
+     */
+    private function validateParamTag($tags)
+    {
+        foreach ($tags as $tag) {
+            $this->assertInstanceOf('\Tbs\DocBlock\Collection\Parsed', $tag);
+            $this->assertEquals('param' , $tag->getTag());
+            $this->assertEquals('string', $tag->getType());
+            $this->assertRegExp('/^\$[a-z]{1,100}$/', $tag->getContent());
+            $description = $tag->getDescription();
+            if (strlen($description)) {
+                $this->assertEquals('description of the param', $description);
+            }
+        }
+    }
 
-        /* $this->assertEquals(4, count($rs['tags']['param'][0]));
-        $this->assertArrayHasKey('type', $rs['tags']['param'][0]);
-        $this->assertArrayHasKey('name', $rs['tags']['param'][0]);
-        $this->assertArrayHasKey('', $rs['tags']['param'][0]);
-        $this->assertArrayHasKey('', $rs['tags']['param'][0]);
+    /**
+     * Validate return tag.
+     *
+     * @param  array $tags
+     * @return void
+     */
+    private function validateReturnTag($tags)
+    {
+        foreach ($tags as $tag) {
+            $this->assertInstanceOf('\Tbs\DocBlock\Collection\Parsed', $tag);
+            $this->assertEquals('return' , $tag->getTag());
+            $this->assertEquals('array', $tag->getType());
+            $description = $tag->getDescription();
+            if (strlen($description)) {
+                $this->assertEquals('This is a return of method', $description);
+            }
+        }
+    }
 
-        $this->assertEquals(3, count($rs['tags']['param'][1]));
-        $this->assertArrayHasKey('1', $rs['tags']['param']);
+    /**
+     * @see \Tbs\DocBlock\Parser::getParsed()
+     */
+    public function testGetParsedShortDescription()
+    {
+        $docBlock = '
+            /**
+             * This is an short description.
+             */
+        ';
 
-        $this->assertArrayHasKey('return', $rs['tags']); */
+        $rs = P::getParsed($docBlock);
+        $this->validateReturn($rs);
+        $this->validateShortDescrption($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock\Parser::getParsed()
+     */
+    public function testGetParsedLongDescription()
+    {
+        $docBlock = '
+            /**
+             * This is an short description.
+             *
+             * This is an long description.
+             */
+        ';
+
+        $rs = P::getParsed($docBlock);
+        $this->validateReturn($rs);
+        $this->validateLongDescrption($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock\Parser::getParsed()
+     */
+    public function testGetParsedNoDescription()
+    {
+        $docBlock = '
+            /**
+             * @param string $first description of the param
+             * @param string $seccond
+             *
+             * @return array This is a return of method
+             */
+        ';
+
+        $rs = P::getParsed($docBlock);
+        $this->validateReturn($rs);
+        $this->validateTags($rs['tags']);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
