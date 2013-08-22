@@ -61,8 +61,7 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        $reflection = new \ReflectionProperty($class, $property);
-        return self::of($reflection);
+        return self::of(new \ReflectionProperty($class, $property));
     }
 
     /**

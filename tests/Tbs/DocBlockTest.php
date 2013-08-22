@@ -8,8 +8,12 @@
  */
 
 namespace Tbs;
+
 use \Tbs\DocBlock;
+
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
+require_once STUFF_PATH . '/DocBlock/StuffClass.php';
+require_once STUFF_PATH . '/DocBlock/StuffFunction.php';
 
 /**
  * @category Tests
@@ -21,22 +25,81 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 class DocBlockTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\DocBlock
+     * @see \Tbs\DocBlock::ofClass()
      */
-    protected $object = null;
+    public function testOfClassWithClassName()
+    {
+        $rs = DocBlock::ofClass('\Tbs\StuffClass');
+        $this->validateReturnOfClassess($rs);
+    }
 
     /**
-     * Setup.
+     * @see \Tbs\DocBlock::ofClass()
      */
-    protected function setUp()
+    public function testOfClassWithClassInstance()
+    {
+        $class = new \Tbs\StuffClass();
+        $rs    = DocBlock::ofClass($class);
+        $this->validateReturnOfClassess($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofClass()
+     * @expectedException \Tbs\DocBlock\Exception
+     */
+    public function testOfClassNotExists()
+    {
+        DocBlock::ofClass('\Tbs\NotExistsClass');
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofClass()
+     * @expectedException \Tbs\DocBlock\Exception
+     */
+    public function testOfClassException()
+    {
+        DocBlock::ofClass('');
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofProperty()
+     */
+    public function estOfPropertyWithClassName()
+    {
+        $rs = DocBlock::ofProperty('\Tbs\StuffClass', 'stuffProperty');
+        $this->validateReturnOfClassess($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofProperty()
+     */
+    public function estOfPropertyWithClassInstance()
+    {
+        $class = new \Tbs\StuffClass();
+        $rs    = DocBlock::ofClass($class);
+        $this->validateReturnOfClassess($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofProperty()
+     */
+    public function estOfPropertyExceptionClassBlank()
     {
 
     }
 
     /**
-     * TearDown.
+     * @see \Tbs\DocBlock::ofProperty()
      */
-    protected function tearDown()
+    public function estOfPropertyExceptionPropertyBlank()
+    {
+
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofProperty()
+     */
+    public function estOfPropertyNotExists()
     {
 
     }
@@ -46,9 +109,37 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfFunction()
     {
-        require_once STUFF_PATH . '/DocBlock/StuffFunction.php';
         $rs = DocBlock::ofFunction('\Tbs\stuffFunction');
         $this->validateReturnOfFunctionsAndMethods($rs);
+    }
+
+    /**
+     * @see \Tbs\DocBlock::ofFunction()
+     * @expectedException \Tbs\DocBlock\Exception
+     */
+    public function testOfFunctionException()
+    {
+        DocBlock::ofFunction('');
+    }
+
+    /**
+     * Validate the return of classes.
+     * @param array $rs
+     */
+    private function validateReturnOfClassess($rs)
+    {
+        $this->assertInstanceOf('\Tbs\DocBlock\Collection', $rs);
+        $this->assertEquals('Short description.'         , $rs->getShortDescription());
+        $this->assertEquals('This is a long description.', $rs->getLongDescription());
+
+        $tags = $rs->getTags();
+        $this->assertInternalType('array', $tags);
+        $this->assertEquals(5, count($tags));
+        $this->assertArrayHasKey('category' , $tags);
+        $this->assertArrayHasKey('package' , $tags);
+        $this->assertArrayHasKey('subpackage' , $tags);
+        $this->assertArrayHasKey('author' , $tags);
+        $this->assertArrayHasKey('copyright' , $tags);
     }
 
     /**

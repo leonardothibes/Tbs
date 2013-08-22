@@ -60,7 +60,7 @@ class Collection implements \Reflector
      */
     public function hasShortDescription()
     {
-        return !is_null($this->shortDescription);
+        return (bool)strlen($this->shortDescription);
     }
 
     /**
@@ -78,7 +78,7 @@ class Collection implements \Reflector
      */
     public function hasSLongDescription()
     {
-        return !is_null($this->longDescription);
+        return (bool)strlen($this->longDescription);
     }
 
     /**

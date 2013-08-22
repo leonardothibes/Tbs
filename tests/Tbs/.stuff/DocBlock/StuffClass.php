@@ -10,6 +10,10 @@
 namespace Tbs;
 
 /**
+ * Short description.
+ *
+ * This is a long description.
+ *
  * @category Tests
  * @package Tbs
  * @subpackage DockBlock
