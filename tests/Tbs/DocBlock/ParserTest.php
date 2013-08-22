@@ -56,7 +56,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
              * @param string $seccond
              *
              * @return array This is a return of method
-             * @throws \Exception
              */
         ';
 
