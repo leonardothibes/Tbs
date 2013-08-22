@@ -19,6 +19,7 @@ use \Tbs\Log\Abstraction as A;
  * @subpackage Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
+ * @link <http://www.php-fig.org/psr/3/>
  */
 class File extends A
 {
