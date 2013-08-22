@@ -129,7 +129,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function testLogLevelOneLine($message, $level)
     {
         $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-        log::{$level}($message);
+        log::$level($message);
 
         $rs = file_get_contents($this->logfile);
         $this->assertEquals($line, $rs);
@@ -168,7 +168,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
         $total = rand(5,10);
         for ($i = 1; $i <= $total; $i++) {
             $line = sprintf('%s [%s]: %s', date('Y-m-d H:i:s'), strtoupper($level), $message) . "\n";
-            log::{$level}($message . "($i)");
+            log::$level($message . "($i)");
         }
 
         $rs    = file_get_contents($this->logfile);
@@ -220,7 +220,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag3' => 'this is a tag3 context',
         );
 
-        log::{$level}($message, $context);
+        log::$level($message, $context);
         $rs = file_get_contents($this->logfile);
 
         $newmess = 'this is a log message with tags: this is a tag1 context this is a tag2 context this is a tag3 context';
@@ -267,7 +267,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'id2' => $message . '(2)',
             'id3' => $message . '(3)',
         );
-        log::{$level}($array);
+        log::$level($array);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -331,7 +331,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
             'tag2' => 'tag 2 content',
             'tag3' => 'tag 3 content',
         );
-        log::{$level}($array, $context);
+        log::$level($array, $context);
 
         $rs = file_get_contents($this->logfile);
         $rs = @explode("\n", $rs);
@@ -366,6 +366,6 @@ class LogTest extends \PHPUnit_Framework_TestCase
     public function test__callStaticLevelException($message, $level)
     {
         log::getInstance()->resetInstance();
-        log::{$level}($message);
+        log::$level($message);
     }
 }
