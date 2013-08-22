@@ -7,7 +7,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace \Tbs;
+namespace Tbs;
 
 use \Tbs\DocBlock\Collection;
 
@@ -24,22 +24,6 @@ use \Tbs\DocBlock\Collection;
 class DocBlock
 {
     /**
-     * Parse the DocBlock of a function.
-     *
-     * @param  string $function Function name.
-     * @return \Tbs\DocBlock\Collection
-     * @throws \Tbs\DocBlock\Exception
-     */
-    public static function ofFunction($function)
-    {
-        if (!strlen($function)) {
-            throw new \Tbs\DocBlock\Exception('Function name cannot be blank');
-        }
-        $reflection = new ReflectionFunction($function);
-        return self::of($reflection);
-    }
-
-    /**
      * Parse the DocBlock of a class.
      *
      * @param  string|object $class Name or instance of a class.
@@ -54,8 +38,7 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        $class = new ReflectionClass($class);
-        return self::of($class);
+        return self::of(new \ReflectionClass($class));
     }
 
     /**
@@ -78,7 +61,7 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        $reflection = new ReflectionProperty($class, $property);
+        $reflection = new \ReflectionProperty($class, $property);
         return self::of($reflection);
     }
 
@@ -102,18 +85,33 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        $reflection = new ReflectionMethod($class, $method);
+        $reflection = new \ReflectionMethod($class, $method);
         return self::of($reflection);
+    }
+
+    /**
+     * Parse the DocBlock of a function.
+     *
+     * @param  string $function Function name.
+     * @return \Tbs\DocBlock\Collection
+     * @throws \Tbs\DocBlock\Exception
+     */
+    public static function ofFunction($function)
+    {
+        if (!strlen($function)) {
+            throw new \Tbs\DocBlock\Exception('Function name cannot be blank');
+        }
+        return self::of(new \ReflectionFunction($function));
     }
 
     /**
      * Parse the DocBlock of a reflection object.
      *
-     * @param  Reflector $reflection
+     * @param  \Reflector $reflection
      * @return \Tbs\DocBlock\Collection
      * @throws \Tbs\DocBlock\Exception
      */
-    protected static function of(Reflection $reflection)
+    protected static function of(\Reflector $reflection)
     {
         $docComment = $reflection->getDocComment();
         if (!strlen($docComment)) {

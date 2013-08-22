@@ -129,6 +129,15 @@ class Collection implements \Reflector
     }
 
     /**
+     * Get all tags.
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
      * Exports.
      *
      * @link   http://www.php.net/manual/en/reflector.export.php
