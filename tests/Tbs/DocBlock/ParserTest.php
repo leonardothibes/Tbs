@@ -154,7 +154,26 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         foreach ($tags as $tag) {
             $this->assertInstanceOf('\Tbs\DocBlock\Collection\Parsed', $tag);
             $this->assertEquals('return' , $tag->getTag());
-            $this->assertEquals('array', $tag->getType());
+            $this->assertEquals('array'  , $tag->getType());
+            $description = $tag->getDescription();
+            if (strlen($description)) {
+                $this->assertEquals('This is a return of method', $description);
+            }
+        }
+    }
+
+    /**
+     * Validate custom tag.
+     *
+     * @param  array $tags
+     * @return void
+     */
+    private function validateCustomTag($tags)
+    {
+        foreach ($tags as $tag) {
+            $this->assertInstanceOf('\Tbs\DocBlock\Collection\Parsed', $tag);
+            $this->assertEquals('customTag'            , $tag->getTag());
+            $this->assertEquals('ThisIsACustomTagValue', $tag->getContent());
             $description = $tag->getDescription();
             if (strlen($description)) {
                 $this->assertEquals('This is a return of method', $description);
@@ -213,5 +232,45 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $rs = P::getParsed($docBlock);
         $this->validateReturn($rs);
         $this->validateTags($rs['tags']);
+    }
+
+    /**
+     * @see \Tbs\DocBlock\Parser::getParsed()
+     */
+    public function testGetParsedCustomTags()
+    {
+        $docBlock = '
+            /**
+             * This is an short description.
+             *
+             * This is an long description.
+             *
+             * @param string $first description of the param
+             * @param string $seccond
+             *
+             * @return array This is a return of method
+             * @customTag ThisIsACustomTagValue
+             */
+        ';
+
+        $rs = P::getParsed($docBlock);
+
+        $this->validateReturn($rs);
+        $this->validateShortDescrption($rs);
+        $this->validateLongDescrption($rs);
+
+        $tags = $rs['tags'];
+
+        $this->assertInternalType('array', $tags);
+        $this->assertEquals(3, count($tags));
+
+        $this->assertArrayHasKey('param', $tags);
+        $this->validateParamTag($tags['param']);
+
+        $this->assertArrayHasKey('return', $tags);
+        $this->validateReturnTag($tags['return']);
+
+        $this->assertArrayHasKey('customTag', $tags);
+        $this->validateCustomTag($tags['customTag']);
     }
 }

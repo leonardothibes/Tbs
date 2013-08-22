@@ -182,9 +182,18 @@ class Parser
             $message = sprintf('Invalid tag line detected: %s', $tag_line);
             throw new \Tbs\DocBlock\Exception($message);
         }
+
         $className = ucfirst(strtolower(str_replace('@', '', $tag[0])));
         $tagClass  = sprintf('\\Tbs\\DocBlock\\Tag\\%sTag', $className);
-        $instance  = new $tagClass();
+
+        try {
+            //Standard tags.
+            $instance  = new $tagClass();
+        } catch (\Tbs\Autoload\Exception $e) {
+            //Custom tags.
+            $instance  = new \Tbs\DocBlock\Tag\CustomTag();
+        }
+
         return $instance->parse($tag_line);
     }
 }
