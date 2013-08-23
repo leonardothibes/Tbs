@@ -10,6 +10,7 @@
 namespace Tbs\DocBlock;
 
 use \Tbs\DocBlock\Parser;
+use Tbs\DocBlock;
 
 /**
  * The doc block collection of parserd tags class.
@@ -45,9 +46,14 @@ class Collection implements \Reflector
      *
      * @param  string $docBlock
      * @return void
+     * @throws \Tbs\DocBlock\Collection\Exception
      */
-    public function __construct($docBlock = null)
+    public function __construct($docBlock)
     {
+        if(!strlen($docBlock)) {
+            $message = 'DocBlock cannot be blank.';
+            throw new \Tbs\DocBlock\Collection\Exception($message);
+        }
         $parsed = Parser::getParsed($docBlock);
         $this->shortDescription = $parsed['shortDescription'];
         $this->longDescription  = $parsed['longDescription'];
@@ -76,7 +82,7 @@ class Collection implements \Reflector
      * Test if has long description.
      * @return bool
      */
-    public function hasSLongDescription()
+    public function hasLongDescription()
     {
         return (bool)strlen($this->longDescription);
     }
@@ -96,6 +102,9 @@ class Collection implements \Reflector
      */
     public function getText()
     {
+        if(!strlen($this->shortDescription) or !strlen($this->longDescription)) {
+            return null;
+        }
         return $this->shortDescription . "\n\n" .
                $this->longDescription;
     }
@@ -108,8 +117,7 @@ class Collection implements \Reflector
      */
     public function hasTag($tagName)
     {
-        $tagName = strtolower(trim($tagName));
-        return isset($this->tags[$tagName]);
+        return isset($this->tags[trim($tagName)]);
     }
 
     /**
@@ -122,10 +130,19 @@ class Collection implements \Reflector
     public function getTag($tagName)
     {
         if (!$this->hasTag($tagName)) {
-            $message = sprintf('Tag has no exists: %s', $tagName);
+            $message = sprintf('Tag is not available: %s', $tagName);
             throw new \Tbs\DocBlock\Collection\Exception($message);
         }
-        return $this->tags[$tagName];
+        return $this->tags[trim($tagName)];
+    }
+
+    /**
+     * Test if has tags.
+     * @return bool
+     */
+    public function hasTags()
+    {
+        return (count($this->tags) > 0);
     }
 
     /**
@@ -145,7 +162,7 @@ class Collection implements \Reflector
      */
     public static function export()
     {
-        //Nothing to do... yet
+
     }
 
     /**
@@ -156,6 +173,30 @@ class Collection implements \Reflector
      */
     public function __toString()
     {
-        return self::export();
+        $content  = null;
+        $docBlock = <<<DOCBLOCK
+/**
+ * {{CONTENT}}
+ */
+DOCBLOCK;
+
+        if ($this->hasShortDescription()) {
+            $content .= $this->getShortDescription();
+        }
+
+        if ($this->hasLongDescription()) {
+            $content .= "\n *\n * " . $this->getLongDescription();
+        }
+
+        if ($this->hasTags()) {
+            $content .= "\n * ";
+            foreach ($this->getTags() as $tagName => $tags) {
+                 foreach ($tags as $tag) {
+                    $content .= "\n * " . $tag->export();
+                }
+            }
+        }
+
+        return str_replace('{{CONTENT}}', $content, $docBlock);
     }
 }

@@ -175,4 +175,18 @@ class ParsedTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $rs);
         $this->assertEquals(trim($description), $rs);
     }
+
+    /**
+     * @see \Tbs\DocBlock\Tag\Abstraction::export()
+     */
+    public function testExport()
+    {
+        $this->object->setTag('param')
+                     ->setType('string')
+                     ->setContent('$name')
+                     ->setDescription('This is description of param.');
+        $rs = $this->object->export();
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('@param string $name This is description of param.', $rs);
+    }
 }

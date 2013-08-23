@@ -51,8 +51,6 @@ abstract class Abstraction implements InterfaceTag
 
     /**
      * Exports.
-     *
-     * @link   http://www.php.net/manual/en/reflector.export.php
      * @return string
      */
     public function export()

@@ -123,4 +123,22 @@ class Parsed
     {
         return (string)$this->description;
     }
+
+    /**
+     * Exports.
+     * @return string
+     */
+    public function export()
+    {
+        $tag = @implode(
+            ' ',
+            array(
+                '@' . $this->getTag(),
+                $this->getType(),
+                $this->getContent(),
+                $this->getDescription(),
+            )
+        );
+        return preg_replace('/\s\s+/', ' ', trim($tag));
+    }
 }
