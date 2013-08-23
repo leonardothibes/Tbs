@@ -39,7 +39,7 @@ class StuffClass
      * @return array This is a return.
      * @throws \Exception
      */
-    public function stuffMethod1($param1, $param2)
+    public function stuffMethod($param1, $param2)
     {
         return array('___|\___\o/___help!!! Its a shark!!!');
     }

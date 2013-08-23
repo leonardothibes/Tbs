@@ -38,7 +38,14 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        return self::of(new \ReflectionClass($class));
+        try {
+        	$message = sprintf('Class not exists: %s', $class);
+        	return self::of(new \ReflectionClass($class));
+        } catch (\Tbs\Autoload\Exception $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        } catch (\ReflectionException $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        }
     }
 
     /**
@@ -61,7 +68,14 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        return self::of(new \ReflectionProperty($class, $property));
+        try {
+        	$message = sprintf('Class or property not exists: %s->%s', $class, $property);
+        	return self::of(new \ReflectionProperty($class, $property));
+        } catch (\Tbs\Autoload\Exception $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        } catch (\ReflectionException $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        }
     }
 
     /**
@@ -84,8 +98,14 @@ class DocBlock
         if (is_object($class)) {
             $class = get_class($class);
         }
-        $reflection = new \ReflectionMethod($class, $method);
-        return self::of($reflection);
+        try {
+        	$message = sprintf('Class or method not exists: %s->%s', $class, $method);
+        	return self::of(new \ReflectionMethod($class, $method));
+        } catch (\Tbs\Autoload\Exception $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        } catch (\ReflectionException $e) {
+        	throw new \Tbs\DocBlock\Exception($message);
+        }
     }
 
     /**
@@ -100,7 +120,12 @@ class DocBlock
         if (!strlen($function)) {
             throw new \Tbs\DocBlock\Exception('Function name cannot be blank');
         }
-        return self::of(new \ReflectionFunction($function));
+        try {
+        	return self::of(new \ReflectionFunction($function));
+        } catch (\ReflectionException $e) {
+        	$message = sprintf('Function not exists: %s', $function);
+        	throw new \Tbs\DocBlock\Exception($message);
+        }
     }
 
     /**
