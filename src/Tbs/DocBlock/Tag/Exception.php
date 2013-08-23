@@ -12,7 +12,7 @@ namespace Tbs\DocBlock\Tag;
 use \Tbs\DocBlock\Exception as E;
 
 /**
- * DocBlock Exception of tags class.
+ * DocBlock Exception of tags classes.
  *
  * @category Library
  * @package Tbs

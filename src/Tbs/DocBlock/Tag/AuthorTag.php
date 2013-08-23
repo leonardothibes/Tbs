@@ -12,7 +12,7 @@ namespace Tbs\DocBlock\Tag;
 use \Tbs\DocBlock\Tag\Abstraction as A;
 
 /**
- * Abstract methos of tags of DocBlock.
+ * Methos of tags of @author tag.
  *
  * @category Library
  * @package Tbs
