@@ -50,7 +50,7 @@ class Collection implements \Reflector
      */
     public function __construct($docBlock)
     {
-        if(!strlen($docBlock)) {
+        if (!strlen($docBlock)) {
             $message = 'DocBlock cannot be blank.';
             throw new \Tbs\DocBlock\Collection\Exception($message);
         }
@@ -102,7 +102,7 @@ class Collection implements \Reflector
      */
     public function getText()
     {
-        if(!strlen($this->shortDescription) or !strlen($this->longDescription)) {
+        if (!strlen($this->shortDescription) or !strlen($this->longDescription)) {
             return null;
         }
         return $this->shortDescription . "\n\n" .
@@ -191,7 +191,7 @@ DOCBLOCK;
         if ($this->hasTags()) {
             $content .= "\n * ";
             foreach ($this->getTags() as $tagName => $tags) {
-                 foreach ($tags as $tag) {
+                foreach ($tags as $tag) {
                     $content .= "\n * " . $tag->export();
                 }
             }

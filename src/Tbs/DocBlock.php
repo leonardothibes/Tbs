@@ -39,12 +39,12 @@ class DocBlock
             $class = get_class($class);
         }
         try {
-        	$message = sprintf('Class not exists: %s', $class);
-        	return self::of(new \ReflectionClass($class));
+            $message = sprintf('Class not exists: %s', $class);
+            return self::of(new \ReflectionClass($class));
         } catch (\Tbs\Autoload\Exception $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         } catch (\ReflectionException $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         }
     }
 
@@ -69,12 +69,12 @@ class DocBlock
             $class = get_class($class);
         }
         try {
-        	$message = sprintf('Class or property not exists: %s->%s', $class, $property);
-        	return self::of(new \ReflectionProperty($class, $property));
+            $message = sprintf('Class or property not exists: %s->%s', $class, $property);
+            return self::of(new \ReflectionProperty($class, $property));
         } catch (\Tbs\Autoload\Exception $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         } catch (\ReflectionException $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         }
     }
 
@@ -99,12 +99,12 @@ class DocBlock
             $class = get_class($class);
         }
         try {
-        	$message = sprintf('Class or method not exists: %s->%s', $class, $method);
-        	return self::of(new \ReflectionMethod($class, $method));
+            $message = sprintf('Class or method not exists: %s->%s', $class, $method);
+            return self::of(new \ReflectionMethod($class, $method));
         } catch (\Tbs\Autoload\Exception $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         } catch (\ReflectionException $e) {
-        	throw new \Tbs\DocBlock\Exception($message);
+            throw new \Tbs\DocBlock\Exception($message);
         }
     }
 
@@ -121,10 +121,10 @@ class DocBlock
             throw new \Tbs\DocBlock\Exception('Function name cannot be blank');
         }
         try {
-        	return self::of(new \ReflectionFunction($function));
+            return self::of(new \ReflectionFunction($function));
         } catch (\ReflectionException $e) {
-        	$message = sprintf('Function not exists: %s', $function);
-        	throw new \Tbs\DocBlock\Exception($message);
+            $message = sprintf('Function not exists: %s', $function);
+            throw new \Tbs\DocBlock\Exception($message);
         }
     }
 
