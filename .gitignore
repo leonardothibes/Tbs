@@ -6,6 +6,7 @@
 *.bak
 composer.phar
 composer.lock
+docs/Tests/*
 vendor/*
 build/*
 tmp/*
