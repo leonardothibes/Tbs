@@ -16,7 +16,7 @@ use \Tbs\Exception as E;
  *
  * @category Library
  * @package Tbs
- * @subpackage DocLog
+ * @subpackage Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
