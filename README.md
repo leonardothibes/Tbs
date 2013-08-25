@@ -1,7 +1,7 @@
 Tbs Bundle [![Build Status](https://secure.travis-ci.org/leonardothibes/Tbs.png)](http://travis-ci.org/leonardothibes/Tbs)
 ==========
 
-Component Library
+Um conjunto de componentes utilitários que uso em meus projetos. Compatível com PHP 5.3/5.4/5.5.
 
 LICENSE
 =======
