@@ -9,6 +9,8 @@
 
 namespace Tbs;
 
+use \Tbs\Html\Interfaces\Renderable;
+
 /**
  * HTML Generator Class.
  *
@@ -18,6 +20,6 @@ namespace Tbs;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-class Html
+class Html implements Renderable
 {
 }
