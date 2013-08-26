@@ -48,11 +48,13 @@ class SpecialCharsTest extends \PHPUnit_Framework_TestCase
     public function providerConstantsValues()
     {
         return array(
-            array('TAB_DEFAUL'   , "\11"),
-            array('TAB_PSR'      , "    "),
-            array('LINE_END_UNIX', "\12"),
-            array('LINE_END_MAC' , "\15"),
-            array('LINE_END_WIN' , "\15\12"),
+            array('TAB_DEFAUL'         , "\11"),
+            array('TAB_PSR'            , "    "),
+            array('LINE_END_UNIX'      , "\12"),
+            array('LINE_END_MAC'       , "\15"),
+            array('LINE_END_WIN'       , "\15\12"),
+            array('HTML_COMMENT_OPEN'  , "<!-- "),
+            array('HTML_COMMENT_CLOSE' , " -->"),
         );
     }
 

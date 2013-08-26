@@ -20,9 +20,11 @@ namespace Tbs\Html;
  */
 class SpecialChars
 {
-    const TAB_DEFAUL    = "\11";
-    const TAB_PSR       = "    ";
-    const LINE_END_UNIX = "\12";
-    const LINE_END_MAC  = "\15";
-    const LINE_END_WIN  = "\15\12";
+    const TAB_DEFAUL         = "\11";
+    const TAB_PSR            = "    ";
+    const LINE_END_UNIX      = "\12";
+    const LINE_END_MAC       = "\15";
+    const LINE_END_WIN       = "\15\12";
+    const HTML_COMMENT_OPEN  = "<!-- ";
+    const HTML_COMMENT_CLOSE = " -->";
 }
