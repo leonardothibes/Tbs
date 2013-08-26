@@ -2,7 +2,7 @@
 /**
  * @category Tests
  * @package Tbs
- * @subpackage Helper
+ * @subpackage Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,7 +14,7 @@ require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'Bootst
 /**
  * @category Tests
  * @package Tbs
- * @subpackage Helper
+ * @subpackage Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
