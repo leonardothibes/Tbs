@@ -22,4 +22,27 @@ use \Tbs\Html\Interfaces\Renderable;
  */
 class Html implements Renderable
 {
+    /**
+     * HTML rendered string.
+     * @var string
+     */
+    protected $html = null;
+
+    /**
+     * Render HTML of element.
+     * @return string
+     */
+    public function render()
+    {
+        return $this->html;
+    }
+
+    /**
+     * Target to $this->render method.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
