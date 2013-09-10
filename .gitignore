@@ -4,6 +4,7 @@
 .vagrant
 .settings
 *.bak
+*.properties
 composer.phar
 composer.lock
 docs/Tests/*
