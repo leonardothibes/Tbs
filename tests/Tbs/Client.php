@@ -40,19 +40,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $rs);
         $this->assertEquals('Console', $rs);
     }
+
+    /**
+     * @see \Tbs\Client::getBrowser()
+     */
+    public function testGetBrowser()
+    {
+        $rs = Client::getBrowser();
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('Console', $rs);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

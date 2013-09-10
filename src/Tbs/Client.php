@@ -55,4 +55,42 @@ class Client
 
         return 'Unknown';
     }
+
+    /**
+     * Get client browser.
+     * @return string
+     */
+    public static function getBrowser()
+    {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+            return 'Console';
+        }
+
+        $browsers = array(
+            'firefox'   => 'Firefox',
+            'Chrome'    => 'Google Chrome',
+            'Opera'     => 'Opera',
+            'netscape'  => 'Netscape',
+            'msie'      => 'Microsoft Internet Explorer',
+            'lynx'      => 'Lynx',
+            'webtv'     => 'WebTV',
+            'safari'    => 'Safari',
+            'konqueror' => 'Konqueror',
+            'bot'       => 'Web Crowler - Bot',
+            'google'    => 'Web Crowler - Google',
+            'scooter'   => 'Web Crowler - Scooter',
+            'spider'    => 'Web Crowler - Spider',
+            'slurp'     => 'Web Crowler - Slurp',
+            'infoseek'  => 'Web Crowler - Infoseek',
+        );
+
+        foreach ($browsers as $browser => $name) {
+            $match = sprintf('/%s/i', $browser);
+            if (preg_match($match, $_SERVER['HTTP_USER_AGENT'])) {
+                return (string)$name;
+            }
+        }
+
+        return 'Unknown';
+    }
 }
