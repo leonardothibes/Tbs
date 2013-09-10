@@ -30,6 +30,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $rs);
         $this->assertEquals('127.0.0.1', $rs);
     }
+
+    /**
+     * @see \Tbs\Client::getOs()
+     */
+    public function testGetOs()
+    {
+        $rs = Client::getOs();
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals('Console', $rs);
+    }
 }
 
 

@@ -27,4 +27,32 @@ class Client
         }
         return $_SERVER['REMOTE_ADDR'];
     }
+
+    /**
+     * Get client operating system.
+     * @return string
+     */
+    public static function getOs()
+    {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+            return 'Console';
+        }
+
+        $SOs = array(
+            'windows' => 'Windows',
+            'linux'   => 'Linux',
+            'macosx'  => 'MacOSX',
+            'ios'     => 'iOS',
+            'android' => 'Android'
+        );
+
+        foreach ($SOs as $so => $name) {
+            $match = sprintf('/%s/i', $so);
+            if (preg_match($match, $_SERVER['HTTP_USER_AGENT'])) {
+                return (string)$name;
+            }
+        }
+
+        return 'Unknown';
+    }
 }
