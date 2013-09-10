@@ -173,7 +173,7 @@
 		<exec command="git pull ; git push"                                               />
 		<exec command="git pull ; git push origin ${version}:${version}"                  />
 		
-		<echo message="Recompiling documentation on ${documentup}..."                     />
+		<echo message="Recompiling documentation on ${documentup}"                        />
 		<exec command="wget ${documentup}/recompile -O /dev/null"                         />
 	</target>
 	<!-- ENDS BUILD -->
