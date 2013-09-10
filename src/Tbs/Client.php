@@ -20,9 +20,9 @@ class Client
      * Get client IP.
      * @return string
      */
-    static public function getIp()
+    public static function getIp()
     {
-        if(!isset($_SERVER['HTTP_USER_AGENT'])) {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
             return '127.0.0.1';
         }
         return $_SERVER['REMOTE_ADDR'];
