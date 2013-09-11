@@ -48,4 +48,99 @@ class EmailTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\Tbs\Helper\Interfaces\Validate', $this->object);
     }
+
+    /**
+     * Provider of valid e-mails.
+     * @return array
+     */
+    public function providerValidEmails()
+    {
+        return array(
+        	array('eu@leonardothibes.com'),
+            array('lthibes@lidercap.com.br'),
+            array('leonardothibes@yahoo.com.br'),
+        );
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::domainIsValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testEmailIsValid($email)
+    {
+        $rs = email::domainIsValid($email);
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::domainIsValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testDomainIsValid($email)
+    {
+        list($login, $domain) = @explode('@', $email);
+        $rs = email::domainIsValid($domain);
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::domainIsValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testDomainIsInValid($email)
+    {
+        $rs = email::domainIsValid($email . '.me');
+        $this->assertFalse($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::isValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testIsValid($email)
+    {
+        $rs = email::isValid($email);
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::isValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testIsInValidNotEmail($email)
+    {
+        list($login, $domain) = @explode('@', $email);
+        $rs = email::isValid($email);
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::isValid()
+     * @dataProvider providerValidEmails
+     */
+    public function testIsInValidEmail($email)
+    {
+        $rs = email::isValid($email . rand(1,10));
+        $this->assertTrue($rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::sanitize()
+     * @dataProvider providerValidEmails
+     */
+    public function testSanitizeEquals($email)
+    {
+        $rs = email::sanitize($email);
+        $this->assertEquals($email, $rs);
+    }
+
+    /**
+     * @see \Tbs\Helper\Email::sanitize()
+     * @dataProvider providerValidEmails
+     */
+    public function testSanitizeTags($email)
+    {
+        $rs = email::sanitize($email . '<script>alert("some content");</script>');
+        $this->assertEquals($email . 'scriptalertsomecontentscript', $rs);
+    }
 }

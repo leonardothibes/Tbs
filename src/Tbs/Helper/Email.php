@@ -23,11 +23,23 @@ use \Tbs\Helper\Interfaces\Validate as V;
 class Email implements V
 {
     /**
+     * Test if e-mail domain exists.
+     *
+     * @param  string $emailOrDomain
+     * @return bool
+     */
+    public static function domainIsValid($emailOrDomain)
+    {
+        if ((bool)strpos($emailOrDomain, '@')) {
+            list($login, $emailOrDomain) = @explode('@', $emailOrDomain);
+        }
+        return checkdnsrr($emailOrDomain);
+    }
+
+    /**
      * Test if e-mail is valid.
      *
-     * @param string $email
-     * @param bool   $domain
-     *
+     * @param  string $email
      * @return bool
      */
     public static function isValid($email, $domain = false)
@@ -36,7 +48,7 @@ class Email implements V
         if ($isValid and $domain) {
             return checkdnsrr($email);
         }
-        return $isValid;
+        return is_string($isValid);
     }
 
     /**
