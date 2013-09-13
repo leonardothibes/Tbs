@@ -9,7 +9,7 @@
 
 namespace Tbs\ZfComponents\v1\Controller;
 
-use Tbs\ZfComponents\v1\Controller\PublicPage as PublicPage;
+use \Tbs\ZfComponents\v1\Controller\PublicPage;
 
 /**
  * Base controller class for private pages.
