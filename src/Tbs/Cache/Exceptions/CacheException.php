@@ -5,7 +5,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Cache\Exception;
+namespace Tbs\Cache\Exceptions;
 
 use \Tbs\Exception as E;
 
