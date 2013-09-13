@@ -5,7 +5,7 @@
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\Cache;
+namespace Tbs\Cache\Interfaces;
 
 /**
  * Cacheable Interface.
