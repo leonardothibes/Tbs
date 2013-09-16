@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Html
+ * @package Tbs\Html\Element
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -15,9 +13,7 @@ use \Tbs\Html\SpecialChars;
 /**
  * Abstract methods for HTML element classes.
  *
- * @category Library
- * @package Tbs
- * @subpackage Html
+ * @package Tbs\Html\Element
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

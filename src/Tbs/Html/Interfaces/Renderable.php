@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Html
+ * @package Tbs\Html\Interfaces
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -12,9 +10,7 @@ namespace Tbs\Html\Interfaces;
 /**
  * Interface for HTML generation classes.
  *
- * @category Library
- * @package Tbs
- * @subpackage Html
+ * @package Tbs\Html\Interfaces
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
