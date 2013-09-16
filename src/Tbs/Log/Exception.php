@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Exception as E;
 /**
  * Log Exception Class.
  *
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

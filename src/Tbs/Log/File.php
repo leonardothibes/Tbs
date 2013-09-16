@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Log\Abstraction as A;
 /**
  * Class of log in disc file.
  *
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>

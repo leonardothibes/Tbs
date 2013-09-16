@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log\Interfaces
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -12,9 +10,7 @@ namespace Tbs\Log\Interfaces;
 /**
  * Describes a logger-aware instance.
  *
- * @category Library
- * @package Tbs
- * @subpackage Log
+ * @package Tbs\Log\Interfaces
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/3/>
