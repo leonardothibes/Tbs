@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Util
- * @subpackage Format
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Helper\Interfaces\Validate as V;
 /**
  * Class_Description
  *
- * @category Library
- * @package Util
- * @subpackage Format
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

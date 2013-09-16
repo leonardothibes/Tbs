@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -12,9 +10,7 @@ namespace Tbs\Helper;
 /**
  * Money helper functions.
  *
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
