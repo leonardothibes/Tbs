@@ -1,20 +1,16 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage ZfComponents
+ * @package Tbs\ZfComponents\V1\Controller
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\ZfComponents\v1\Controller;
+namespace Tbs\ZfComponents\V1\Controller;
 
 /**
  * Base controller class for public pages.
  *
- * @category Library
- * @package Tbs
- * @subpackage ZfComponents
+ * @package Tbs\ZfComponents\V1\Controller
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

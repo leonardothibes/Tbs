@@ -1,22 +1,18 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage ZfComponents
+ * @package Tbs\ZfComponents\V1\Controller
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
 
-namespace Tbs\ZfComponents\v1\Controller;
+namespace Tbs\ZfComponents\V1\Controller;
 
-use \Tbs\ZfComponents\v1\Controller\PublicPage;
+use \Tbs\ZfComponents\V1\Controller\PublicPage;
 
 /**
  * Base controller class for private pages.
  *
- * @category Library
- * @package Tbs
- * @subpackage ZfComponents
+ * @package Tbs\ZfComponents\V1\Controller
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
