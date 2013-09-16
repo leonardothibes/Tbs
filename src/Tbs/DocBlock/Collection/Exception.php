@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage DocBlock
+ * @package Tbs\DocBlock\Collection
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\DocBlock\Exception as E;
 /**
  * DocBlock Collection Exception Class.
  *
- * @category Library
- * @package Tbs
- * @subpackage DocBlock
+ * @package Tbs\DocBlock\Collection
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
