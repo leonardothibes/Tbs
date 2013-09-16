@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Helper\Interfaces\DateLang as D;
 /**
  * Abstract class for the lang date classes.
  *
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

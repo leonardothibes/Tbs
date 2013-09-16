@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Helper\CreditCard\AbstractCreditCard as A;
 /**
  * Credit card helper functions for Visa.
  *
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

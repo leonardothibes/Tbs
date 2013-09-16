@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\Helper\Date\Lang\AbstractLang as A;
 /**
  * Class_Description
  *
- * @category Library
- * @package Tbs
- * @subpackage Helper
+ * @package Tbs\Helper
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
