@@ -67,7 +67,7 @@ abstract class PublicPage extends \Zend_Controller_Action
      *
      * @return mixed
      */
-    protected function getParam($name, $default = null)
+    public function getParam($name, $default = null)
     {
         $value = $this->_getParam($name);
         return (strpos($value, ':') === 0) ? $default : $value;
