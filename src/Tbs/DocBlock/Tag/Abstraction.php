@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -15,9 +13,7 @@ use \Tbs\DocBlock\Collection\Parsed;
 /**
  * Abstract methods of tag recognition.
  *
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -12,9 +10,7 @@ namespace Tbs\DocBlock\Tag;
 /**
  * Interface of tag parser classes.
  *
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */

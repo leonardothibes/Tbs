@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -14,9 +12,7 @@ use \Tbs\DocBlock\Tag\Abstraction as A;
 /**
  * Methos of tags of @package tag.
  *
- * @category Library
- * @package Tbs
- * @subpackage DocBlobk
+ * @package Tbs\DocBlock\Tag
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
