@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage DocBlock
+ * @package Tbs\DocBlock
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -15,9 +13,7 @@ use Tbs\DocBlock;
 /**
  * The doc block collection of parserd tags class.
  *
- * @category Library
- * @package Tbs
- * @subpackage DocBlock
+ * @package Tbs\DocBlock
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
