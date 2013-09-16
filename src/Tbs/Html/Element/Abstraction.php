@@ -7,7 +7,7 @@
 
 namespace Tbs\Html\Element;
 
-use \Tbs\Html\Interfaces\Renderable;
+use \Tbs\Html\Interfaces\HtmlRenderableInterface;
 use \Tbs\Html\SpecialChars;
 
 /**
@@ -17,7 +17,7 @@ use \Tbs\Html\SpecialChars;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-abstract class Abstraction implements Renderable
+abstract class Abstraction implements HtmlRenderableInterface
 {
     /**
      * HTML rendered string.

@@ -14,7 +14,7 @@ namespace Tbs\Html\Interfaces;
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
-interface Renderable
+interface HtmlRenderableInterface
 {
     /**
      * Render HTML of element.
