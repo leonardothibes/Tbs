@@ -1,8 +1,6 @@
 <?php
 /**
- * @category Library
- * @package Tbs
- * @subpackage Autoload
+ * @package Tbs\Autoload
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  */
@@ -12,9 +10,7 @@ namespace Tbs;
 /**
  * Class autoloader.
  *
- * @category Library
- * @package Tbs
- * @subpackage Autoload
+ * @package Tbs\Autoload
  * @author Leonardo Thibes <eu@leonardothibes.com>
  * @copyright Copyright (c) The Authors
  * @link <http://www.php-fig.org/psr/0/>
