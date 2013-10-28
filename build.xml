@@ -119,6 +119,7 @@
 			encoding              = "utf-8"
 			allowedFileExtensions = "php"
 			haltonerror           = "true"
+			showWarnings          = "false"
 		>
 			<fileset dir="${app}"  />
 		</phpcodesniffer>
