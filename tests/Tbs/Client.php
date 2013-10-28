@@ -17,11 +17,6 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Bootstrap.php';
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Tbs\Client
-     */
-    protected $object = null;
-
-    /**
      * @see \Tbs\Client::getIp()
      */
     public function testGetIp()
