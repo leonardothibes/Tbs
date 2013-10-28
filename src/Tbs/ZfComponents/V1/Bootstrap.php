@@ -135,7 +135,7 @@ class Bootstrap extends A
     {
         try {
             $logdir = sprintf('%s/../data/logs', self::$applicationPath);
-            if (!is_dir($dir) or !is_writable($dir)) {
+            if (!is_dir($logdir) or !is_writable($logdir)) {
                 $message = sprintf('The log directory "%s" not exists or is not writable');
                 throw new \Tbs\ZfComponents\V1\Bootstrap\Exception($message);
             }
