@@ -17,6 +17,19 @@ require_once 'Zend/Controller/Front.php';
 require_once 'Zend/Controller/Request/Http.php';
 require_once 'Zend/Controller/Router/Route/Regex.php';
 require_once 'Zend/Registry.php';
+require_once 'Zend/Db.php';
+require_once 'Zend/Db/Table/Abstract.php';
+require_once 'Zend/Db/Adapter/Pdo/Mysql.php';
+require_once 'Zend/Db/Adapter/Pdo/Pgsql.php';
+require_once 'Zend/Db/Adapter/Pdo/Mssql.php';
+require_once 'Zend/Db/Adapter/Pdo/Sqlite.php';
+require_once 'Zend/Db/Profiler.php';
+require_once 'Zend/Session/Namespace.php';
+require_once 'Zend/View.php';
+require_once 'Zend/Controller/Action/Helper/ViewRenderer.php';
+require_once 'Zend/Layout.php';
+require_once 'Zend/Layout/Controller/Plugin/Layout.php';
+require_once 'Zend/Layout/Controller/Action/Helper/Layout.php';
 
 /**
  * Abstraction of Zend Framework 1.12.x bootstrap.

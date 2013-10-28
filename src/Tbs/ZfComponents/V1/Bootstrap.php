@@ -103,7 +103,7 @@ class Bootstrap extends A
             if ($directory->isDir() and substr($name, 0, 1) != '.' and $name != 'configs') {
 
                 //Adding the controllers directory.
-                $controllers = sprintf(self::$applicationPath . '/%s/controllers', $name);
+                $controllers = sprintf('%s/%s/controllers', self::$applicationPath, $name);
                 $frontController->addControllerDirectory($controllers, $name);
 
                 //Setting the current module name.
@@ -136,7 +136,7 @@ class Bootstrap extends A
         try {
             $logdir = sprintf('%s/../data/logs', self::$applicationPath);
             if (!is_dir($logdir) or !is_writable($logdir)) {
-                $message = sprintf('The log directory "%s" not exists or is not writable');
+                $message = sprintf('The log directory "%s" not exists or is not writable', $logdir);
                 throw new \Tbs\ZfComponents\V1\Bootstrap\Exception($message);
             }
 
@@ -166,7 +166,7 @@ class Bootstrap extends A
     /**
      * Loading config file.
      */
-    public static function loadConfigFile()
+    public static function initConfigFile()
     {
         $file    = sprintf('%s/configs/config.ini', self::$applicationPath);
         $options = (self::$applicationEnv === 'testing') ? array('allowModifications' => true) : array();
@@ -197,7 +197,7 @@ class Bootstrap extends A
     /**
      * Configuring session namespace.
      */
-    public static function initSessionNamespace()
+    public static function iinitSessionNamespace()
     {
         $namespace = strtoupper(self::$module);
         new \Zend_Session_Namespace($namespace);
@@ -210,7 +210,7 @@ class Bootstrap extends A
     /**
      * Configuring charser in HTTP headers.
      */
-    public static function initHeaders()
+    public static function iinitHeaders()
     {
         header(sprintf('Content-Type: text/html; charset=%s', self::$charset));
     }
