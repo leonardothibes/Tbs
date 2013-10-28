@@ -10,7 +10,8 @@
         }
     ],
     "require" : {
-    	"php" : ">=5.3"
+    	"php"                         : ">=5.3",
+    	"zendframework/zendframework1": ">=1.12@stable"
     },
     "require-dev": {
         "phing/phing"              : ">=2.5@stable",
