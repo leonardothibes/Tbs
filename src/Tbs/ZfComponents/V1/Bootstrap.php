@@ -81,9 +81,9 @@ class Bootstrap extends A
      */
     public static function initClassLoader()
     {
-        /** @see Zend_Loader_Autoloader **/
+        /** @see \Zend_Loader_Autoloader **/
         require_once 'Zend/Loader/Autoloader.php';
-        Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
+        \Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
     }
 
     /**
@@ -91,11 +91,11 @@ class Bootstrap extends A
      */
     public static function initFrontController()
     {
-        $frontController = Zend_Controller_Front::getInstance();
+        $frontController = \Zend_Controller_Front::getInstance();
         $frontController->setDefaultModule(self::$module);
 
-        $directoryiterator = new DirectoryIterator(self::$applicationPath);
-        $request           = new Zend_Controller_Request_Http();
+        $directoryiterator = new \DirectoryIterator(self::$applicationPath);
+        $request           = new \Zend_Controller_Request_Http();
 
         foreach ($directoryiterator as $directory) {
 
@@ -107,7 +107,7 @@ class Bootstrap extends A
                 $frontController->addControllerDirectory($controllers, $name);
 
                 //Setting the current module name.
-                $route = new Zend_Controller_Router_Route_Regex(sprintf('/%s/*', $name));
+                $route = new \Zend_Controller_Router_Route_Regex(sprintf('/%s/*', $name));
                 if (is_array($route->match($request->getRequestUri(), true))) {
                     self::$module = $name;
                 }
@@ -156,8 +156,8 @@ class Bootstrap extends A
     {
         try {
             $routes = sprintf('%s/configs/routes.ini', self::$applicationPath);
-            $router = Zend_Controller_Front::getInstance()->getRouter();
-            $router->addConfig(new Zend_Config_Ini($routes), 'routes');
+            $router = \Zend_Controller_Front::getInstance()->getRouter();
+            $router->addConfig(new \Zend_Config_Ini($routes), 'routes');
         } catch (\Exception $e) {
             //Nothing to do...
         }
@@ -170,8 +170,8 @@ class Bootstrap extends A
     {
         $file    = sprintf('%s/configs/config.ini', self::$applicationPath);
         $options = (self::$applicationEnv === 'testing') ? array('allowModifications' => true) : array();
-        $config  = new Zend_Config_Ini($file, self::$applicationEnv, $options);
-        Zend_Registry::set('config', $config);
+        $config  = new \Zend_Config_Ini($file, self::$applicationEnv, $options);
+        \Zend_Registry::set('config', $config);
     }
 
     /**
@@ -179,8 +179,8 @@ class Bootstrap extends A
      */
     public static function initDb()
     {
-        if (Zend_Registry::isRegistered('config')) {
-            $config = Zend_Registry::get('config')->db;
+        if (\Zend_Registry::isRegistered('config')) {
+            $config = \Zend_Registry::get('config')->db;
             $params = array(
                 'host'     => $config->hostname,
                 'username' => $config->username,
@@ -188,9 +188,9 @@ class Bootstrap extends A
                 'dbname'   => $config->dbname,
                 'pdoType'  => (strtoupper($config->adapter) == 'PDO_MSSQL') ? 'dblib' : null
             );
-            $db = Zend_Db::factory($config->adapter, $params);
-            Zend_Registry::set('db', $db);
-            Zend_Db_Table_Abstract::setDefaultAdapter($db);
+            $db = \Zend_Db::factory($config->adapter, $params);
+            \Zend_Registry::set('db', $db);
+            \Zend_Db_Table_Abstract::setDefaultAdapter($db);
         }
     }
 
@@ -200,10 +200,10 @@ class Bootstrap extends A
     public static function initSessionNamespace()
     {
         $namespace = strtoupper(self::$module);
-        new Zend_Session_Namespace($namespace);
+        new \Zend_Session_Namespace($namespace);
 
-        $auth = Zend_Auth::getInstance()->setStorage(
-            new Zend_Auth_Storage_Session($namespace)
+        $auth = \Zend_Auth::getInstance()->setStorage(
+            new \Zend_Auth_Storage_Session($namespace)
         );
     }
 
@@ -220,14 +220,14 @@ class Bootstrap extends A
      */
     public static function initViewHelpers()
     {
-        $view = new Zend_View();
+        $view = new \Zend_View();
         $view->setEncoding(strtolower(self::$charset));
         foreach (self::$viewHelpers as $suffix => $path) {
             $view->addHelperPath($path, $suffix);
         }
-        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer($view);
-        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-        Zend_Registry::set('view', $view);
+        $viewRenderer = new \Zend_Controller_Action_Helper_ViewRenderer($view);
+        \Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+        \Zend_Registry::set('view', $view);
     }
 
     /**
@@ -238,7 +238,7 @@ class Bootstrap extends A
         if (!isset($_GET['ajax'])) {
             $path = sprintf('%s/%s/views/layouts', self::$applicationPath, self::$module);
             if (file_exists($path . '/main.phtml')) {
-                Zend_Layout::startMvc(
+                \Zend_Layout::startMvc(
                     array(
                         'layoutPath' => $path,
                         'layout'     => 'main'
@@ -259,12 +259,12 @@ class Bootstrap extends A
         if (file_exists($file) and is_readable($file)) {
 
             require_once $file;
-            $reflection = new ReflectionClass($class);
-            $methods    = $reflection->getMethods(ReflectionMethod::IS_STATIC);
+            $reflection = new \ReflectionClass($class);
+            $methods    = $reflection->getMethods(\ReflectionMethod::IS_STATIC);
 
             foreach ($methods as $method) {
                 $method = (string)$method->name;
-                if (strlen($method) > 5 and substr($method, 0, 5) === 'init') {
+                if (strlen($method) > 4 and substr($method, 0, 4) === 'init') {
                     $reflection->getMethod($method)->invoke($reflection->newInstance());
                 }
             }
