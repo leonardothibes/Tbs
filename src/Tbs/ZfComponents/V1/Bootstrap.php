@@ -25,6 +25,18 @@ class Bootstrap extends A
     public static $applicationPath = null;
 
     /**
+     * Application log path.
+     * @var string
+     */
+    public static $applicationLogs = null;
+
+    /**
+     * Log file prefix of name.
+     * @var string
+     */
+    public static $applicationLogPrefix = 'application';
+
+    /**
      * Application environment.
      * @var string
      */
@@ -51,9 +63,9 @@ class Bootstrap extends A
     public static $charset = 'UTF-8';
 
     /**
-     * Initting the application environment.
+     * Initting the application constants environment.
      */
-    public static function initApplicationEnv()
+    public static function initApplicationConstants()
     {
         if (!defined('APPLICATION_ENV')) {
             throw new \Tbs\ZfComponents\V1\Bootstrap\Exception(
@@ -61,19 +73,24 @@ class Bootstrap extends A
             );
         }
         self::$applicationEnv = APPLICATION_ENV;
-    }
 
-    /**
-     * Initing application path of ZF1 modules.
-     */
-    public static function initApplicationPath()
-    {
         if (!defined('APPLICATION_PATH')) {
             throw new \Tbs\ZfComponents\V1\Bootstrap\Exception(
                 'The constant "APPLICATION_PATH" is not defined'
             );
         }
         self::$applicationPath = APPLICATION_PATH;
+
+        if (!defined('APPLICATION_LOGS')) {
+            throw new \Tbs\ZfComponents\V1\Bootstrap\Exception(
+                'The constant "APPLICATION_LOGS" is not defined'
+            );
+        }
+        self::$applicationLogs = APPLICATION_LOGS;
+
+        if (defined('APPLICATION_LOG_PREFIX')) {
+            self::$applicationLogPrefix = APPLICATION_LOG_PREFIX;
+        }
     }
 
     /**
@@ -134,13 +151,12 @@ class Bootstrap extends A
     public static function initLog()
     {
         try {
-            $logdir = sprintf('%s/../data/logs', self::$applicationPath);
-            if (!is_dir($logdir) or !is_writable($logdir)) {
-                $message = sprintf('The log directory "%s" not exists or is not writable', $logdir);
+            if (!is_dir(self::$applicationLogs) or !is_writable(self::$applicationLogs)) {
+                $message = sprintf('The log directory "%s" not exists or is not writable', self::$applicationLogs);
                 throw new \Tbs\ZfComponents\V1\Bootstrap\Exception($message);
             }
 
-            $logfile = sprintf('%s/application_%s.log', $logdir, date('Y-m-d'));
+            $logfile = sprintf('%s/%s_%s.log', self::$applicationLogs, self::$applicationLogPrefix, date('Y-m-d'));
             \Tbs\Log::getInstance()->setLogger(
                 new \Tbs\Log\File($logfile)
             );
@@ -197,22 +213,27 @@ class Bootstrap extends A
     /**
      * Configuring session namespace.
      */
-    public static function iinitSessionNamespace()
+    public static function initSessionNamespace()
     {
-        $namespace = strtoupper(self::$module);
-        new \Zend_Session_Namespace($namespace);
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
 
-        $auth = \Zend_Auth::getInstance()->setStorage(
-            new \Zend_Auth_Storage_Session($namespace)
-        );
+            $namespace = strtoupper(self::$module);
+            new \Zend_Session_Namespace($namespace);
+
+            $auth = \Zend_Auth::getInstance()->setStorage(
+                new \Zend_Auth_Storage_Session($namespace)
+            );
+        }
     }
 
     /**
      * Configuring charser in HTTP headers.
      */
-    public static function iinitHeaders()
+    public static function initHeaders()
     {
-        header(sprintf('Content-Type: text/html; charset=%s', self::$charset));
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            header(sprintf('Content-Type: text/html; charset=%s', self::$charset));
+        }
     }
 
     /**

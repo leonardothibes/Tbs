@@ -26,6 +26,11 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     /**
      * @var string
      */
+    protected $applicationLogs = null;
+
+    /**
+     * @var string
+     */
     protected $applicationEnv = 'development';
 
     /**
@@ -35,7 +40,12 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     {
         $this->applicationPath = STUFF_PATH . '/zf/application';
         define('APPLICATION_PATH', $this->applicationPath);
-        define('APPLICATION_ENV' , $this->applicationEnv);
+
+        $this->applicationLogs = STUFF_PATH . '/../../../tmp/logs';
+        define('APPLICATION_LOGS', $this->applicationLogs);
+
+        define('APPLICATION_ENV'       , $this->applicationEnv);
+        define('APPLICATION_LOG_PREFIX', 'tbs');
 
         $application = new \Zend_Application(
             APPLICATION_ENV,
@@ -50,6 +60,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->applicationPath = null;
+        $this->applicationLogs = null;
     }
 
     /**
@@ -57,7 +68,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitialValues()
     {
-        //\Tbs\Log::debug(Bootstrap::$applicationEnv);
+        \Tbs\Log::debug(Bootstrap::$applicationEnv);
     }
 }
 
