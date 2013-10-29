@@ -74,6 +74,16 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @see \Tbs\Log\File::getLogFile()
+     */
+    public function testGetLogFile()
+    {
+        $rs = $this->object->getLogFile();
+        $this->assertEquals($this->logfile, $rs);
+        $this->assertTrue(file_exists($rs));
+    }
+
+    /**
      * Provider of log messages.
      * @return array
      */

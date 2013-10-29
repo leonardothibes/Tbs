@@ -53,6 +53,15 @@ class File extends A
     }
 
     /**
+     * Returns the path of log file.
+     * @return string
+     */
+    public function getLogFile()
+    {
+        return (string)$this->logfile;
+    }
+
+    /**
      * Logs with an arbitrary level.
      *
      * @param mixed  $level
