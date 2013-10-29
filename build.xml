@@ -37,9 +37,7 @@
 			<param value="Y-m-d" />
 		</php>
 		
-		<touch file="${tmp}/logs/php_${data}.log" />
 		<touch file="${tmp}/logs/tbs_${data}.log" />
-		
 		<exec command="chmod 777 ${tmp}/logs/*.log" />
 		<!-- ENDS THE LOG DIR -->
 		
