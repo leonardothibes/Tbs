@@ -94,16 +94,6 @@ class Bootstrap extends A
     }
 
     /**
-     * Setting class loader to ON.
-     */
-    public static function initClassLoader()
-    {
-        /** @see \Zend_Loader_Autoloader **/
-        require_once 'Zend/Loader/Autoloader.php';
-        \Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
-    }
-
-    /**
      * Loading the modules in front controller.
      */
     public static function initFrontController()
