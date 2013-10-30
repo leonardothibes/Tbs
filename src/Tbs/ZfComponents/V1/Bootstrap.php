@@ -174,10 +174,12 @@ class Bootstrap extends A
      */
     public static function initConfigFile()
     {
-        $file    = sprintf('%s/configs/config.ini', self::$applicationPath);
-        $options = (self::$applicationEnv === 'testing') ? array('allowModifications' => true) : array();
-        $config  = new \Zend_Config_Ini($file, self::$applicationEnv, $options);
-        \Zend_Registry::set('config', $config);
+        $file = sprintf('%s/configs/config.ini', self::$applicationPath);
+        if (file_exists($file) and is_readable($file)) {
+            $options = (self::$applicationEnv === 'testing') ? array('allowModifications' => true) : array();
+            $config  = new \Zend_Config_Ini($file, self::$applicationEnv, $options);
+            \Zend_Registry::set('config', $config);
+        }
     }
 
     /**
