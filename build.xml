@@ -84,7 +84,7 @@
 	<!-- ENDS INSTALL -->
 	
 	<!-- TEST -->
-	<target name="test">
+	<target name="test" depends="rw">
 		<exec command="${phpunit} --testdox --testdox-html=${docs}/Tests/testdox.html" checkreturn="true" />
 		<echo>All tests OK!</echo>
 	</target>
