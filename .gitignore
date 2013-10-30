@@ -10,6 +10,7 @@
 composer.phar
 composer.lock
 docs/Tests/*
+docs/PHPDoc/*
 vendor/*
 build/*
 tmp/*
