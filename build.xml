@@ -24,7 +24,7 @@
 	<!-- RW -->
 	<target name="rw">
 		
-		<echo>Creating content in ${src}/data...</echo>
+		<echo>Creating content in "tmp" dir...</echo>
 		
 		<mkdir dir="${tmp}" />
 		<chmod file="${tmp}" mode="0755" />
