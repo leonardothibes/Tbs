@@ -143,11 +143,11 @@
 		<php expression="${minor}+1" returnProperty="minor"     />
 		<property name="next" value="${main}.${major}.${minor}" />
 		
-		<propertyprompt propertyName="version" defaultValue="${next}" promptText="Informe o número da versão" />
+		<propertyprompt propertyName="version" defaultValue="${next}" promptText="Enter the version number" />
 		<if>
 			<equals arg1="${version}" arg2="" />
 			<then>
-				<fail message="É obrigatório informar uma versão!" />
+				<fail message="Version number could not be blank" />
 			</then>
 		</if>
 	</target>
