@@ -20,7 +20,7 @@
         "phpunit/php-invoker"         : "*",
         "phpunit/phpunit-story"       : "*",
         "squizlabs/php_codesniffer"   : ">=1.4@stable",
-        "nervo/yuicompressor"         : ">=2.4@stable",
+        "nervo/yuicompressor"         : ">=2.4@stable"
     },
     "autoload": {
     	"psr-0": {
