@@ -162,16 +162,26 @@
 	
 	<!-- BUILD (code-sniffer + phpunit + phpdoc) -->
 	<target name="build" depends="next-version, clean, analyze, code-sniffer, doc">
-		<echo message="Building version ${version}..."                                    />
+	    
+	    <!-- MESSAGE -->
+		<echo message="Building version ${version}..." />
+		
+		<!-- VERSION NUMBER -->
 		<exec command="echo ${version} > ${app}/Version/Number.txt"                       />
 		<exec command="git commit -m 'updating version number' ${app}/Version/Number.txt" />
+		<!-- VERSION NUMBER -->
 		
-		<exec command="git tag ${version}"                                                />
-		<exec command="git pull ; git push"                                               />
-		<exec command="git pull ; git push origin ${version}:${version}"                  />
+		<!-- TAG RELEASE ON GITHUB -->
+		<exec command="git tag ${version}"                               />
+		<exec command="git pull ; git push"                              />
+		<exec command="git pull ; git push origin ${version}:${version}" />
+		<!-- TAG RELEASE ON GITHUB -->
 		
-		<echo message="Recompiling documentation on ${documentup}"                        />
-		<exec command="wget ${documentup}/recompile -O /dev/null"                         />
+		<!-- UPDATING DOCUMENT UP SITE -->
+		<echo message="Recompiling documentation on ${documentup}" />
+		<exec command="wget ${documentup}/recompile -O /dev/null"  />
+		<!-- UPDATING DOCUMENT UP SITE -->
+		
 	</target>
 	<!-- ENDS BUILD -->
 	
