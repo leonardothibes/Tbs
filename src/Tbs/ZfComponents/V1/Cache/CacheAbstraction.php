@@ -45,6 +45,7 @@ abstract class CacheAbstraction extends \Zend_Cache implements CacheableInterfac
         $frontend['caching']                 = true;
         $frontend['automatic_serialization'] = true;
         $this->cache = $this->factory('Core', $this->cacheDriver, $frontend, $backend);
+        return $this;
     }
 
     /**
@@ -57,22 +58,33 @@ abstract class CacheAbstraction extends \Zend_Cache implements CacheableInterfac
     }
 
     /**
-     * Clear cache value.
+     * Delete a cache value.
      *
      * @param  string $id Cache id.
      * @return Cacheable
-    */
-    public function clear($id = null)
+     */
+    public function remove($id = null)
     {
         $this->cache->remove((string)$id);
         return $this;
     }
 
     /**
+     * Alias for remove.
+     *
+     * @param  string $id Cache id.
+     * @return Cacheable
+     */
+    public function delete($id = null)
+    {
+        return $this->remove($id);
+    }
+
+    /**
      * Clear all the cache values.
      * @return CacheableInterface
     */
-    public function clearAll()
+    public function clear()
     {
         $this->cache->clean(\Zend_Cache::CLEANING_MODE_ALL);
         return $this;
