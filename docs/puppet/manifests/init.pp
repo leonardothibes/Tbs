@@ -1,5 +1,5 @@
 class {'env':
-	utils        => ['git','nmap','wget'],
+	utils        => ['git','nmap'],
 	link_in_home => ['workspace=/vagrant'],
 	aliases      => ['phing=clear ; phing','phpunit=clear ; phpunit'],
 }
@@ -21,16 +21,9 @@ class {'apache':
 	default_vhost => false,
 	mpm_module    => 'prefork',
 }
-apache::vhost {'phpskel.local':
+apache::vhost {'phpmyadmin.local':
 	priority      => '01',
 	port          => '80',
-	docroot       => '/vagrant/src/Phpskel/public',
-	setenv        => ['APPLICATION_ENV development'],
-	serveraliases => ['phpskel'],
-}
-apache::vhost {'phpmyadmin.local':
-	priority      => '02',
-	port          => '81',
 	docroot       => '/usr/share/phpMyAdmin/current',
 	serveraliases => ['phpmyadmin','myadmin'],
 }
