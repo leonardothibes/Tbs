@@ -49,8 +49,8 @@
 		<echo message="Cleaning"                              />
 		<exec command="rm -Rf ${tmp}"                         />
 		<exec command="rm -Rf ${build}"                       />
-		<exec command="rm -Rf ${docs}/Tests/*"                />
-		<exec command="rm -Rf ${docs}/PHPDoc/*"               />
+		<exec command="rm -Rf ${docs}/tests/*"                />
+		<exec command="rm -Rf ${docs}/phpdoc/*"               />
 		<exec command="find . | grep .DS_Store | xargs rm -f" />
 	</target>
 	<!-- ENDS CLEAN -->
@@ -85,7 +85,7 @@
 	
 	<!-- TEST -->
 	<target name="test" depends="rw">
-		<exec command="${phpunit} --testdox --testdox-html=${docs}/Tests/testdox.html" checkreturn="true" />
+		<exec command="${phpunit} --testdox --testdox-html=${docs}/tests/testdox.html" checkreturn="true" />
 		<echo>All tests OK!</echo>
 	</target>
 	<!-- ENDS TEST -->
@@ -93,7 +93,7 @@
 	<!-- ANALYZE -->
 	<target name="analyze">
 		<exec 
-            command="${phpunit} --testdox --testdox-html=${docs}/Tests/testdox.html --coverage-html=${docs}/Tests/coverage" 
+            command="${phpunit} --testdox --testdox-html=${docs}/tests/testdox.html --coverage-html=${docs}/tests/coverage" 
             checkreturn="true"
 		/>
 		<echo>Reports generated!</echo>
@@ -104,7 +104,7 @@
 	<target name="doc">
 		<echo>Generating api documentation...</echo>
 		<exec command="
-			phpdoc -d ${app} -t ${docs}/PHPDoc"
+			phpdoc -d ${app} -t ${docs}/phpdoc"
 		/>
 	</target>
 	<!-- ENDS DOC -->

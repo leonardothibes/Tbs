@@ -1,5 +1,5 @@
 class {'env':
-	utils        => ['git','nmap'],
+	utils        => ['git','nmap','wget'],
 	link_in_home => ['workspace=/vagrant'],
 	aliases      => ['phing=clear ; phing','phpunit=clear ; phpunit'],
 }
