@@ -9,8 +9,8 @@
 *.properties
 composer.phar
 composer.lock
-docs/Tests/*
-docs/PHPDoc/*
+docs/tests/*
+docs/phpdoc/*
 vendor/*
 build/*
 tmp/*
