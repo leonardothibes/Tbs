@@ -103,9 +103,7 @@
 	<!-- DOC -->
 	<target name="doc">
 		<echo>Generating api documentation...</echo>
-		<exec command="
-			phpdoc -d ${app} -t ${docs}/phpdoc"
-		/>
+		<exec command="phpdoc -d ${app} -t ${docs}/phpdoc" />
 	</target>
 	<!-- ENDS DOC -->
 	
