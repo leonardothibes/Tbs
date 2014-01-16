@@ -34,22 +34,6 @@ interface CacheableInterface
     public function getCacheDriver();
 
     /**
-     * Delete a cache value.
-     *
-     * @param  string $id Cache id.
-     * @return Cacheable
-     */
-    public function remove($id = null);
-
-    /**
-     * Alias for remove.
-     *
-     * @param  string $id Cache id.
-     * @return Cacheable
-     */
-    public function delete($id = null);
-
-    /**
      * Clear all the cache values.
      * @return CacheableInterface
      */
