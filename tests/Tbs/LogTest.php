@@ -177,7 +177,7 @@ class LogTest extends \PHPUnit_Framework_TestCase
 
         foreach ($lines as $line) {
             if (strlen($line)) {
-                $regexp = '/^' . date('Y-m-d H:i:s') . ' \['.strtoupper($level).'\]: this is a log message\([0-9]{1,2}\)$/';
+                $regexp = '/^[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2} \['.strtoupper($level).'\]: this is a log message\([0-9]{1,2}\)$/';
                 $this->assertRegExp($regexp, $line);
             }
         }
