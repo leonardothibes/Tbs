@@ -157,4 +157,14 @@ class CepTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('string', $rs);
         $this->assertEquals('12345678', $rs);
     }
+
+    /**
+     * @see \Tbs\Helper\Cep::random()
+     */
+    public function testRamdom()
+    {
+        $rs = cep::random();
+        $this->assertInternalType('string', $rs);
+        $this->assertRegExp('/^[0-9]{5}\-[0-9]{3}$/', $rs);
+    }
 }

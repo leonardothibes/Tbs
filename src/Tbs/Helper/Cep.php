@@ -78,4 +78,20 @@ class Cep implements M, V
     {
         return str_replace('-', '', trim($cep));
     }
+
+    /**
+     * Generates a random number of valid CEP.
+     * @return string
+     */
+    public static function random()
+    {
+        return (string)rand(0, 9) .
+                       rand(0, 9) .
+                       rand(0, 9) .
+                       rand(0, 9) .
+                       rand(0, 9) . '-' .
+                       rand(0, 9) .
+                       rand(0, 9) .
+                       rand(0, 9);
+    }
 }
