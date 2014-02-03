@@ -13,19 +13,7 @@ class {'php':
 	extra   => ['phpunit','phpdoc','phing','code-sniffer','composer'],
 }
 class {'zf':
-	zftool => true,
+	zftool  => true,
+	version => '1.12.3',
 }
 class {'phpmyadmin':}
-class {'apache':
-	default_mods  => true,
-	default_vhost => false,
-	mpm_module    => 'prefork',
-}
-apache::vhost {'phpmyadmin.local':
-	priority      => '01',
-	port          => '80',
-	docroot       => '/usr/share/phpMyAdmin/current',
-	serveraliases => ['phpmyadmin','myadmin'],
-}
-apache::mod {'php5':}
-apache::mod {'rewrite':}
