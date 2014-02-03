@@ -359,6 +359,10 @@ seccond line
 
             array('ç', 'c'),
             array('Ç', 'C'),
+
+            array('ª', 'a'),
+            array('º', 'o'),
+            array('°', 'o'),
         );
     }
 

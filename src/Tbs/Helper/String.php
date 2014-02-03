@@ -269,8 +269,14 @@ class String
 
                 /** Bloco do Ç **/
                 'ç' => 'c',
-                'Ç' => 'C'
+                'Ç' => 'C',
                 /** Bloco do Ç **/
+
+                /** Bloco dos ordinais **/
+                'ª' => 'a',
+                'º' => 'o',
+                '°' => 'o',
+                /** Bloco dos ordinais **/
             )
         );
     }
