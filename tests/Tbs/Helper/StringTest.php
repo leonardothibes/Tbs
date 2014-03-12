@@ -49,6 +49,10 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         return array
         (
+            array('        string', '', 'string'),
+            array('string        ', '', 'string'),
+            array('    string    ', '', 'string'),
+
             array('string', '', 'string'),
             array('á é í ó ú', '', 'á é í ó ú'),
 

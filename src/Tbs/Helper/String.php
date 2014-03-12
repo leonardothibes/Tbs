@@ -26,7 +26,7 @@ class String
      */
     public static function sanitize($string, $tags = null)
     {
-        $string = (string)$string;
+        $string = (string)trim($string);
         if (strlen($tags)) {
             if ($tags == '*') {
                 $string = str_replace('--', '', $string);
