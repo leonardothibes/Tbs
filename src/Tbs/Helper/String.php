@@ -85,6 +85,17 @@ class String
     }
 
     /**
+     * Remove quotes from string.
+     *
+     * @param  string $string
+     * @return string
+     */
+    public static function stripQuotes($string = null)
+    {
+        return (string)str_replace(array('"',"'",'`'), null, $string);
+    }
+
+    /**
      * Add a slash at the beginning of a string.
      *
      * @param  string $string

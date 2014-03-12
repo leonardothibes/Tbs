@@ -72,7 +72,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::sanitize()
+     * @see String::sanitize()
      * @dataProvider providerSanitize
      */
     public function testSanitize($string, $tags, $expected)
@@ -96,7 +96,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String()
+     * @see String()
      * @dataProvider providerConcatenate
      */
     public function testConcatenate($c1, $c2, $c3, $expected)
@@ -108,7 +108,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::addQuotes()
+     * @see String::addQuotes()
      */
     public function testQuotes()
     {
@@ -118,7 +118,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::addDoubleQuotes()
+     * @see String::addDoubleQuotes()
      */
     public function testDoubleQuotes()
     {
@@ -128,7 +128,141 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::firstSlash()
+     * Provider of strings with accents.
+     * @return array
+     */
+    public function providerQuotedString()
+    {
+        return array
+        (
+            array('string', 'string'),
+
+            array("'string'", 'string'),
+            array("''string''", 'string'),
+            array("'''string'''", 'string'),
+
+            array("string'", 'string'),
+            array("string''", 'string'),
+            array("string'''", 'string'),
+
+            array("'string", 'string'),
+            array("''string", 'string'),
+            array("'''string", 'string'),
+
+        	array('"string"', 'string'),
+            array('""string""', 'string'),
+            array('"""string"""', 'string'),
+
+            array('string"', 'string'),
+            array('string""', 'string'),
+            array('string"""', 'string'),
+
+            array('"string', 'string'),
+            array('""string', 'string'),
+            array('"""string', 'string'),
+
+            array('`string`', 'string'),
+            array('``string``', 'string'),
+            array('```string```', 'string'),
+
+            array('string`', 'string'),
+            array('string``', 'string'),
+            array('string```', 'string'),
+
+            array('`string', 'string'),
+            array('``string', 'string'),
+            array('```string', 'string'),
+
+            array('"`string`"', 'string'),
+            array('`"string"`', 'string'),
+            array('"`"string"`"', 'string'),
+
+            array('"`\'string\'`"', 'string'),
+            array('string\'`"', 'string'),
+            array('"`\'string', 'string'),
+        );
+    }
+
+    /**
+     * @see String::stripQuotes()
+     * @dataProvider providerQuotedString
+     */
+    public function testStripQuotesNotSpaces($string, $expected)
+    {
+        $rs = string::stripQuotes($string);
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals($expected, $rs);
+    }
+
+    /**
+     * Provider of strings with accents.
+     * @return array
+     */
+    public function providerQuotedStringWithSpaces()
+    {
+        return array
+        (
+            array('string with spaces', 'string with spaces'),
+
+            array("'string with spaces'", 'string with spaces'),
+            array("''string with spaces''", 'string with spaces'),
+            array("'''string with spaces'''", 'string with spaces'),
+
+            array("string with spaces'", 'string with spaces'),
+            array("string with spaces''", 'string with spaces'),
+            array("string with spaces'''", 'string with spaces'),
+
+            array("'string with spaces", 'string with spaces'),
+            array("''string with spaces", 'string with spaces'),
+            array("'''string with spaces", 'string with spaces'),
+
+            array('"string with spaces"', 'string with spaces'),
+            array('""string with spaces""', 'string with spaces'),
+            array('"""string with spaces"""', 'string with spaces'),
+
+            array('string with spaces"', 'string with spaces'),
+            array('string with spaces""', 'string with spaces'),
+            array('string with spaces"""', 'string with spaces'),
+
+            array('"string with spaces', 'string with spaces'),
+            array('""string with spaces', 'string with spaces'),
+            array('"""string with spaces', 'string with spaces'),
+
+            array('`string with spaces`', 'string with spaces'),
+            array('``string with spaces``', 'string with spaces'),
+            array('```string with spaces```', 'string with spaces'),
+
+            array('string with spaces`', 'string with spaces'),
+            array('string with spaces``', 'string with spaces'),
+            array('string with spaces```', 'string with spaces'),
+
+            array('`string with spaces', 'string with spaces'),
+            array('``string with spaces', 'string with spaces'),
+            array('```string with spaces', 'string with spaces'),
+
+            array('"`string with spaces`"', 'string with spaces'),
+            array('`"string with spaces"`', 'string with spaces'),
+            array('"`"string with spaces"`"', 'string with spaces'),
+
+            array('"`\'string with spaces\'`"', 'string with spaces'),
+            array('string with spaces\'`"', 'string with spaces'),
+            array('"`\'string with spaces', 'string with spaces'),
+        );
+    }
+
+    /**
+     * @see String::stripQuotes()
+     * @dataProvider providerQuotedStringWithSpaces
+     */
+    public function testStripQuotesWithSpaces($string, $expected)
+    {
+        $rs = string::stripQuotes($string);
+        $this->assertInternalType('string', $rs);
+        $this->assertEquals($expected, $rs);
+    }
+
+    /**
+     * @see String::firstSlash()
      */
     public function testFirstSlashWithoutSlash()
     {
@@ -138,7 +272,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::firstSlash()
+     * @see String::firstSlash()
      */
     public function testFirstSlashWithSlash()
     {
@@ -148,7 +282,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::lastSlash()
+     * @see String::lastSlash()
      */
     public function testLastSlashWithoutSlash()
     {
@@ -158,7 +292,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::lasttSlash()
+     * @see String::lasttSlash()
      */
     public function testLastSlashWithSlash()
     {
@@ -168,7 +302,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate()
+     * @see String::truncate()
      */
     public function testTruncate1()
     {
@@ -178,7 +312,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate()
+     * @see String::truncate()
      */
     public function testTruncate2()
     {
@@ -188,7 +322,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate()
+     * @see String::truncate()
      */
     public function testTruncate3()
     {
@@ -198,7 +332,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate()
+     * @see String::truncate()
      */
     public function testTruncate4()
     {
@@ -208,7 +342,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate
+     * @see String::truncate()
      */
     public function testTruncate5()
     {
@@ -218,7 +352,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::truncate
+     * @see String::truncate()
      */
     public function testTruncate6()
     {
@@ -228,7 +362,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::lowerTrim()
+     * @see String::lowerTrim()
      */
     public function testLowerTrim()
     {
@@ -238,7 +372,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::upperTrim()
+     * @see String::upperTrim()
      */
     public function testUpperTrim()
     {
@@ -248,7 +382,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::capitalize()
+     * @see String::capitalize()
      */
     public function testCapitalize()
     {
@@ -258,7 +392,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::oneSpaceOnly()
+     * @see String::oneSpaceOnly()
      */
     public function testOneSpaceOnly()
     {
@@ -268,7 +402,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::StripSpaces()
+     * @see String::StripSpaces()
      */
     public function testStripSpaces1()
     {
@@ -278,7 +412,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::StripSpaces()
+     * @see String::StripSpaces()
      */
     public function testStripSpaces2()
     {
@@ -288,7 +422,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see \Tbs\Helper\String::StripBreak()
+     * @see String::StripBreak()
      */
     public function testStripBreak()
     {
@@ -371,7 +505,7 @@ seccond line
     }
 
     /**
-     * @see \Tbs\Helper\String::stripAccents
+     * @see String::stripAccents()
      * @dataProvider providerStringsWithAccents
      */
     public function testStripAccents($string, $expected)
